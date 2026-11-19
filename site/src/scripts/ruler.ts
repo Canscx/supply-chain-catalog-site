@@ -113,7 +113,9 @@ if (layer && ruler && track && cursor) {
       window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
     if (atBottom) return reachable[reachable.length - 1];
 
-    const probe = window.scrollY + stickyOffset() + PROBE_OFFSET;
+    // 锚点落点用的 scroll-margin 取整、这里读的是带小数的 rect，
+    // 两者会差零点几像素；留 1px 容差，免得刚好压在探针上的章节被判成上一章。
+    const probe = window.scrollY + stickyOffset() + PROBE_OFFSET + 1;
     let found: Entry | null = null;
 
     for (const e of reachable) {

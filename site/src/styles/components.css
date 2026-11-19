@@ -185,6 +185,9 @@
 .hero .lead { margin-top: 18px; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; margin-top: 26px; }
 
+/* 首屏大标题里的数字用主强调色，和元信息里的统计同色系 */
+.display-hi { color: var(--accent); }
+
 /* ---------- 8. 轴线（全站结构件） ---------- */
 .rail-section { position: relative; padding-block: clamp(36px, 5vw, 64px); }
 .rail-section + .rail-section { border-top: 1px solid var(--line); }
@@ -504,18 +507,41 @@
 .group[data-open="true"] .group-chains { display: block; }
 .chain-list { display: grid; grid-template-columns: 1fr; }
 .chain {
-  display: flex;
-  align-items: center;
-  min-height: 42px;
-  padding: 9px 0;
+  display: block;
+  min-height: 44px;
+  padding: 10px 0;
   border-top: 1px solid var(--line);
   font-size: 0.9375rem;
+  line-height: 1.55;
   color: var(--ink-soft);
   transition: color 140ms;
 }
 .chain:hover { color: var(--accent); }
 .chain mark { background: var(--brass-soft); color: var(--ink); border-radius: 2px; padding: 0 1px; }
 :root[data-theme="dark"] .chain mark { background: var(--brass-soft); color: var(--brass); }
+
+/* 别名命中：链条名里看不到关键词时补一句「别名：xxx」，并把命中片段标出来 */
+.chain-alias {
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.chain-alias mark { background: var(--brass-soft); color: var(--ink); border-radius: 2px; padding: 0 1px; }
+:root[data-theme="dark"] .chain-alias mark { background: var(--brass-soft); color: var(--brass); }
+
+/* 品类名命中时，分组标题也标出来，让「搜的是大品类」这件事有反馈 */
+.group-name mark {
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+:root[data-theme="dark"] .group-name mark { background: var(--accent-soft); color: var(--accent); }
 
 .empty {
   padding: clamp(36px, 6vw, 64px) 0;
@@ -722,7 +748,8 @@
   min-height: 52px;
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 6px 10px;
   padding: 12px 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -738,6 +765,16 @@
   color: var(--ink-faint);
   font-variant-numeric: tabular-nums;
 }
+.scope-collapsed-kw {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.scope-collapsed-kw[hidden] { display: none; }
 .scope-collapsed-act {
   margin-inline-start: auto;
   font-size: 0.8125rem;
@@ -749,8 +786,9 @@
 }
 .scope-collapsed:hover .scope-collapsed-act { color: var(--accent-deep); }
 
-/* 结果区：顶部间距由业务范围块提供，这里只留基本呼吸 */
+/* 结果区：业务范围块展开时由它提供顶部间距；收起后（搜索/选品类）自己撑一点 */
 #results { padding-block: 0 clamp(48px, 6vw, 72px); }
+.scope:has(.scope-collapsed:not([hidden])) + .rail-section { padding-block-start: clamp(16px, 2.4vw, 24px); }
 #results .results-bar { padding-top: clamp(14px, 2vw, 20px); }
 
 /* 结果行作为滚动锚点，避开吸附层 */

@@ -1,4 +1,4 @@
-import { normalize, scrollBehavior } from "./search";
+import { highlightNodes, normalize, scrollBehavior } from "./search";
 
 const root = document.querySelector<HTMLElement>("[data-inline]");
 
@@ -21,6 +21,8 @@ if (root) {
   const scopeCollapsed = root.querySelector<HTMLButtonElement>("[data-scope-expand]");
   const scopeNameEl = root.querySelector<HTMLElement>("[data-scope-name]");
   const scopeCountEl = root.querySelector<HTMLElement>("[data-scope-count]");
+  const scopeKeywordEl = root.querySelector<HTMLElement>("[data-scope-keyword]");
+  const scopeActEl = root.querySelector<HTMLElement>("[data-scope-act]");
   const scopeMore = root.querySelector<HTMLButtonElement>("[data-scope-more]");
   const scopeMoreLabel = root.querySelector<HTMLElement>("[data-scope-more-label]");
 
@@ -37,6 +39,8 @@ if (root) {
   let cat = "all";
   let q = "";
   let scopeExpanded = false;
+  /** 本轮关键词是否已经为「滚到结果区」让过位，避免边打字边跳。 */
+  let scrolledForQuery = false;
 
   /* ---------- URL ---------- */
   function readUrl() {
@@ -45,6 +49,7 @@ if (root) {
     const valid = c !== "all" && catName.has(c);
     cat = valid ? c : "all";
     q = (p.get("q") ?? "").trim();
+    scrolledForQuery = Boolean(q);
   }
 
   function writeUrl() {
@@ -57,15 +62,32 @@ if (root) {
     history.replaceState(null, "", qs ? `${location.pathname}?${qs}` : location.pathname);
   }
 
-  /* ---------- 业务范围块 ---------- */
+  /**
+   * 业务范围块的收起态。
+   * 选品类与输入关键词都会收起——搜索时它挡在结果上面太占地方；
+   * 收起后留一行摘要，随时能点回去。
+   */
   function setScopeCollapsed(collapsed: boolean) {
-    const isCollapsed = collapsed && cat !== "all";
+    const isCollapsed = collapsed && (cat !== "all" || Boolean(q));
     if (scopeGrid) scopeGrid.hidden = isCollapsed;
     if (scopeCollapsed) scopeCollapsed.hidden = !isCollapsed;
-    if (isCollapsed) {
-      if (scopeNameEl) scopeNameEl.textContent = catName.get(cat) ?? "";
-      if (scopeCountEl) scopeCountEl.textContent = `${catTotal.get(cat) ?? 0} 条`;
+
+    if (!isCollapsed) return;
+
+    const count =
+      cat !== "all"
+        ? catTotal.get(cat) ?? 0
+        : [...catTotal.values()].reduce((sum, n) => sum + n, 0);
+
+    if (scopeNameEl) scopeNameEl.textContent = cat !== "all" ? catName.get(cat) ?? "" : "全部品类";
+    if (scopeCountEl) scopeCountEl.textContent = `${count} 条`;
+
+    if (scopeKeywordEl) {
+      const on = Boolean(q);
+      scopeKeywordEl.hidden = !on;
+      scopeKeywordEl.textContent = on ? `搜索「${q}」` : "";
     }
+    if (scopeActEl) scopeActEl.textContent = q ? "清空搜索" : "换品类";
   }
 
   function syncScopeMore() {
@@ -83,7 +105,50 @@ if (root) {
     }
   }
 
-  /* ---------- 渲染 ---------- */
+  /* ---------- 结果渲染 ---------- */
+
+  /** 把分组标题按关键词重绘；query 为空时还原纯文本。 */
+  function paintGroupName(g: HTMLElement, query: string) {
+    const el = g.querySelector<HTMLElement>(".group-name");
+    if (!el) return;
+    const name = catName.get(g.dataset.group!) ?? el.textContent ?? "";
+    const key = `${name}::${query}`;
+    if (el.dataset.painted === key) return;
+    el.replaceChildren(...highlightNodes(name, query));
+    el.dataset.painted = key;
+  }
+
+  /**
+   * 把一条链条重绘成「名称 + 可选别名说明」。
+   * 别名命中时（如搜「螺纹钢」命中「钢材（含螺纹钢）」），链条名里看不到关键词，
+   * 补一句「别名：螺纹钢」并高亮，否则结果看起来像没命中。
+   */
+  function paintChain(a: HTMLAnchorElement, query: string) {
+    const name = a.dataset.name ?? a.textContent ?? "";
+    const aliases = (a.dataset.alias ?? "").split(" ").filter(Boolean);
+    const aliasHit = query && aliases.some((x) => normalize(x).includes(normalize(query)));
+
+    const key = `${name}::${query}::${aliasHit ? "alias" : ""}`;
+    if (a.dataset.painted === key) return;
+
+    const frag: Node[] = highlightNodes(name, query);
+    if (aliasHit) {
+      const note = document.createElement("span");
+      note.className = "chain-alias";
+      note.append(document.createTextNode("别名："));
+      for (const x of aliases) {
+        if (normalize(x).includes(normalize(query))) {
+          note.append(...highlightNodes(x, query));
+          break;
+        }
+      }
+      frag.push(note);
+    }
+
+    a.replaceChildren(...frag);
+    a.dataset.painted = key;
+  }
+
   function render() {
     const nq = normalize(q);
     let total = 0;
@@ -91,18 +156,28 @@ if (root) {
     for (const g of groups) {
       const items = [...g.querySelectorAll<HTMLElement>("[data-chain]")];
       const isCat = cat === "all" || g.dataset.group === cat;
-      let shown = 0;
 
-      for (const it of items) {
-        const hay = normalize(`${it.dataset.chain ?? ""} ${it.dataset.alias ?? ""}`);
-        const ok = isCat && (!nq || hay.includes(nq));
-        it.hidden = !ok;
-        if (ok) shown++;
+      // 关键词命中品类名 → 该品类整体命中（显示全部链条）
+      const catHit = Boolean(nq) && normalize(g.dataset.catName ?? "").includes(nq);
+
+      let shown = 0;
+      for (const li of items) {
+        const a = li.querySelector<HTMLAnchorElement>(".chain");
+        const hay = `${a?.dataset.name ?? li.dataset.chain ?? ""} ${a?.dataset.alias ?? li.dataset.alias ?? ""}`;
+        const ok = isCat && (catHit || !nq || normalize(hay).includes(nq));
+        li.hidden = !ok;
+        if (ok) {
+          shown++;
+          if (a) paintChain(a, q);
+        }
       }
 
       total += shown;
       g.hidden = shown === 0;
       g.dataset.open = String(isCat || Boolean(nq));
+
+      // 品类名命中时高亮分组标题；否则还原为纯文本
+      if (shown > 0) paintGroupName(g, catHit ? q : "");
 
       const toggle = g.querySelector<HTMLButtonElement>(".group-toggle");
       if (toggle) {
@@ -129,14 +204,19 @@ if (root) {
     if (field) field.dataset.filled = String(Boolean(q));
     if (search && search.value !== q) search.value = q;
 
-    setScopeCollapsed(cat !== "all");
+    setScopeCollapsed(cat !== "all" || Boolean(q));
     syncScopeMore();
   }
 
   /* ---------- 状态变更 ---------- */
-  function setState(patch: Partial<{ cat: string; q: string }>, opts: { focusSearch?: boolean; scrollToResults?: boolean } = {}) {
+  function setState(
+    patch: Partial<{ cat: string; q: string }>,
+    opts: { focusSearch?: boolean; scrollToResults?: boolean } = {}
+  ) {
     if ("cat" in patch && patch.cat !== undefined) cat = patch.cat;
     if ("q" in patch && patch.q !== undefined) q = patch.q;
+    if (!q) scrolledForQuery = false;
+
     writeUrl();
     render();
 
@@ -146,6 +226,16 @@ if (root) {
       anchor.scrollIntoView({ block: "start", behavior: scrollBehavior() });
       anchor.focus({ preventScroll: true });
     }
+  }
+
+  /**
+   * 开始搜索时把结果区送到吸附层下方一次。
+   * 只在关键词从无到有时触发，之后继续打字不再跳，免得边打字边滚。
+   */
+  function revealResultsOnce() {
+    if (scrolledForQuery || !q || !anchor) return;
+    scrolledForQuery = true;
+    anchor.scrollIntoView({ block: "start", behavior: scrollBehavior() });
   }
 
   /* ---------- 品类选择 ---------- */
@@ -162,15 +252,20 @@ if (root) {
   }
 
   scopeAll?.addEventListener("click", () => {
-    if (cat === "all") {
+    if (cat === "all" && !q) {
       anchor?.scrollIntoView({ block: "start", behavior: scrollBehavior() });
       return;
     }
     scopeExpanded = false;
-    setState({ cat: "all" }, { scrollToResults: true });
+    setState({ cat: "all", q: "" }, { scrollToResults: true });
   });
 
+  // 收起条：有关键词时点它清空关键词，否则展开网格
   scopeCollapsed?.addEventListener("click", () => {
+    if (q) {
+      setState({ q: "" }, { focusSearch: true });
+      return;
+    }
     scopeExpanded = true;
     setScopeCollapsed(false);
     syncScopeMore();
@@ -192,10 +287,12 @@ if (root) {
     search.addEventListener("compositionend", () => {
       composing = false;
       setState({ q: search.value.trim() });
+      revealResultsOnce();
     });
     search.addEventListener("input", () => {
       if (composing) return;
       setState({ q: search.value.trim() });
+      revealResultsOnce();
     });
   }
 
@@ -213,7 +310,9 @@ if (root) {
 
   /* ---------- 清空 ---------- */
   for (const b of resetBtns) {
-    b.addEventListener("click", () => setState({ cat: "all", q: "" }, { focusSearch: true }));
+    b.addEventListener("click", () =>
+      setState({ cat: "all", q: "" }, { focusSearch: true })
+    );
   }
 
   readUrl();

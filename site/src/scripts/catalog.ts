@@ -1,4 +1,4 @@
-import { normalize } from "./search";
+import { highlightNodes, normalize } from "./search";
 
 const root = document.querySelector<HTMLElement>("[data-catalog]");
 
@@ -35,33 +35,6 @@ if (root) {
     else p.delete("q");
     const qs = p.toString();
     history.replaceState(null, "", qs ? `${location.pathname}?${qs}` : location.pathname);
-  }
-
-  /** 在原文上标出匹配片段，兼容「玉米.链条」命中「玉米·链条」。 */
-  function highlight(text: string, query: string): Node[] {
-    if (!query) return [document.createTextNode(text)];
-    const nq = normalize(query);
-    if (!nq) return [document.createTextNode(text)];
-
-    const map: number[] = [];
-    let normed = "";
-    for (let i = 0; i < text.length; i++) {
-      const keep = normalize(text[i]);
-      for (let k = 0; k < Math.max(1, keep.length); k++) map.push(i);
-      normed += keep;
-    }
-
-    const at = normed.indexOf(nq);
-    if (at < 0) return [document.createTextNode(text)];
-
-    const start = map[at];
-    const end = map[Math.min(at + nq.length - 1, map.length - 1)] + 1;
-
-    const frag: Node[] = [];
-    if (start > 0) frag.push(document.createTextNode(text.slice(0, start)));
-    frag.push(Object.assign(document.createElement("mark"), { textContent: text.slice(start, end) }));
-    if (end < text.length) frag.push(document.createTextNode(text.slice(end)));
-    return frag;
   }
 
   function matched(): Map<string, { name: string; base: string; aliases: string[] }[]> {
@@ -119,7 +92,7 @@ if (root) {
               const a = document.createElement("a");
               a.className = "chain";
               a.href = `./catalog.html?category=${encodeURIComponent(id)}&q=${encodeURIComponent(c.base)}`;
-              a.append(...highlight(c.name, state.q));
+              a.append(...highlightNodes(c.name, state.q));
               li.append(a);
               return li;
             })

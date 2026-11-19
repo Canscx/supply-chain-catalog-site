@@ -20,7 +20,7 @@ const rulerItems = [
 
 <Base
   title="企业供应链 · 产品链条"
-  description={`覆盖 ${categories} 个品类、${chains} 条产品链条。按链条供货，不按单品。`}
+  description={`企业陪跑俱乐部 · 覆盖 ${categories} 个品类、${chains} 条源头供应链。按链条供货，不按单品。`}
 >
   <Nav current="home" />
 
@@ -34,7 +34,7 @@ const rulerItems = [
           <span aria-hidden="true">·</span>
           <span><b>{chains}</b> 条产品链条</span>
         </div>
-        <h1 class="display">按链条供货，<br />不按单品。</h1>
+        <h1 class="display">企业陪跑俱乐部，<br /><span class="display-hi">100+</span>条<br />源头供应链</h1>
         <p class="lead">
           一个品类对应一条链。下面把全部 {chains} 条链条直接摊开，选品类或输入关键词就地筛。
         </p>
@@ -66,7 +66,7 @@ const rulerItems = [
         <div data-groups>
           {
             catalog.categories.map((cat, i) => (
-              <section class="group" id={`group-${cat.id}`} data-group={cat.id} data-open={i === 0 ? "true" : "false"}>
+              <section class="group" id={`group-${cat.id}`} data-group={cat.id} data-cat-name={cat.name} data-open={i === 0 ? "true" : "false"}>
                 <button class="group-toggle" type="button" aria-expanded={i === 0 ? "true" : "false"}>
                   <span class="group-title">
                     <span class="group-name">{cat.name}</span>
@@ -78,7 +78,12 @@ const rulerItems = [
                   <ul class="chain-list">
                     {cat.chains.map((c) => (
                       <li data-chain={c.name} data-alias={c.aliases.join(" ")}>
-                        <a class="chain" href={`./catalog.html?category=${cat.id}&q=${encodeURIComponent(c.base)}`}>{c.name}</a>
+                        <a
+                          class="chain"
+                          href={`./catalog.html?category=${cat.id}&q=${encodeURIComponent(c.base)}`}
+                          data-name={c.name}
+                          data-alias={c.aliases.join(" ")}
+                        >{c.name}</a>
                       </li>
                     ))}
                   </ul>
