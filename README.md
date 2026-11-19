@@ -6,9 +6,13 @@
 
 ## 快速开始
 
+克隆后现场安装（注意工作目录是 `site/`，`package.json` 在这一层）：
+
 ```bash
-cd site
-npm install
+git clone https://github.com/Canscx/supply-chain-catalog-site.git
+cd supply-chain-catalog-site/site
+
+npm ci             # 按 lockfile 精确安装；也可用 npm install
 npm run dev        # 开发服务器 http://localhost:4321
 ```
 
