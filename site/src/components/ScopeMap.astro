@@ -1,0 +1,48 @@
+---
+import { catalog } from "../data/catalog";
+
+const { chains } = catalog.totals;
+const VISIBLE = 8;
+---
+
+<section class="scope" data-scope>
+  <div class="wrap">
+    <div class="scope-head">
+      <h2 class="scope-title">业务范围</h2>
+      <span class="scope-note">点品类直接筛选</span>
+    </div>
+
+    <div class="scope-grid" data-scope-grid data-expanded="false">
+      {
+        catalog.categories.map((cat) => {
+          const samples = cat.chains.slice(0, 2).map((c) => c.base).join("、");
+          return (
+            <button class="scope-cell" type="button" data-scope-cat={cat.id}>
+              <span class="scope-name">{cat.name}</span>
+              <span class="scope-n">{cat.chains.length} 条</span>
+              <span class="scope-samples">{samples}</span>
+            </button>
+          );
+        })
+      }
+      <button class="scope-cell scope-cell--all" type="button" data-scope-all>
+        <span class="scope-name">全部品类</span>
+        <span class="scope-n">{chains} 条</span>
+        <span class="scope-samples">清空品类筛选</span>
+      </button>
+    </div>
+
+    <div class="scope-more-wrap">
+      <button class="scope-more" type="button" data-scope-more aria-expanded="false">
+        <span data-scope-more-label>展开全部 {catalog.categories.length} 个品类</span>
+        <svg class="scope-more-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 6 6-6"/></svg>
+      </button>
+    </div>
+
+    <button class="scope-collapsed" type="button" data-scope-expand hidden>
+      <span class="scope-collapsed-name" data-scope-name></span>
+      <span class="scope-collapsed-n" data-scope-count></span>
+      <span class="scope-collapsed-act">换品类</span>
+    </button>
+  </div>
+</section>

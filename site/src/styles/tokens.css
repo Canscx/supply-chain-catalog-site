@@ -1,0 +1,103 @@
+/* ==========================================================================
+   企业供应链展示站 · 设计系统
+   概念：一条线穿过整页。内容挂在线上，像链条的节点。
+   配色：铜与铜绿。中性色承担面积，铜绿是唯一的语气。
+   ========================================================================== */
+
+/* ---------- 1. 令牌 ---------- */
+:root {
+  color-scheme: light;
+
+  /* 表面 */
+  --page:        #f6fbf9;
+  --surface:     #ffffff;
+  --sunken:      #ecf3f1;
+  --raised:      #ffffff;
+
+  /* 文字 */
+  --ink:         #112028;
+  --ink-soft:    #4b585c;
+  --ink-faint:   #667376;
+
+  /* 线 */
+  --line:        #dae2e0;
+  --line-strong: #b8c6c3;
+  --field-line:  #7c8e8d;
+
+  /* 铜绿 · 主强调 */
+  --accent:      #137060;
+  --accent-deep: #005649;
+  --accent-soft: #ddf4ee;
+
+  /* 黄铜 · 次强调 */
+  --brass:       #93652b;
+  --brass-soft:  #faebd3;
+
+  /* 铜 · 第三色，只给「环节」用 */
+  --copper:      #9f522c;
+
+  --focus:       #0d6b7a;
+
+  /* 排版 */
+  --font-sans: "PingFang SC", "HarmonyOS Sans SC", "Source Han Sans SC",
+               "Noto Sans CJK SC", "Microsoft YaHei", "Hiragino Sans GB",
+               system-ui, -apple-system, sans-serif;
+  --font-serif: "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC",
+                "SimSun", "STSong", serif;
+  --font-num: ui-monospace, "SF Mono", "Cascadia Mono", Consolas,
+              "Liberation Mono", monospace;
+
+  /* 间距节奏 */
+  --gutter: 20px;
+  --max: 1200px;
+  --rail: 18px;
+  --nav-h: 56px;
+
+  /* 圆角 */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+
+  /* 层级 */
+  --z-rail: 1;
+  --z-content: 2;
+  --z-sticky: 40;
+  --z-nav: 50;
+  --z-switcher: 60;
+  --z-skip: 70;
+
+  /* 缓动 */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --page:        #0a1314;
+  --surface:     #141f20;
+  --sunken:      #050b0c;
+  --raised:      #141f20;
+
+  --ink:         #e8f0ed;
+  --ink-soft:    #a7b3b0;
+  --ink-faint:   #8b9795;
+
+  --line:        #243131;
+  --line-strong: #3b4a49;
+  --field-line:  #5d6c6c;
+
+  --accent:      #7ccfb5;
+  --accent-deep: #69b69e;
+  --accent-soft: #12302a;
+
+  --brass:       #e3c081;
+  --brass-soft:  #413115;
+
+  --copper:      #da986b;
+
+  --focus:       #8fd8c8;
+}
+
+@media (min-width: 640px) { :root { --gutter: 32px; --rail: 24px; --nav-h: 64px; } }
+@media (min-width: 1024px) { :root { --gutter: 56px; } }

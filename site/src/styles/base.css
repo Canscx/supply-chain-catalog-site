@@ -1,0 +1,82 @@
+/* ---------- 2. 重置 ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.7;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4, p, ul, ol, li, figure, dl, dd, dt { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; padding: 0; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 2px; }
+::selection { background: var(--accent-soft); color: var(--accent-deep); }
+
+/* ---------- 3. 排版 ---------- */
+.display {
+  font-size: clamp(1.85rem, 1.15rem + 3.1vw, 3.15rem);
+  line-height: 1.18;
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+.h2 {
+  font-size: clamp(1.25rem, 1.05rem + 0.85vw, 1.65rem);
+  line-height: 1.32;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  text-wrap: balance;
+}
+.h3 { font-size: 1.0625rem; line-height: 1.45; font-weight: 700; letter-spacing: -0.005em; }
+.lead {
+  font-size: clamp(0.9375rem, 0.9rem + 0.28vw, 1.0625rem);
+  line-height: 1.78;
+  color: var(--ink-soft);
+  max-width: 34em;
+  text-wrap: pretty;
+}
+.body { color: var(--ink-soft); max-width: 65ch; text-wrap: pretty; }
+
+.num {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.02em;
+}
+.meta {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 布局 ---------- */
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.skip {
+  position: fixed;
+  inset: 8px auto auto 8px;
+  z-index: var(--z-skip);
+  transform: translateY(-160%);
+  padding: 10px 16px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: transform 140ms var(--ease-out-quart);
+}
+.skip:focus { transform: none; }

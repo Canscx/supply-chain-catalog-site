@@ -1,0 +1,95 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import ScopeMap from "../components/ScopeMap.astro";
+import { catalog } from "../data/catalog";
+
+const { categories, chains } = catalog.totals;
+---
+
+<Base
+  title="企业供应链 · 产品链条"
+  description={`覆盖 ${categories} 个品类、${chains} 条产品链条。按链条供货，不按单品。`}
+>
+  <Nav current="home" />
+
+  <main id="main" data-inline>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-fact">
+          <span>覆盖 <b>{categories}</b> 个品类</span>
+          <span aria-hidden="true">·</span>
+          <span><b>{chains}</b> 条产品链条</span>
+        </div>
+        <h1 class="display">按链条供货，<br />不按单品。</h1>
+        <p class="lead">
+          一个品类对应一条链。下面把全部 {chains} 条链条直接摊开，选品类或输入关键词就地筛。
+        </p>
+      </div>
+    </section>
+
+    <div class="inline-tools">
+      <div class="wrap">
+        <div class="field">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.4"/><path d="M15.6 15.6l4.2 4.2"/></svg>
+          <label class="sr-only" for="q-inline">搜索产品名称</label>
+          <input id="q-inline" type="search" placeholder="搜索产品名称，如 玉米、锂电池" autocomplete="off" data-search />
+          <button class="field-clear" type="button" data-search-clear aria-label="清空搜索">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ScopeMap />
+
+    <section class="rail-section" id="results">
+      <div class="wrap">
+        <div class="results-bar" data-anchor tabindex="-1">
+          <span class="results-count" data-count></span>
+          <button class="reset-btn" type="button" data-reset hidden>清空筛选</button>
+        </div>
+
+        <div data-groups>
+          {
+            catalog.categories.map((cat, i) => (
+              <section class="group" data-group={cat.id} data-open={i === 0 ? "true" : "false"}>
+                <button class="group-toggle" type="button" aria-expanded={i === 0 ? "true" : "false"}>
+                  <span class="group-title">
+                    <span class="group-name">{cat.name}</span>
+                    <span class="group-n">{cat.chains.length}</span>
+                  </span>
+                  <svg class="group-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 6 6-6"/></svg>
+                </button>
+                <div class="group-chains">
+                  <ul class="chain-list">
+                    {cat.chains.map((c) => (
+                      <li data-chain={c.name} data-alias={c.aliases.join(" ")}>
+                        <a class="chain" href={`./catalog.html?category=${cat.id}&q=${encodeURIComponent(c.base)}`}>{c.name}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            ))
+          }
+        </div>
+
+        <div class="empty" data-empty hidden>
+          <h3>未找到匹配的产品链条</h3>
+          <p>换一个关键词，或清空来源品类后再试。</p>
+          <button class="btn" type="button" data-reset-empty>清空筛选</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<script>
+  import "../scripts/theme";
+  import "../scripts/nav";
+  import "../scripts/inline";
+</script>

@@ -1,0 +1,1154 @@
+{
+  "version": "2026-11-18",
+  "totals": {
+    "chains": 114,
+    "categories": 16
+  },
+  "stages": [
+    {
+      "id": "source",
+      "name": "货源与产线"
+    },
+    {
+      "id": "logistics",
+      "name": "仓配与货转"
+    },
+    {
+      "id": "paperwork",
+      "name": "单据与合规"
+    },
+    {
+      "id": "settlement",
+      "name": "结算与账期"
+    }
+  ],
+  "categories": [
+    {
+      "id": "agri",
+      "name": "农副产品",
+      "chains": [
+        {
+          "id": "ce8b186e7b2",
+          "name": "豆粕·链条",
+          "base": "豆粕",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce78e89e7b1",
+          "name": "玉米·链条",
+          "base": "玉米",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce5b08fe9ba",
+          "name": "小麦·链条",
+          "base": "小麦",
+          "aliases": [],
+          "stages": [
+            "source",
+            "paperwork"
+          ]
+        },
+        {
+          "id": "ce88f9ce7b1",
+          "name": "菜籽油·链条",
+          "base": "菜籽油",
+          "aliases": [],
+          "stages": [
+            "paperwork"
+          ]
+        },
+        {
+          "id": "ce8b186e6b2",
+          "name": "豆油·链条",
+          "base": "豆油",
+          "aliases": [],
+          "stages": [
+            "source",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce799bde7b3",
+          "name": "白糖·链条",
+          "base": "白糖",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce5a4a7e8b1",
+          "name": "大豆·链条",
+          "base": "大豆",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce5a4a7e7b1",
+          "name": "大米·链条",
+          "base": "大米",
+          "aliases": [],
+          "stages": [
+            "source",
+            "paperwork"
+          ]
+        },
+        {
+          "id": "ce6a389e88a",
+          "name": "棉花·链条",
+          "base": "棉花",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce586bbe593",
+          "name": "冻品·链条",
+          "base": "冻品",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce8bf9be58f",
+          "name": "进口牛肉·链条",
+          "base": "进口牛肉",
+          "aliases": [
+            "冻品进口牛肉"
+          ],
+          "stages": [
+            "source",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce6b0b4e4ba",
+          "name": "水产冻虾·链条",
+          "base": "水产冻虾",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce6b0b4e69e",
+          "name": "水果·链条",
+          "base": "水果",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce7baa2e69e",
+          "name": "红枣·链条",
+          "base": "红枣",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce9b8a1e89b",
+          "name": "鸡蛋·链条",
+          "base": "鸡蛋",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce894ace88f",
+          "name": "蔬菜·链条",
+          "base": "蔬菜",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce9a5b2e696",
+          "name": "饲料·链条",
+          "base": "饲料",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce9bb84e985",
+          "name": "黄酒·链条",
+          "base": "黄酒",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce799bde985",
+          "name": "白酒·链条",
+          "base": "白酒",
+          "aliases": [],
+          "stages": []
+        }
+      ]
+    },
+    {
+      "id": "electronics",
+      "name": "电子产品",
+      "chains": [
+        {
+          "id": "ce78ebbe792",
+          "name": "玻璃盖板·链条",
+          "base": "玻璃盖板",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce69c8de58a",
+          "name": "服务器·链条",
+          "base": "服务器",
+          "aliases": [],
+          "stages": [
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce794b5e5ad",
+          "name": "电子元器件·链条",
+          "base": "电子元器件",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce794b5e58a",
+          "name": "电力电子元器件·链条",
+          "base": "电力电子元器件",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics"
+          ]
+        },
+        {
+          "id": "ce99b86e688",
+          "name": "集成电路·链条",
+          "base": "集成电路",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce88aafe789",
+          "name": "芯片·链条",
+          "base": "芯片",
+          "aliases": [],
+          "stages": [
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce698bee58d",
+          "name": "显卡·链条",
+          "base": "显卡",
+          "aliases": [],
+          "stages": [
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce6898be69c",
+          "name": "手机平板·链条",
+          "base": "手机平板",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce6b6b2e699",
+          "name": "液晶显示屏·链条",
+          "base": "液晶显示屏",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce699b6e59c",
+          "name": "晶圆·链条",
+          "base": "晶圆",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce699bae883",
+          "name": "智能摄像头·链条",
+          "base": "智能摄像头",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce785a7e698",
+          "name": "照明装置·链条",
+          "base": "照明装置",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "pcb",
+          "name": "PCB电路板·链条",
+          "base": "PCB电路板",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce5beaee794",
+          "name": "微电子组件·链条",
+          "base": "微电子组件",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce9809ae4bf",
+          "name": "通信设备·链条",
+          "base": "通信设备",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ai",
+          "name": "AI模组·链条",
+          "base": "AI模组",
+          "aliases": [],
+          "stages": []
+        }
+      ]
+    },
+    {
+      "id": "chemical",
+      "name": "化工产品",
+      "chains": [
+        {
+          "id": "pe",
+          "name": "PE聚乙烯（塑料）·链条",
+          "base": "PE聚乙烯（塑料）",
+          "aliases": [
+            "塑料粒子PS/PE/ABS",
+            "PE聚乙烯",
+            "塑料粒子",
+            "低密度聚乙烯"
+          ],
+          "stages": []
+        },
+        {
+          "id": "ce6a9a1e883",
+          "name": "橡胶·链条",
+          "base": "橡胶",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce4b999e4ba",
+          "name": "乙二醇·链条",
+          "base": "乙二醇",
+          "aliases": [],
+          "stages": [
+            "source",
+            "paperwork"
+          ]
+        },
+        {
+          "id": "eva",
+          "name": "EVA塑料橡胶·链条",
+          "base": "EVA塑料橡胶",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "pp",
+          "name": "PP聚丙烯·链条",
+          "base": "PP聚丙烯",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "pta",
+          "name": "PTA精对苯二甲酸·链条",
+          "base": "PTA精对苯二甲酸",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "pvc",
+          "name": "PVC聚氯乙烯·链条",
+          "base": "PVC聚氯乙烯",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "pet",
+          "name": "PET膜·链条",
+          "base": "PET膜",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "pex",
+          "name": "PE给水管·链条",
+          "base": "PE给水管",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "pvcx",
+          "name": "PVC排水管·链条",
+          "base": "PVC排水管",
+          "aliases": [],
+          "stages": [
+            "source"
+          ]
+        },
+        {
+          "id": "ce58c96e882",
+          "name": "化肥·链条",
+          "base": "化肥",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce6b4bbe680",
+          "name": "活性炭·链条",
+          "base": "活性炭",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce6b0b4e7ae",
+          "name": "水管·链条",
+          "base": "水管",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "metal",
+      "name": "金属产品",
+      "chains": [
+        {
+          "id": "ce794b5e8a7",
+          "name": "电解铜·链条",
+          "base": "电解铜",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork"
+          ]
+        },
+        {
+          "id": "ce9948ce994",
+          "name": "锌锭·链条",
+          "base": "锌锭",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce9939de994",
+          "name": "铝锭·链条",
+          "base": "铝锭",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce9939ce69d",
+          "name": "铜杆·链条",
+          "base": "铜杆",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce992a2e69d",
+          "name": "钢材（含螺纹钢）·链条",
+          "base": "钢材（含螺纹钢）",
+          "aliases": [
+            "螺纹钢",
+            "钢材"
+          ],
+          "stages": []
+        },
+        {
+          "id": "ce992a2e59d",
+          "name": "钢坯·链条",
+          "base": "钢坯",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce9939de6a3",
+          "name": "铝棒·链条",
+          "base": "铝棒",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce9939de59d",
+          "name": "铝块·链条",
+          "base": "铝块",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce4b88de994",
+          "name": "不锈钢卷·链条",
+          "base": "不锈钢卷",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce697a0e7bc",
+          "name": "无缝钢管·链条",
+          "base": "无缝钢管",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce783ade8bd",
+          "name": "热轧卷板·链条",
+          "base": "热轧卷板",
+          "aliases": [],
+          "stages": [
+            "paperwork"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "equipment",
+      "name": "智能装备与机械",
+      "chains": [
+        {
+          "id": "ce69cbae599",
+          "name": "机器人零部件·链条",
+          "base": "机器人零部件",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce69cbae599x",
+          "name": "机器人·链条",
+          "base": "机器人",
+          "aliases": [
+            "工业机器人"
+          ],
+          "stages": [
+            "source",
+            "logistics",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce697a0e4ba",
+          "name": "无人机·链条",
+          "base": "无人机",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce6afabe7b1",
+          "name": "毫米波雷达·链条",
+          "base": "毫米波雷达",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce8aebee5a4",
+          "name": "设备·链条",
+          "base": "设备",
+          "aliases": [
+            "各类设备",
+            "机械设备"
+          ],
+          "stages": []
+        },
+        {
+          "id": "ce59084e7b1",
+          "name": "各类机床·链条",
+          "base": "各类机床",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce59084e7b1x",
+          "name": "各类模组·链条",
+          "base": "各类模组",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce69cbae6a2",
+          "name": "机械配件·链条",
+          "base": "机械配件",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce699bae883x",
+          "name": "智能消防系统·链条",
+          "base": "智能消防系统",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics"
+          ]
+        },
+        {
+          "id": "ce794b5e58ax",
+          "name": "电动车控制器·链条",
+          "base": "电动车控制器",
+          "aliases": [],
+          "stages": []
+        }
+      ]
+    },
+    {
+      "id": "energy",
+      "name": "新能源",
+      "chains": [
+        {
+          "id": "ce58589e4bc",
+          "name": "光伏电池片·链条",
+          "base": "光伏电池片",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce58589e4bcx",
+          "name": "光伏组件·链条",
+          "base": "光伏组件",
+          "aliases": [],
+          "stages": [
+            "source",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce99482e794",
+          "name": "锂电池·链条",
+          "base": "锂电池",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce58585e794",
+          "name": "充电桩·链条",
+          "base": "充电桩",
+          "aliases": [],
+          "stages": [
+            "source",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce582a8e883",
+          "name": "储能柜·链条",
+          "base": "储能柜",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce9858de794",
+          "name": "配电柜·链条",
+          "base": "配电柜",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce794b5e7ba",
+          "name": "电线电缆·链条",
+          "base": "电线电缆",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce696b0e883",
+          "name": "新能源充电器·链条",
+          "base": "新能源充电器",
+          "aliases": [],
+          "stages": []
+        }
+      ]
+    },
+    {
+      "id": "textile",
+      "name": "纺织品",
+      "chains": [
+        {
+          "id": "ce6a389e7ba",
+          "name": "棉纱·链条",
+          "base": "棉纱",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce6b6a4e7ba",
+          "name": "涤纶短纤·链条",
+          "base": "涤纶短纤",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce6b6a4e7bax",
+          "name": "涤纶长丝·链条",
+          "base": "涤纶长丝",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce7bab1e7ba",
+          "name": "纱线·链条",
+          "base": "纱线",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce69c8de8a3",
+          "name": "服装·链条",
+          "base": "服装",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce994a6e7ba",
+          "name": "锦纶丝·链条",
+          "base": "锦纶丝",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce7babae7bb",
+          "name": "纺织布·链条",
+          "base": "纺织布",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "medical",
+      "name": "医疗与药材",
+      "chains": [
+        {
+          "id": "ce58cbbe796",
+          "name": "医疗器械一类·链条",
+          "base": "医疗器械一类",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce58cbbe796x",
+          "name": "医疗器械二类·链条",
+          "base": "医疗器械二类",
+          "aliases": [
+            "医疗器械二类随机"
+          ],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce58cbbe796xx",
+          "name": "医疗器械三类·链条",
+          "base": "医疗器械三类",
+          "aliases": [
+            "医疗器械三类随机"
+          ],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce4b8ade88d",
+          "name": "中药材·链条",
+          "base": "中药材",
+          "aliases": [
+            "中草药"
+          ],
+          "stages": []
+        },
+        {
+          "id": "ce58cbbe796xxx",
+          "name": "医疗耗材·链条",
+          "base": "医疗耗材",
+          "aliases": [],
+          "stages": []
+        }
+      ]
+    },
+    {
+      "id": "hardware",
+      "name": "五金制品",
+      "chains": [
+        {
+          "id": "ce4ba94e987",
+          "name": "五金制品·链条",
+          "base": "五金制品",
+          "aliases": [
+            "金属制品",
+            "金属配件",
+            "五金配件"
+          ],
+          "stages": [
+            "source"
+          ]
+        },
+        {
+          "id": "ce4ba94e987x",
+          "name": "五金螺母·链条",
+          "base": "五金螺母",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce5bcafe7ae",
+          "name": "弯管·链条",
+          "base": "弯管",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce4baa4e980",
+          "name": "交通支架·链条",
+          "base": "交通支架",
+          "aliases": [],
+          "stages": [
+            "source"
+          ]
+        },
+        {
+          "id": "ce7b4a7e59b",
+          "name": "紧固件·链条",
+          "base": "紧固件",
+          "aliases": [],
+          "stages": [
+            "source"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper",
+      "name": "纸制品",
+      "chains": [
+        {
+          "id": "ce7bab8e6b5",
+          "name": "纸浆·链条",
+          "base": "纸浆",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce7bab8e5bc",
+          "name": "纸张·链条",
+          "base": "纸张",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce58e9fe7ba",
+          "name": "原纸·链条",
+          "base": "原纸",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce7bab8e7ae",
+          "name": "纸箱·链条",
+          "base": "纸箱",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce5ae9ae581",
+          "name": "定做纸板·链条",
+          "base": "定做纸板",
+          "aliases": [],
+          "stages": []
+        }
+      ]
+    },
+    {
+      "id": "material",
+      "name": "新材料",
+      "chains": [
+        {
+          "id": "ce6b0a7e58c",
+          "name": "氧化铝纤维·链条",
+          "base": "氧化铝纤维",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce5a48de590",
+          "name": "复合纤维材料·链条",
+          "base": "复合纤维材料",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce79fb3e5a2",
+          "name": "石墨烯·链条",
+          "base": "石墨烯",
+          "aliases": [],
+          "stages": [
+            "source"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "household",
+      "name": "家电与日用",
+      "chains": [
+        {
+          "id": "ce5aeb6e794",
+          "name": "家电·链条",
+          "base": "家电",
+          "aliases": [
+            "家电小家电",
+            "家用电器"
+          ],
+          "stages": [
+            "source"
+          ]
+        },
+        {
+          "id": "ce697a5e794",
+          "name": "日用品·链条",
+          "base": "日用品",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce697a5e794x",
+          "name": "日用耗材·链条",
+          "base": "日用耗材",
+          "aliases": [],
+          "stages": []
+        }
+      ]
+    },
+    {
+      "id": "wood",
+      "name": "木制品",
+      "chains": [
+        {
+          "id": "ce69ca8e69d",
+          "name": "木材·链条",
+          "base": "木材",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce69dbfe69d",
+          "name": "板材·链条",
+          "base": "板材",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce69ca8e789",
+          "name": "木片·链条",
+          "base": "木片",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "service",
+      "name": "技术服务",
+      "chains": [
+        {
+          "id": "ce7a094e58f",
+          "name": "研发技术服务·链条",
+          "base": "研发技术服务",
+          "aliases": [
+            "研发技术",
+            "技术研发"
+          ],
+          "stages": [
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce4bfa1e681",
+          "name": "信息技术服务·链条",
+          "base": "信息技术服务",
+          "aliases": [
+            "信息系统服务"
+          ],
+          "stages": [
+            "settlement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "building",
+      "name": "建材",
+      "chains": [
+        {
+          "id": "ce7a082e79f",
+          "name": "砂石·链条",
+          "base": "砂石",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce5bbbae7ad",
+          "name": "建筑玻璃·链条",
+          "base": "建筑玻璃",
+          "aliases": [],
+          "stages": []
+        }
+      ]
+    },
+    {
+      "id": "auto",
+      "name": "汽车与配件",
+      "chains": [
+        {
+          "id": "ce6b1bde8bd",
+          "name": "汽车整车·链条",
+          "base": "汽车整车",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce6b1bde8bdx",
+          "name": "汽车配件·链条",
+          "base": "汽车配件",
+          "aliases": [],
+          "stages": [
+            "source"
+          ]
+        }
+      ]
+    }
+  ]
+}

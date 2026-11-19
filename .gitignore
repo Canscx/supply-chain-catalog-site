@@ -1,0 +1,26 @@
+# 依赖与构建产物
+node_modules/
+dist/
+.astro/
+
+# 内部资料与原始数据源（绝不公开）
+/参考文件/
+/内部内容审核/
+/DeepSeek交付包/
+/企业供应链展示站-DeepSeek交付包.zip
+
+# 过程产物
+_build/
+_shots/
+
+# 原型（与正式站隔离，保留在本地）
+prototype-lab/
+prototype/
+
+# 工具与系统
+openspec/
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/

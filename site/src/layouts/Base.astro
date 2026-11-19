@@ -1,0 +1,36 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  /** 无 JS 时的兜底：默认浅色。 */
+  bodyClass?: string;
+}
+const { title, description, bodyClass = "" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+    <script is:inline>
+      // 尽早应用已保存的主题，避免首帧闪白。失败静默回退浅色。
+      (function () {
+        try {
+          var t = localStorage.getItem("supply-chain-theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class={bodyClass}>
+    <a class="skip" href="#main">跳到主要内容</a>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,51 @@
+---
+import { catalog } from "../data/catalog";
+
+interface Props {
+  /** 是否展示合作联系区块。 */
+  contact?: boolean;
+}
+const { contact = true } = Astro.props;
+const brand = "企业供应链";
+const { categories, chains } = catalog.totals;
+---
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9 15l6-6"/><path d="M11 6.5a4 4 0 0 1 5.7 5.6l-1.6 1.6"/><path d="M13 17.5a4 4 0 0 1-5.7-5.6l1.6-1.6"/></svg>
+          </span>
+          {brand}
+        </div>
+        <p class="foot-note">
+          覆盖 {categories} 个品类、{chains} 条产品链条。
+        </p>
+      </div>
+
+      <div class="foot-col">
+        <h2>浏览</h2>
+        <ul>
+          <li><a href="./index.html">首页</a></li>
+          <li><a href="./catalog.html">产品链条目录</a></li>
+        </ul>
+      </div>
+
+      {contact && (
+        <div class="foot-col">
+          <h2>合作联系</h2>
+          <ul>
+            <li><a href="tel:+8600000000000">电话 000-0000-0000</a></li>
+            <li><a href="mailto:contact@your-domain.com">邮箱 contact@your-domain.com</a></li>
+          </ul>
+        </div>
+      )}
+    </div>
+
+    <div class="foot-btm">
+      <span>© 2026 {brand}</span>
+    </div>
+  </div>
+</footer>

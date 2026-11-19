@@ -1,0 +1,36 @@
+---
+import { catalog } from "../data/catalog";
+
+interface Props {
+  /** 当前页：home | catalog */
+  current: "home" | "catalog";
+}
+const { current } = Astro.props;
+const brand = "企业供应链";
+const chains = catalog.totals.chains;
+---
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="./index.html">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M9 15l6-6"/><path d="M11 6.5a4 4 0 0 1 5.7 5.6l-1.6 1.6"/><path d="M13 17.5a4 4 0 0 1-5.7-5.6l1.6-1.6"/></svg>
+      </span>
+      {brand}
+    </a>
+
+    <nav class="nav-links" aria-label="主导航">
+      <a href="./index.html" aria-current={current === "home" ? "page" : undefined}>首页</a>
+      <a href="./catalog.html" aria-current={current === "catalog" ? "page" : undefined}>产品目录</a>
+    </nav>
+
+    <div class="nav-tools">
+      <a class="nav-jump" href="./catalog.html" aria-current={current === "catalog" ? "page" : undefined}>目录</a>
+      <button class="theme-btn" type="button" data-theme-toggle aria-pressed="false">
+        <span class="sr-only">切换主题</span>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 14.6A8.4 8.4 0 0 1 9.4 3.7a8.4 8.4 0 1 0 10.9 10.9z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
