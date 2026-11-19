@@ -9,6 +9,8 @@ import { dirname, resolve } from "node:path";
 const here = dirname(fileURLToPath(import.meta.url));
 const raw = readFileSync(resolve(here, "../src/data/catalog.json"), "utf8");
 const catalog = JSON.parse(raw);
+const thresholdsRaw = readFileSync(resolve(here, "../src/data/thresholds.json"), "utf8");
+const thresholds = JSON.parse(thresholdsRaw);
 
 const problems = [];
 const fail = (msg) => problems.push(msg);
@@ -39,6 +41,8 @@ for (const cat of catalog.categories ?? []) {
     chainIds.add(ch.id);
 
     if (!ch.name) fail(`链条缺名称: ${ch.id}`);
+    if (ch.name?.includes("·链条")) fail(`链条名不应带「·链条」后缀: ${ch.name}`);
+    if (ch.name !== ch.base) fail(`链条 name 与 base 不一致: ${ch.name}`);
     if (chainNames.has(ch.name)) fail(`链条名重复: ${ch.name}`);
     chainNames.add(ch.name);
 
@@ -55,10 +59,69 @@ if (catalog.totals?.categories !== catalog.categories.length) {
   fail(`totals.categories 与实际不符: 声明 ${catalog.totals?.categories}，实际 ${catalog.categories.length}`);
 }
 
+// 准入门槛：三段固定顺序与条数，防止漏项或错序。
+const EXPECTED_SECTIONS = [
+  { id: "research-info", count: 14 },
+  { id: "robot-drone", count: 14 },
+  { id: "other", count: 17 },
+];
+const sections = thresholds.sections;
+const sectionIds = new Set();
+
+if (!Array.isArray(sections) || sections.length !== EXPECTED_SECTIONS.length) {
+  fail(`thresholds.sections 应为 ${EXPECTED_SECTIONS.length} 段，实际 ${Array.isArray(sections) ? sections.length : "非数组"}`);
+} else {
+  EXPECTED_SECTIONS.forEach((expected, index) => {
+    const section = sections[index];
+    if (!section || section.id !== expected.id) {
+      fail(`第 ${index + 1} 段 id 应为 ${expected.id}，实际 ${section?.id}`);
+      return;
+    }
+    if (!ID_RE.test(section.id)) fail(`准入门槛段 id 非法: ${section.id}`);
+    if (sectionIds.has(section.id)) fail(`准入门槛段 id 重复: ${section.id}`);
+    sectionIds.add(section.id);
+    if (!section.name) fail(`准入门槛缺段名: ${section.id}`);
+
+    if (!Array.isArray(section.items) || section.items.length !== expected.count) {
+      fail(`${section.id} 应有 ${expected.count} 项材料，实际 ${Array.isArray(section.items) ? section.items.length : "非数组"}`);
+    } else {
+      section.items.forEach((item, i) => {
+        if (typeof item !== "string" || !item.trim()) fail(`${section.id} 第 ${i + 1} 项材料为空`);
+      });
+    }
+
+    const shield = section.shield;
+    if (!shield || !shield.title) fail(`${section.id} 缺「对盾的要求」标题`);
+    const hasTiers = Array.isArray(shield?.tiers) && shield.tiers.length > 0;
+    const hasNotes = Array.isArray(shield?.notes) && shield.notes.length > 0;
+    if (!hasTiers && !hasNotes) fail(`${section.id} 的 shield 必须包含 tiers 或 notes`);
+
+    if (hasTiers) {
+      shield.tiers.forEach((tier, i) => {
+        if (!tier?.label || !tier?.text) fail(`${section.id} 第 ${i + 1} 个银行分级缺 label/text`);
+      });
+    }
+    if (hasNotes) {
+      shield.notes.forEach((note, i) => {
+        if (typeof note !== "string" || !note.trim()) fail(`${section.id} 第 ${i + 1} 条对盾要求为空`);
+      });
+    }
+  });
+}
+
+const totalThresholdItems = Array.isArray(sections)
+  ? sections.reduce((n, section) => n + (Array.isArray(section.items) ? section.items.length : 0), 0)
+  : 0;
+
 // 敏感字段绝不能出现在公开数据里
 const SENSITIVE = /万[0-9]|千[0-9]|起做量|渠道价|低消|利润率|保证金|受托提款/;
-const hit = raw.match(SENSITIVE);
-if (hit) fail(`疑似泄漏内部字段: ${hit[0]}`);
+for (const [name, text] of [
+  ["catalog.json", raw],
+  ["thresholds.json", thresholdsRaw],
+]) {
+  const hit = text.match(SENSITIVE);
+  if (hit) fail(`疑似泄漏内部字段（${name}）: ${hit[0]}`);
+}
 
 if (problems.length) {
   console.error("数据自检失败：");
@@ -66,4 +129,6 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log(`数据自检通过：${catalog.categories.length} 个品类 / ${total} 条链条`);
+console.log(
+  `数据自检通过：${catalog.categories.length} 个品类 / ${total} 条链条 / ${EXPECTED_SECTIONS.length} 组准入门槛（${totalThresholdItems} 项）`
+);

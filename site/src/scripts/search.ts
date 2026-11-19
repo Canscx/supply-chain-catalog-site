@@ -10,8 +10,9 @@ export const scrollBehavior = (): ScrollBehavior =>
 /**
  * 在原文下标出匹配片段，返回可安全挂到 DOM 的节点数组。
  *
- * 匹配走归一化文本，但返回的是原文的切片 —— 所以「玉米.链条」能高亮出原文里的
- * 「玉米·链条」，分隔符差异不会让高亮跑偏。找不到命中就原样返回一个文本节点。
+ * 匹配走归一化文本，但返回的是原文的切片，分隔符差异不会让高亮跑偏。
+ * 链条名已不带「·链条」后缀，旧的「玉米.链条」「玉米·链条」写法由隐藏检索词兼容，
+ * 这类查询不会在展示文本里留下高亮，直接返回原文。
  */
 export function highlightNodes(text: string, query: string): Node[] {
   const plain = [document.createTextNode(text)];

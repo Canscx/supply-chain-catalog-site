@@ -29,6 +29,9 @@ img, svg { display: block; max-width: 100%; }
   letter-spacing: -0.022em;
   text-wrap: balance;
 }
+/* 首行加 2px、第二行保持较小字号，字号跟随 .display 的 clamp 变化，避免不同视口差值漂移。 */
+.display-line-1 { font-size: calc(1em + 2px); }
+.display-line-2 { font-size: calc(1em - 3px); }
 .h2 {
   font-size: clamp(1.25rem, 1.05rem + 0.85vw, 1.65rem);
   line-height: 1.32;

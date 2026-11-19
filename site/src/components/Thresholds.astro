@@ -1,0 +1,56 @@
+---
+import { thresholds, thresholdItemCount } from "../data/thresholds";
+---
+
+<section class="rail-section thresholds" id="thresholds" aria-labelledby="thresholds-title">
+  <div class="wrap">
+    <div class="thr-head">
+      <h2 class="thr-heading" id="thresholds-title">准入门槛</h2>
+      <span class="thr-note">三类链条 · {thresholdItemCount} 项材料</span>
+    </div>
+
+    <div class="thr-groups">
+      {
+        thresholds.sections.map((section, index) => (
+          <article class="thr-group">
+            <header class="thr-group-head">
+              <span class="thr-num" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+              <h3 class="thr-group-title">{section.name}</h3>
+              <span class="thr-count">{section.items.length} 项</span>
+            </header>
+
+            <ol class="thr-items">
+              {section.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ol>
+
+            <div class="thr-shield">
+              <p class="thr-shield-title">{section.shield.title}</p>
+              {section.shield.tiers && (
+                <>
+                  {section.shield.tiersTitle && <p class="thr-shield-sub">{section.shield.tiersTitle}</p>}
+                  <dl class="thr-banks">
+                    {section.shield.tiers.map((tier) => (
+                      <div class="thr-bank">
+                        <dt>{tier.label}</dt>
+                        <dd>{tier.text}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </>
+              )}
+              {section.shield.notes && (
+                <ul class="thr-notes">
+                  {section.shield.notes.map((note) => (
+                    <li>{note}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

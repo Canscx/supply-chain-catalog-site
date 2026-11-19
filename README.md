@@ -46,9 +46,11 @@ site/
     pages/index.astro        首页
     pages/catalog.astro      产品链条目录
     layouts/Base.astro       head / 主题引导 / skip link
-    components/              Nav、Footer、ScopeMap
-    data/catalog.json        唯一数据源
+    components/              Nav、Footer、ScopeMap、Thresholds、CooperationFlow
+    data/catalog.json        链条数据
     data/catalog.ts          类型与检索工具
+    data/thresholds.json     准入门槛数据
+    data/thresholds.ts       准入门槛类型
     styles/tokens.css        设计令牌（色板、字号、间距、层级）
     styles/base.css          重置、排版、布局基础
     styles/components.css    组件样式
@@ -63,7 +65,7 @@ site/
 
 ## 数据格式
 
-只改 `site/src/data/catalog.json`，然后 `npm run check && npm run build`。
+链条数据只改 `site/src/data/catalog.json`，准入门槛只改 `site/src/data/thresholds.json`，然后 `npm run check && npm run build`。
 
 ```json
 {
@@ -74,9 +76,9 @@ site/
       "chains": [
         {
           "id": "corn",
-          "name": "玉米·链条",
+          "name": "玉米",
           "base": "玉米",
-          "aliases": ["玉米链条"],
+          "aliases": [],
           "stages": ["source", "settlement"]
         }
       ]
@@ -88,12 +90,14 @@ site/
 | 字段 | 说明 |
 | --- | --- |
 | `id` | 稳定标识，小写字母数字短横线，全局唯一 |
-| `name` | 展示名，格式为「产品名·链条」 |
-| `base` | 不含后缀的短名，用于检索与样例展示 |
+| `name` | 展示名，直接用产品名（如「PCB电路板」），不带「·链条」后缀 |
+| `base` | 检索与链接用的标准名；当前与 `name` 相同 |
 | `aliases` | 其他叫法，**只参与搜索、不渲染** |
 | `stages` | 该链条涉及的环节标识，无则留空数组 |
 
-`npm run check` 会校验 id 格式与唯一性、展示名去重、每个品类非空、`totals` 与实际一致、以及数据中不含金额与门槛类字段。任一项不过直接非零退出，不会产出坏数据。
+准入门槛数据按三段组织：`sections[].id` 固定为 `research-info`、`robot-drone`、`other`，每段含 `items`（材料清单）与 `shield`（对盾要求）。`shield` 用 `tiers` 表示银行分级，或用 `notes` 表示文字要求。
+
+`npm run check` 会校验 id 格式与唯一性、展示名去重、每个品类非空、`totals` 与实际一致、链条名不带「·链条」后缀，以及公开数据中不含报价、交易金额与敏感字段；同时校验 `thresholds.json` 是否为固定的三段、每段材料数是否为 14 / 14 / 17。任一项不过直接非零退出，不会产出坏数据。
 
 ## 如何新增页面
 
@@ -103,13 +107,14 @@ site/
 
 ## 检索设计
 
-命中范围是**链条名 + 别名**。匹配前统一归一化：去掉空白与 `.` `·` `•` `-` `/` `、` `,` 这类分隔符，英文字母转小写。
+命中范围是**链条名 + 别名 + 隐藏检索词「链条」**。展示名已不带「·链条」后缀，但匹配时仍把「链条」算进去，所以旧写法继续有效。匹配前统一归一化：去掉空白与 `.` `·` `•` `-` `/` `、` `,` 这类分隔符，英文字母转小写。
 
-因此下面三种写法都只命中同一条：
+因此下面几种写法都只命中同一条：
 
 - `玉米`
 - `玉米.链条`
 - `玉米·链条`
+- `玉米链条`
 
 别名机制解决的是同一实体的不同叫法：数据里写「钢材（含螺纹钢）」，用户搜「螺纹钢」也能命中。
 

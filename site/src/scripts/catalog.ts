@@ -52,7 +52,7 @@ if (root) {
       }));
 
       const hits = nq
-        ? items.filter((it) => normalize(`${it.name} ${it.aliases.join(" ")}`).includes(nq))
+        ? items.filter((it) => normalize(`${it.name} ${it.aliases.join(" ")} 链条`).includes(nq))
         : items;
 
       if (hits.length) out.set(id, hits);
@@ -92,6 +92,9 @@ if (root) {
               const a = document.createElement("a");
               a.className = "chain";
               a.href = `./catalog.html?category=${encodeURIComponent(id)}&q=${encodeURIComponent(c.base)}`;
+              a.dataset.name = c.name;
+              a.dataset.base = c.base;
+              a.dataset.alias = c.aliases.join(" ");
               a.append(...highlightNodes(c.name, state.q));
               li.append(a);
               return li;

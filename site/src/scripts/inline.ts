@@ -163,7 +163,8 @@ if (root) {
       let shown = 0;
       for (const li of items) {
         const a = li.querySelector<HTMLAnchorElement>(".chain");
-        const hay = `${a?.dataset.name ?? li.dataset.chain ?? ""} ${a?.dataset.alias ?? li.dataset.alias ?? ""}`;
+        // 「链条」只作为隐藏检索词保留，不参与展示，兼容旧写法（玉米·链条 / 玉米链条）。
+        const hay = `${a?.dataset.name ?? li.dataset.chain ?? ""} ${a?.dataset.alias ?? li.dataset.alias ?? ""} 链条`;
         const ok = isCat && (catHit || !nq || normalize(hay).includes(nq));
         li.hidden = !ok;
         if (ok) {

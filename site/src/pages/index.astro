@@ -4,17 +4,21 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import ScopeMap from "../components/ScopeMap.astro";
 import RulerNav from "../components/RulerNav.astro";
+import Thresholds from "../components/Thresholds.astro";
+import CooperationFlow from "../components/CooperationFlow.astro";
 import { catalog } from "../data/catalog";
 
 const { categories, chains } = catalog.totals;
 
-/** 章节刻度：4 个主刻度 + 结果区 16 个品类子刻度。 */
+/** 章节刻度：4 个主刻度 + 结果区 16 个品类子刻度 + 准入门槛 + 合作流程。 */
 const rulerItems = [
   { id: "hero", label: "总览" },
   { id: "tools", label: "检索" },
   { id: "scope", label: "业务范围" },
   { id: "results", label: "结果" },
   ...catalog.categories.map((c) => ({ id: `group-${c.id}`, label: c.name, level: 2 as const })),
+  { id: "thresholds", label: "准入门槛" },
+  { id: "flow", label: "合作流程" },
 ];
 ---
 
@@ -34,7 +38,7 @@ const rulerItems = [
           <span aria-hidden="true">·</span>
           <span><b>{chains}</b> 条产品链条</span>
         </div>
-        <h1 class="display">企业陪跑俱乐部，<br /><span class="display-hi">100+</span>源头供应链</h1>
+        <h1 class="display"><span class="display-line-1">企业陪跑俱乐部，</span><br /><span class="display-line-2"><span class="display-hi">100+</span>源头供应链</span></h1>
       </div>
     </section>
 
@@ -97,6 +101,9 @@ const rulerItems = [
         </div>
       </div>
     </section>
+
+    <Thresholds />
+    <CooperationFlow />
   </main>
 
   <Footer />

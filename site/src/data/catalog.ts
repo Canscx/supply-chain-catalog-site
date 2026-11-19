@@ -1,10 +1,10 @@
 import raw from "./catalog.json";
 
-/** 一条产品链条。name 形如「玉米·链条」。 */
+/** 一条产品链条。name 是展示名，直接用产品名（如「PCB电路板」）。 */
 export interface Chain {
   id: string;
   name: string;
-  /** 不含「·链条」后缀的短名，用于检索与展示。 */
+  /** 检索与链接用的标准名；当前与 name 相同。 */
   base: string;
   /** 其他叫法，只参与搜索匹配，不渲染。 */
   aliases: string[];
@@ -42,5 +42,5 @@ export const categoryById = new Map(catalog.categories.map((c) => [c.id, c]));
 const SEP = /[\s\u00b7\u2027\u30fb.\-\u2013\u2014_/、,，·]+/g;
 export const normalize = (s: string): string => String(s).toLowerCase().replace(SEP, "");
 
-/** 一条链条参与检索的全部文本。 */
-export const searchText = (c: Chain): string => normalize([c.name, ...c.aliases].join(" "));
+/** 一条链条参与检索的全部文本；末尾的「链条」只是隐藏检索词，不展示。 */
+export const searchText = (c: Chain): string => normalize([c.name, ...c.aliases, "链条"].join(" "));

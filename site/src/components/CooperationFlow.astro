@@ -1,0 +1,41 @@
+---
+const steps = [
+  "确定合作",
+  "支付1000意向金",
+  "建立工作群",
+  "资料审核",
+  "报量",
+  "支付服务费",
+  "上下游开票",
+  "走流水",
+];
+
+/* 桌面蛇形路线：01→04 向右，04 右侧下折接 05，05→08 向左。 */
+const flowPath = "M125 16 H940 Q956 16 956 32 V116 Q956 132 940 132 H125";
+---
+
+<section class="rail-section flow-section" id="flow" aria-labelledby="flow-title">
+  <div class="wrap">
+    <div class="flow-head">
+      <h2 class="flow-heading" id="flow-title">合作流程</h2>
+      <span class="flow-note">{steps.length} 个步骤</span>
+    </div>
+
+    <div class="flow-wrap">
+      <ol class="flow">
+        {
+          steps.map((step, index) => (
+            <li class="flow-step" style={`--flow-index: ${index}`}>
+              <span class="flow-num">{String(index + 1).padStart(2, "0")}</span>
+              <span class="flow-label">{step}</span>
+            </li>
+          ))
+        }
+      </ol>
+      <svg class="flow-track" viewBox="0 0 1000 192" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path class="flow-line" d={flowPath} />
+        <path class="flow-spark" d={flowPath} pathLength="100" />
+      </svg>
+    </div>
+  </div>
+</section>
