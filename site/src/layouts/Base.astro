@@ -17,7 +17,7 @@ const { title, description, bodyClass = "" } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content="index, follow" />
     <title>{title}</title>
     <script is:inline>
       // 尽早应用已保存的主题，避免首帧闪白。失败静默回退浅色。
