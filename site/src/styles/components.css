@@ -182,7 +182,6 @@
   color: var(--accent);
   font-variant-numeric: tabular-nums;
 }
-.hero .lead { margin-top: 18px; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; margin-top: 26px; }
 
 /* 首屏大标题里的数字用主强调色，和元信息里的统计同色系 */
@@ -836,13 +835,12 @@
 
 /* ---------- 15. 动效 ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  .hero .display, .hero-fact, .hero .lead, .hero-actions {
+  .hero .display, .hero-fact, .hero-actions {
     animation: rise 620ms var(--ease-out-expo) both;
   }
   .hero-fact { animation-delay: 20ms; }
   .hero .display { animation-delay: 70ms; }
-  .hero .lead { animation-delay: 140ms; }
-  .hero-actions { animation-delay: 200ms; }
+  .hero-actions { animation-delay: 140ms; }
 
   .idx-item, .stage {
     animation: rise 520ms var(--ease-out-expo) both;
