@@ -834,3 +834,182 @@ html { scroll-behavior: smooth; }
   clip-path: inset(50%); white-space: nowrap;
 }
 :target { scroll-margin-block-start: calc(var(--nav-h) + 16px); }
+
+/* ---------- 17. 尺规式章节导航（仅电脑端） ---------- */
+/* 结构：fixed 全屏浮层 → 居中盒（与 .wrap 同 max / gutter）→ nav.ruler 右对齐。
+   不用 100vw 计算，避开 Windows 滚动条宽度带来的横向偏移。
+   < 1200px 或没有 JS 时整层不渲染，移动端布局与加之前逐像素一致。 */
+
+.ruler-layer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-sticky) + 1);
+  pointer-events: none;
+}
+
+/* 与 .wrap 完全重合：同 max-width、同 gutter、同居中 */
+.ruler-layer__box {
+  height: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.ruler {
+  position: relative;
+  pointer-events: auto;
+  width: calc(var(--rail-side) - var(--rail-gap));
+  margin-block-start: calc(var(--nav-h) + 28px);
+  max-height: calc(100vh - var(--nav-h) - 68px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.ruler::-webkit-scrollbar { display: none; }
+
+/* 首页有吸附搜索栏，刻度尺顶端再让开一条 */
+.ruler-layer--tools .ruler {
+  margin-block-start: calc(var(--nav-h) + var(--tools-h) + 20px);
+  max-height: calc(100vh - var(--nav-h) - var(--tools-h) - 60px);
+}
+
+.ruler__title {
+  margin-bottom: 12px;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+.ruler__track {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding-block: 2px;
+}
+
+/* 尺身：一条竖线从首刻度贯穿到末刻度。
+   左侧留 18px 给指示游标，刻度从竖线向右伸出。 */
+.ruler__track::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 18px;
+  width: 1px;
+  background: var(--line);
+}
+
+.ruler__item { position: relative; }
+
+.ruler__tick {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 26px;
+  padding-inline: 18px 4px;
+  opacity: 0.5;
+  transition: opacity 160ms var(--ease-out-quart);
+}
+
+/* 大格：长刻度 */
+.ruler__mark {
+  flex: none;
+  width: 16px;
+  height: 1.5px;
+  background: var(--line-strong);
+  transition: width 180ms var(--ease-out-quart),
+              height 180ms var(--ease-out-quart),
+              background-color 180ms var(--ease-out-quart);
+}
+
+/* 小格：短刻度（大格的一半），并左缩 4px 形成层级 */
+.ruler__item--sub .ruler__mark { width: 8px; height: 1px; margin-inline-start: 4px; }
+.ruler__item--sub .ruler__tick { min-height: 21px; gap: 12px; }
+
+.ruler__label {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--ink-faint);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-3px);
+  transition: opacity 160ms var(--ease-out-quart),
+              transform 160ms var(--ease-out-quart),
+              color 160ms var(--ease-out-quart);
+}
+
+.ruler__item--sub .ruler__label { font-size: 0.75rem; }
+
+/* 悬停 / 键盘聚焦：整行提亮并显出章节名 */
+.ruler__tick:hover,
+.ruler__tick:focus-visible { opacity: 1; }
+.ruler__tick:hover .ruler__label,
+.ruler__tick:focus-visible .ruler__label {
+  opacity: 1;
+  transform: none;
+  color: var(--ink-soft);
+}
+.ruler__tick:hover .ruler__mark,
+.ruler__tick:focus-visible .ruler__mark { background: var(--ink-faint); }
+
+/* 当前章节：刻度变强调色并加长，名称常驻 */
+.ruler__tick[aria-current="true"] { opacity: 1; }
+.ruler__tick[aria-current="true"] .ruler__mark {
+  width: 24px;
+  height: 2px;
+  background: var(--accent);
+}
+.ruler__tick[aria-current="true"] .ruler__label {
+  opacity: 1;
+  transform: none;
+  color: var(--accent);
+  font-weight: 650;
+}
+
+/* 指示游标：从尺身向左伸出的短横 + 端点圆点，指向当前刻度 */
+.ruler__cursor {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 6px;
+  width: 12px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--accent);
+  pointer-events: none;
+  transition: transform 220ms var(--ease-out-quart);
+}
+
+.ruler__cursor::after {
+  content: "";
+  position: absolute;
+  inset-block-start: -2.5px;
+  inset-inline-start: -7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+/* 桌面端且启用 JS 时才挂载；正文与导航同时让出右侧刻度带 */
+@media (min-width: 1200px) {
+  html.js .ruler-layer { display: block; }
+
+  .wrap,
+  .nav-inner { padding-inline-end: calc(var(--gutter) + var(--rail-side)); }
+
+  /* 刻度跳转落点让开吸附层；由 ruler.ts 写入 --ruler-anchor */
+  [data-ruler-anchor] {
+    scroll-margin-block-start: var(--ruler-anchor, calc(var(--nav-h) + 20px));
+  }
+}
+
+@media print {
+  .ruler-layer { display: none !important; }
+}

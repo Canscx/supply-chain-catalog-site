@@ -3,9 +3,19 @@ import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import ScopeMap from "../components/ScopeMap.astro";
+import RulerNav from "../components/RulerNav.astro";
 import { catalog } from "../data/catalog";
 
 const { categories, chains } = catalog.totals;
+
+/** 章节刻度：4 个主刻度 + 结果区 16 个品类子刻度。 */
+const rulerItems = [
+  { id: "hero", label: "总览" },
+  { id: "tools", label: "检索" },
+  { id: "scope", label: "业务范围" },
+  { id: "results", label: "结果" },
+  ...catalog.categories.map((c) => ({ id: `group-${c.id}`, label: c.name, level: 2 as const })),
+];
 ---
 
 <Base
@@ -14,8 +24,10 @@ const { categories, chains } = catalog.totals;
 >
   <Nav current="home" />
 
+  <RulerNav items={rulerItems} belowTools />
+
   <main id="main" data-inline>
-    <section class="hero">
+    <section class="hero" id="hero">
       <div class="wrap">
         <div class="hero-fact">
           <span>覆盖 <b>{categories}</b> 个品类</span>
@@ -29,7 +41,7 @@ const { categories, chains } = catalog.totals;
       </div>
     </section>
 
-    <div class="inline-tools">
+    <div class="inline-tools" id="tools">
       <div class="wrap">
         <div class="field">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.4"/><path d="M15.6 15.6l4.2 4.2"/></svg>
@@ -54,7 +66,7 @@ const { categories, chains } = catalog.totals;
         <div data-groups>
           {
             catalog.categories.map((cat, i) => (
-              <section class="group" data-group={cat.id} data-open={i === 0 ? "true" : "false"}>
+              <section class="group" id={`group-${cat.id}`} data-group={cat.id} data-open={i === 0 ? "true" : "false"}>
                 <button class="group-toggle" type="button" aria-expanded={i === 0 ? "true" : "false"}>
                   <span class="group-title">
                     <span class="group-name">{cat.name}</span>
@@ -92,4 +104,5 @@ const { categories, chains } = catalog.totals;
   import "../scripts/theme";
   import "../scripts/nav";
   import "../scripts/inline";
+  import "../scripts/ruler";
 </script>

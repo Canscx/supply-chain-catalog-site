@@ -2,9 +2,16 @@
 import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import RulerNav from "../components/RulerNav.astro";
 import { catalog } from "../data/catalog";
 
 const { chains } = catalog.totals;
+
+/** 章节刻度：标题区 + 16 个品类，均为大格。 */
+const rulerItems = [
+  { id: "catalog-head", label: "目录" },
+  ...catalog.categories.map((c) => ({ id: `group-${c.id}`, label: c.name })),
+];
 ---
 
 <Base
@@ -14,8 +21,10 @@ const { chains } = catalog.totals;
 >
   <Nav current="catalog" />
 
+  <RulerNav items={rulerItems} />
+
   <main id="main" data-catalog>
-    <div class="catalog-head">
+    <div class="catalog-head" id="catalog-head">
       <div class="wrap">
         <a class="back" href="./index.html">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
@@ -74,7 +83,7 @@ const { chains } = catalog.totals;
 
             <div data-groups>
               {catalog.categories.map((cat) => (
-                <section class="group" data-group={cat.id} data-open="false">
+                <section class="group" id={`group-${cat.id}`} data-group={cat.id} data-open="false">
                   <button class="group-toggle" type="button" aria-expanded="false">
                     <span class="group-title">
                       <span class="group-name">{cat.name}</span>
@@ -121,4 +130,5 @@ const { chains } = catalog.totals;
   import "../scripts/theme";
   import "../scripts/nav";
   import "../scripts/catalog";
+  import "../scripts/ruler";
 </script>

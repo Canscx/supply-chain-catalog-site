@@ -1,0 +1,55 @@
+---
+/**
+ * 右侧「尺规式章节导航」。
+ *
+ * 结构：fixed 全屏浮层（pointer-events:none）→ 居中盒（与 .wrap 同一套 max/gutter）
+ * → nav.ruler（右对齐，落在 --rail-side 刻度带里）。
+ * 不用 100vw 计算，避免 Windows 滚动条宽度带来的横向偏移。
+ *
+ * 电脑端专属：< 1200px 时整层 display:none，页面与未加之前逐像素一致。
+ * 无 JS 时不加 html.js，同样不显示。
+ */
+
+export interface RulerItem {
+  /** 目标元素 id。 */
+  id: string;
+  /** 刻度旁显示的章节名。 */
+  label: string;
+  /** 2 = 子刻度（小格），省略或 1 = 主刻度（大格）。 */
+  level?: 1 | 2;
+}
+
+interface Props {
+  items: RulerItem[];
+  /** 刻度尺表头。 */
+  title?: string;
+  /** 页面有吸附工具条（首页搜索栏）时设为 true，刻度尺顶端再让开一段。 */
+  belowTools?: boolean;
+}
+
+const { items, title = "本页章节", belowTools = false } = Astro.props;
+---
+
+<div class:list={["ruler-layer", belowTools && "ruler-layer--tools"]} data-ruler-layer>
+  <div class="ruler-layer__box">
+    <nav class="ruler" data-ruler aria-label="本页章节导航">
+      <p class="ruler__title">{title}</p>
+      <ol class="ruler__track">
+        {
+          items.map((item) => (
+            <li
+              class={item.level === 2 ? "ruler__item ruler__item--sub" : "ruler__item"}
+              data-ruler-target={item.id}
+            >
+              <a class="ruler__tick" href={`#${item.id}`} aria-current="false">
+                <span class="ruler__mark" aria-hidden="true" />
+                <span class="ruler__label">{item.label}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+      <span class="ruler__cursor" aria-hidden="true" />
+    </nav>
+  </div>
+</div>
