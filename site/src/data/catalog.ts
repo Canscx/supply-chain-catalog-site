@@ -32,6 +32,9 @@ export interface Catalog {
 
 export const catalog = raw as Catalog;
 
+/** 首页「业务范围」与咨询弹窗共用的主推品类数量。 */
+export const FEATURED_CATEGORY_COUNT = 5;
+
 /** 全部链条的扁平列表。 */
 export const allChains: Chain[] = catalog.categories.flatMap((c) => c.chains);
 

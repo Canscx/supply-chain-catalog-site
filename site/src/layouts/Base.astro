@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import ConsultWidget from "../components/ConsultWidget.astro";
 
 interface Props {
   title: string;
@@ -32,5 +33,6 @@ const { title, description, bodyClass = "" } = Astro.props;
   <body class={bodyClass}>
     <a class="skip" href="#main">跳到主要内容</a>
     <slot />
+    <ConsultWidget />
   </body>
 </html>

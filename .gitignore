@@ -24,3 +24,11 @@ Thumbs.db
 *.log
 .vscode/
 .idea/
+
+# 企业微信机器人凭证与本地参考稿（绝不提交）
+/企微bot-webhook.txt
+/咨询.html
+
+# 咨询表单服务器配置与运行数据（绝不提交）
+/site/public/api/config.php
+/site/consult-data*/

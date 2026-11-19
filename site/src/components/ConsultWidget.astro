@@ -1,0 +1,113 @@
+---
+import { catalog, FEATURED_CATEGORY_COUNT } from "../data/catalog";
+
+const featuredCategories = catalog.categories.slice(0, FEATURED_CATEGORY_COUNT);
+---
+
+<a
+  class="consult-fab"
+  href="./index.html#contact"
+  data-consult-open
+  aria-haspopup="dialog"
+  aria-controls="consult-dialog"
+>
+  <svg class="consult-fab-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M4 5.5h16v11H9l-4.5 3v-3H4z" />
+    <path d="M8 10h8M8 13h5" />
+  </svg>
+  <span class="consult-fab-label">我要合作</span>
+</a>
+
+<dialog class="consult-dialog" id="consult-dialog" aria-labelledby="consult-title">
+  <div class="consult-panel">
+    <header class="consult-head">
+      <div class="consult-head-copy">
+        <p class="consult-eyebrow">合作咨询</p>
+        <h2 class="consult-title" id="consult-title">供应链合作需求登记</h2>
+        <p class="consult-intro">留下需求，我们会在 1 个工作日内联系你。</p>
+      </div>
+      <button class="consult-close" type="button" data-consult-close aria-label="关闭咨询窗口">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+      </button>
+    </header>
+
+    <form class="consult-form" data-consult-form novalidate>
+      <div class="consult-honeypot" aria-hidden="true">
+        <label for="consult-website">网站</label>
+        <input id="consult-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="consult-field" data-field="company">
+        <label for="consult-company">公司名字<span class="consult-req">*</span></label>
+        <input id="consult-company" name="company" type="text" maxlength="60" autocomplete="organization" placeholder="请输入公司全称" />
+        <p class="consult-field-error" data-error-for="company" hidden></p>
+      </div>
+
+      <div class="consult-field" data-field="categories">
+        <label for="consult-categories">供应链品类<span class="consult-req">*</span><span class="consult-hint">可多选，也可直接填写</span></label>
+        <input id="consult-categories" name="categories" type="text" maxlength="100" autocomplete="off" placeholder="请输入或点击下方品类" />
+        <div class="consult-chips" data-consult-chips>
+          {featuredCategories.map((cat) => (
+            <button class="consult-chip" type="button" data-consult-chip={cat.name} aria-pressed="false">{cat.name}</button>
+          ))}
+          <button class="consult-chip consult-chip--custom" type="button" data-consult-custom-toggle aria-pressed="false">我要定制</button>
+        </div>
+        <div class="consult-custom" data-consult-custom hidden>
+          <label for="consult-custom-chain">请描述你想要的链条<span class="consult-req">*</span></label>
+          <textarea id="consult-custom-chain" name="custom_chain" rows="3" maxlength="300" placeholder="例如：想做一条冷链包装耗材的供应链"></textarea>
+          <p class="consult-field-error" data-error-for="custom_chain" hidden></p>
+        </div>
+        <p class="consult-field-error" data-error-for="categories" hidden></p>
+      </div>
+
+      <div class="consult-field" data-field="demand">
+        <label for="consult-demand">单月需求<span class="consult-req">*</span></label>
+        <div class="consult-unit">
+          <input id="consult-demand" name="demand" type="text" inputmode="decimal" maxlength="12" placeholder="例如：50" />
+          <span>万元 / 每月</span>
+        </div>
+        <p class="consult-field-error" data-error-for="demand" hidden></p>
+      </div>
+
+      <div class="consult-field" data-field="invoice">
+        <label for="consult-invoice">目前发票额度<span class="consult-req">*</span></label>
+        <input id="consult-invoice" name="invoice" type="text" maxlength="60" placeholder="例如：每月可开 10 万元专票" />
+        <p class="consult-field-error" data-error-for="invoice" hidden></p>
+      </div>
+
+      <div class="consult-field" data-field="contact">
+        <label for="consult-contact">联系人<span class="consult-req">*</span></label>
+        <input id="consult-contact" name="contact" type="text" maxlength="20" autocomplete="name" placeholder="请输入联系人姓名" />
+        <p class="consult-field-error" data-error-for="contact" hidden></p>
+      </div>
+
+      <div class="consult-field" data-field="phone">
+        <label for="consult-phone">联系电话<span class="consult-req">*</span></label>
+        <input id="consult-phone" name="phone" type="tel" maxlength="11" inputmode="numeric" autocomplete="tel" placeholder="请输入手机号码" />
+        <p class="consult-field-error" data-error-for="phone" hidden></p>
+      </div>
+
+      <label class="consult-agree" data-field="agree">
+        <input id="consult-agree" name="agree" type="checkbox" />
+        <span>我确认以上信息真实有效，并同意将其用于业务对接联系。</span>
+      </label>
+      <p class="consult-field-error consult-agree-error" data-error-for="agree" hidden></p>
+
+      <p class="consult-error" data-consult-error role="alert" hidden></p>
+
+      <div class="consult-actions">
+        <button class="btn consult-submit" type="submit" data-consult-submit>提交需求</button>
+        <p class="consult-footnote">信息仅用于业务对接，不会公开。</p>
+      </div>
+    </form>
+
+    <div class="consult-success" data-consult-success role="status" aria-live="polite" hidden>
+      <div class="consult-success-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg>
+      </div>
+      <h2>提交成功</h2>
+      <p>我们已收到你的需求，会在 1 个工作日内联系你。</p>
+      <button class="btn consult-success-close" type="button" data-consult-close>关闭</button>
+    </div>
+  </div>
+</dialog>

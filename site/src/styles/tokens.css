@@ -36,6 +36,10 @@
   /* 铜 · 第三色，只给「环节」用 */
   --copper:      #9f522c;
 
+  /* 功能色：错误提示 */
+  --danger:      #b3261e;
+  --danger-soft: #fdecea;
+
   --focus:       #0d6b7a;
 
   /* 排版 */
@@ -67,9 +71,11 @@
   --z-rail: 1;
   --z-content: 2;
   --z-sticky: 40;
+  --z-fab: 45;
   --z-nav: 50;
   --z-switcher: 60;
   --z-skip: 70;
+  --z-modal: 80;
 
   /* 缓动 */
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
@@ -100,6 +106,9 @@
   --brass-soft:  #413115;
 
   --copper:      #da986b;
+
+  --danger:      #ff8a80;
+  --danger-soft: #3b1412;
 
   --focus:       #8fd8c8;
 }
