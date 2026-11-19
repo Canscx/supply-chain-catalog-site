@@ -2,7 +2,7 @@
 
 企业供应链产品链条展示站。纯前端静态站，两个页面：首页与产品链条目录。无后端、无数据库、无第三方接口。
 
-演示数据集为 16 个品类、114 条产品链条，用于展示品类筛选、别名检索与双主题能力。
+演示数据集为 20 个品类、144 条产品链条（含跨品类重复展示），用于展示品类筛选、别名检索与双主题能力。
 
 ## 快速开始
 
@@ -46,7 +46,7 @@ site/
     pages/index.astro        首页
     pages/catalog.astro      产品链条目录
     layouts/Base.astro       head / 主题引导 / skip link
-    components/              Nav、Footer、ScopeMap、Thresholds、CooperationFlow
+    components/              Nav、Footer、ScopeMap、Thresholds、CooperationFlow、AboutUs、ContactUs
     data/catalog.json        链条数据
     data/catalog.ts          类型与检索工具
     data/thresholds.json     准入门槛数据
@@ -59,6 +59,7 @@ site/
     scripts/search.ts        检索归一化
     scripts/inline.ts        首页筛选与业务范围块
     scripts/catalog.ts       目录页筛选与高亮
+    scripts/copy.ts          联系方式点击复制
   scripts/verify-data.mjs    构建前数据自检
   public/                    favicon、robots.txt
 ```
@@ -95,6 +96,8 @@ site/
 | `aliases` | 其他叫法，**只参与搜索、不渲染** |
 | `stages` | 该链条涉及的环节标识，无则留空数组 |
 
+同一条基础产品可以进入多个品类：可以同名共存（如「机器人」同时出现在机器人和科技链条），也可以用不同展示名建立多条记录（如「石墨烯」「石墨烯（变品）」「石墨烯（定制）」）；同一品类内 `name` 唯一。
+
 准入门槛数据按三段组织：`sections[].id` 固定为 `research-info`、`robot-drone`、`other`，每段含 `items`（材料清单）与 `shield`（对盾要求）。`shield` 用 `tiers` 表示银行分级，或用 `notes` 表示文字要求。
 
 `npm run check` 会校验 id 格式与唯一性、展示名去重、每个品类非空、`totals` 与实际一致、链条名不带「·链条」后缀，以及公开数据中不含报价、交易金额与敏感字段；同时校验 `thresholds.json` 是否为固定的三段、每段材料数是否为 14 / 14 / 17。任一项不过直接非零退出，不会产出坏数据。
@@ -122,9 +125,9 @@ site/
 
 ## 测试
 
-47 项自动化检查（Chrome 无头 + CDP 驱动），覆盖三块：
+自动化检查（Chrome 无头 + CDP 驱动），覆盖三块：
 
-**首页 24 项**：搜索栏 → 业务范围 → 结果行的 DOM 顺序；点品类后只剩该品类、计数正确、块收成一行、结果行不被吸附层遮挡；「换品类」展开后筛选不变；重复点同一品类幂等；搜索与品类取交集；清空筛选回到默认折叠态；深链还原；未知 category 回落全部；手机端默认折叠 8 个 + 展开按钮；桌面 3 行 17 格全可见；三档宽度无横向溢出；移动端触控 ≥44px。
+**首页 26 项**：搜索栏 → 业务范围 → 结果行的 DOM 顺序；点品类后只剩该品类、计数正确、块收成一行、结果行不被吸附层遮挡；「换品类」展开后筛选不变；重复点同一品类幂等；搜索与品类取交集；清空筛选回到默认折叠态；深链还原；未知 category 回落全部；手机端默认折叠 8 个 + 展开按钮；桌面 4 行 21 格全可见；关于我们/联系我们内容与公司地址；公司名和地址点击复制及提示；五个区块标题居中且 19px；三档宽度无横向溢出；移动端触控 ≥44px。
 
 **目录页 23 项**：三种分隔符写法各只命中 1 条；别名检索生效；无匹配空态；清空关键词保留分类；清空筛选回默认折叠；默认浅色、切换后跨页与刷新保持、禁用存储仍可当页切换；键盘 Tab 顺序完整；所有 button 有可读名称；表单有 label；每页一个 h1；`lang=zh-CN`；`prefers-reduced-motion` 生效。
 

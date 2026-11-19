@@ -1,8 +1,8 @@
 {
-  "version": "2026-11-18",
+  "version": "2026-11-19",
   "totals": {
-    "chains": 114,
-    "categories": 16
+    "chains": 144,
+    "categories": 20
   },
   "stages": [
     {
@@ -23,6 +23,389 @@
     }
   ],
   "categories": [
+    {
+      "id": "robot",
+      "name": "机器人",
+      "chains": [
+        {
+          "id": "ce69cbae599x",
+          "name": "机器人",
+          "base": "机器人",
+          "aliases": [
+            "工业机器人"
+          ],
+          "stages": [
+            "source",
+            "logistics",
+            "settlement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drone",
+      "name": "无人机",
+      "chains": [
+        {
+          "id": "ce697a0e4ba",
+          "name": "无人机",
+          "base": "无人机",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tech",
+      "name": "科技链条",
+      "chains": [
+        {
+          "id": "robot-tech",
+          "name": "机器人",
+          "base": "机器人",
+          "aliases": [
+            "工业机器人"
+          ],
+          "stages": [
+            "source",
+            "logistics",
+            "settlement"
+          ]
+        },
+        {
+          "id": "drone-tech",
+          "name": "无人机",
+          "base": "无人机",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce6afabe7b1",
+          "name": "毫米波雷达",
+          "base": "毫米波雷达",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce8aebee5a4",
+          "name": "设备",
+          "base": "设备",
+          "aliases": [
+            "各类设备",
+            "机械设备"
+          ],
+          "stages": []
+        },
+        {
+          "id": "ce59084e7b1",
+          "name": "各类机床",
+          "base": "各类机床",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce59084e7b1x",
+          "name": "各类模组",
+          "base": "各类模组",
+          "aliases": [],
+          "stages": []
+        }
+      ]
+    },
+    {
+      "id": "variable",
+      "name": "可变品",
+      "chains": [
+        {
+          "id": "c8ac822ee20",
+          "name": "石墨烯（变品）",
+          "base": "石墨烯（变品）",
+          "aliases": [],
+          "stages": [
+            "source"
+          ]
+        },
+        {
+          "id": "c84fb09b564",
+          "name": "金属制品（变品）",
+          "base": "金属制品（变品）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "c15cf4a407f",
+          "name": "机械配件（变品）",
+          "base": "机械配件（变品）",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "settlement"
+          ]
+        },
+        {
+          "id": "c60f6631f12",
+          "name": "五金制品（变品）",
+          "base": "五金制品（变品）",
+          "aliases": [],
+          "stages": [
+            "source"
+          ]
+        },
+        {
+          "id": "c34c6fc3ce1",
+          "name": "研发技术服务（变品）",
+          "base": "研发技术服务（变品）",
+          "aliases": [
+            "研发技术",
+            "技术研发"
+          ],
+          "stages": [
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce53e52ec03",
+          "name": "算力服务（变品）",
+          "base": "算力服务（变品）",
+          "aliases": [
+            "算力服务"
+          ],
+          "stages": []
+        },
+        {
+          "id": "c1c06d8ca49",
+          "name": "PCB电路板（变品）",
+          "base": "PCB电路板（变品）",
+          "aliases": [
+            "PCB板",
+            "电子PCB板"
+          ],
+          "stages": []
+        },
+        {
+          "id": "c08c6bf2bed",
+          "name": "软件硬件集成（变品）",
+          "base": "软件硬件集成（变品）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "cb31629357d",
+          "name": "智能消防系统（变品）",
+          "base": "智能消防系统（变品）",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics"
+          ]
+        },
+        {
+          "id": "c835b496ef3",
+          "name": "新能源充电器（变品）",
+          "base": "新能源充电器（变品）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "c681a4f3bd8",
+          "name": "电动车控制器（变品）",
+          "base": "电动车控制器（变品）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "c3a56dadb0b",
+          "name": "安防（变品）",
+          "base": "安防（变品）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "c990bf2c17c",
+          "name": "锂电池（变品）",
+          "base": "锂电池（变品）",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "c2d131db4d9",
+          "name": "PET膜（变品）",
+          "base": "PET膜（变品）",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "c242152bb60",
+          "name": "无缝钢管（变品）",
+          "base": "无缝钢管（变品）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "cdb975524d7",
+          "name": "金属配件（变品）",
+          "base": "金属配件（变品）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "c1459130e7a",
+          "name": "工业机器人（变品）",
+          "base": "工业机器人（变品）",
+          "aliases": [],
+          "stages": []
+        }
+      ]
+    },
+    {
+      "id": "custom",
+      "name": "可定制",
+      "chains": [
+        {
+          "id": "c78c4fdec6d",
+          "name": "石墨烯（定制）",
+          "base": "石墨烯（定制）",
+          "aliases": [],
+          "stages": [
+            "source"
+          ]
+        },
+        {
+          "id": "caa501ec791",
+          "name": "AI算力（可定制）",
+          "base": "AI算力（可定制）",
+          "aliases": [
+            "算力服务"
+          ],
+          "stages": []
+        },
+        {
+          "id": "c466df15f8d",
+          "name": "软件硬件集成（定制）",
+          "base": "软件硬件集成（定制）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "cd862c1d15a",
+          "name": "工业机器人（定制）",
+          "base": "工业机器人（定制）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "c0e1d10a7c6",
+          "name": "安防（定制）",
+          "base": "安防（定制）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "cf5b32d8288",
+          "name": "锂电池（定制）",
+          "base": "锂电池（定制）",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "c9ae1e3f423",
+          "name": "PET膜（定制）",
+          "base": "PET膜（定制）",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "cfb081a508a",
+          "name": "研发中标（定制）",
+          "base": "研发中标（定制）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "cffeb13fbaf",
+          "name": "钢材（定制）",
+          "base": "钢材（定制）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "cebc65cc88a",
+          "name": "铜杆（定制）",
+          "base": "铜杆（定制）",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "c9f8c843e20",
+          "name": "塑料粒子（定制）",
+          "base": "塑料粒子（定制）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "c8db785e49e",
+          "name": "水管（定制）",
+          "base": "水管（定制）",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
+            "paperwork"
+          ]
+        },
+        {
+          "id": "c3e81629f3c",
+          "name": "电信项目（定制）",
+          "base": "电信项目（定制）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "cbf8bc3caae",
+          "name": "移动项目（定制）",
+          "base": "移动项目（定制）",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "c26cf566253",
+          "name": "停车场项目（定制）",
+          "base": "停车场项目（定制）",
+          "aliases": [],
+          "stages": []
+        }
+      ]
+    },
     {
       "id": "agri",
       "name": "农副产品",
@@ -577,103 +960,6 @@
           "stages": [
             "paperwork"
           ]
-        }
-      ]
-    },
-    {
-      "id": "equipment",
-      "name": "智能装备与机械",
-      "chains": [
-        {
-          "id": "ce69cbae599",
-          "name": "机器人零部件",
-          "base": "机器人零部件",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "ce69cbae599x",
-          "name": "机器人",
-          "base": "机器人",
-          "aliases": [
-            "工业机器人"
-          ],
-          "stages": [
-            "source",
-            "logistics",
-            "settlement"
-          ]
-        },
-        {
-          "id": "ce697a0e4ba",
-          "name": "无人机",
-          "base": "无人机",
-          "aliases": [],
-          "stages": [
-            "settlement"
-          ]
-        },
-        {
-          "id": "ce6afabe7b1",
-          "name": "毫米波雷达",
-          "base": "毫米波雷达",
-          "aliases": [],
-          "stages": [
-            "source",
-            "settlement"
-          ]
-        },
-        {
-          "id": "ce8aebee5a4",
-          "name": "设备",
-          "base": "设备",
-          "aliases": [
-            "各类设备",
-            "机械设备"
-          ],
-          "stages": []
-        },
-        {
-          "id": "ce59084e7b1",
-          "name": "各类机床",
-          "base": "各类机床",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "ce59084e7b1x",
-          "name": "各类模组",
-          "base": "各类模组",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "ce69cbae6a2",
-          "name": "机械配件",
-          "base": "机械配件",
-          "aliases": [],
-          "stages": [
-            "source",
-            "logistics",
-            "settlement"
-          ]
-        },
-        {
-          "id": "ce699bae883x",
-          "name": "智能消防系统",
-          "base": "智能消防系统",
-          "aliases": [],
-          "stages": [
-            "source",
-            "logistics"
-          ]
-        },
-        {
-          "id": "ce794b5e58ax",
-          "name": "电动车控制器",
-          "base": "电动车控制器",
-          "aliases": [],
-          "stages": []
         }
       ]
     },

@@ -6,11 +6,13 @@ import ScopeMap from "../components/ScopeMap.astro";
 import RulerNav from "../components/RulerNav.astro";
 import Thresholds from "../components/Thresholds.astro";
 import CooperationFlow from "../components/CooperationFlow.astro";
+import AboutUs from "../components/AboutUs.astro";
+import ContactUs from "../components/ContactUs.astro";
 import { catalog } from "../data/catalog";
 
 const { categories, chains } = catalog.totals;
 
-/** 章节刻度：4 个主刻度 + 结果区 16 个品类子刻度 + 准入门槛 + 合作流程。 */
+/** 章节刻度：8 个主刻度 + 结果区 20 个品类子刻度。 */
 const rulerItems = [
   { id: "hero", label: "总览" },
   { id: "tools", label: "检索" },
@@ -19,6 +21,8 @@ const rulerItems = [
   ...catalog.categories.map((c) => ({ id: `group-${c.id}`, label: c.name, level: 2 as const })),
   { id: "thresholds", label: "准入门槛" },
   { id: "flow", label: "合作流程" },
+  { id: "about", label: "关于我们" },
+  { id: "contact", label: "联系我们" },
 ];
 ---
 
@@ -104,6 +108,8 @@ const rulerItems = [
 
     <Thresholds />
     <CooperationFlow />
+    <AboutUs />
+    <ContactUs />
   </main>
 
   <Footer />
@@ -114,4 +120,5 @@ const rulerItems = [
   import "../scripts/nav";
   import "../scripts/inline";
   import "../scripts/ruler";
+  import "../scripts/copy";
 </script>

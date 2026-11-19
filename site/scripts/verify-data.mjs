@@ -16,7 +16,6 @@ const problems = [];
 const fail = (msg) => problems.push(msg);
 
 const ID_RE = /^[a-z0-9-]+$/;
-const chainNames = new Set();
 const chainIds = new Set();
 const categoryIds = new Set();
 
@@ -35,20 +34,27 @@ for (const cat of catalog.categories ?? []) {
     continue;
   }
 
+  const namesInCategory = new Set();
   for (const ch of cat.chains) {
     if (!ID_RE.test(ch.id ?? "")) fail(`链条 id 非法: ${ch.id}`);
     if (chainIds.has(ch.id)) fail(`链条 id 重复: ${ch.id}`);
     chainIds.add(ch.id);
 
     if (!ch.name) fail(`链条缺名称: ${ch.id}`);
+    if (ch.name === "机器人零部件") fail("机器人零部件已按要求删除");
     if (ch.name?.includes("·链条")) fail(`链条名不应带「·链条」后缀: ${ch.name}`);
     if (ch.name !== ch.base) fail(`链条 name 与 base 不一致: ${ch.name}`);
-    if (chainNames.has(ch.name)) fail(`链条名重复: ${ch.name}`);
-    chainNames.add(ch.name);
+    if (namesInCategory.has(ch.name)) fail(`同一品类内链条名重复: ${cat.id}/${ch.name}`);
+    namesInCategory.add(ch.name);
 
     if (!Array.isArray(ch.aliases)) fail(`链条别名必须是数组: ${ch.name}`);
     if (!Array.isArray(ch.stages)) fail(`链条环节必须是数组: ${ch.name}`);
   }
+}
+
+const FIRST_CATEGORIES = ["机器人", "无人机", "科技链条", "可变品", "可定制"];
+if (catalog.categories.slice(0, 5).map((c) => c.name).join("|") !== FIRST_CATEGORIES.join("|")) {
+  fail("前五个品类顺序应为机器人、无人机、科技链条、可变品、可定制");
 }
 
 const total = [...chainIds].length;

@@ -7,7 +7,7 @@ import { catalog } from "../data/catalog";
 
 const { chains } = catalog.totals;
 
-/** 章节刻度：标题区 + 16 个品类，均为大格。 */
+/** 章节刻度：标题区 + 20 个品类，均为大格。 */
 const rulerItems = [
   { id: "catalog-head", label: "目录" },
   ...catalog.categories.map((c) => ({ id: `group-${c.id}`, label: c.name })),

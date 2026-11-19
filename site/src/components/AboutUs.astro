@@ -1,0 +1,20 @@
+---
+const copy = [
+  "云启科技集团是一家以数字技术为核心驱动力的综合型科技集团，专注于数字供应链、智能科技平台和企业级融资解决方案。集团围绕“打造数字商业基础设施”的战略愿景，构建覆盖研发、供应链、科技申报、资产处置的完整生态企业陪跑业务，以技术创新推动数字经济的持续发展。",
+  "“让数据产生价值”不仅是集团口号，更是我们的战略底色：以技术为核心赋能产业、以数字化能力重塑商业模式、以创新驱动企业增长。",
+];
+---
+
+<section class="rail-section about-section" id="about" aria-labelledby="about-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-heading" id="about-title">关于我们</h2>
+    </div>
+
+    <div class="about-body">
+      <p class="about-kicker">让数据产生价值</p>
+      {copy.map((paragraph) => <p class="about-copy">{paragraph}</p>)}
+      <p class="about-entities">集团下辖数据公司、财经MCN公司、知识产权公司、业务公司、资产处置公司</p>
+    </div>
+  </div>
+</section>

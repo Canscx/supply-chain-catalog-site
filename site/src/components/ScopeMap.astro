@@ -3,22 +3,32 @@ import { catalog } from "../data/catalog";
 
 const { chains } = catalog.totals;
 const VISIBLE = 8;
+const FEATURED_COUNT = 5;
 ---
 
 <section class="scope" id="scope" data-scope>
   <div class="wrap">
-    <div class="scope-head">
-      <h2 class="scope-title">业务范围</h2>
-      <span class="scope-note">点品类直接筛选</span>
+    <div class="section-head">
+      <h2 class="section-heading">业务范围</h2>
+      <span class="section-note">点品类直接筛选</span>
     </div>
 
     <div class="scope-grid" data-scope-grid data-expanded="false">
       {
-        catalog.categories.map((cat) => {
+        catalog.categories.map((cat, index) => {
           const samples = cat.chains.slice(0, 2).map((c) => c.base).join("、");
+          const featured = index < FEATURED_COUNT;
           return (
-            <button class="scope-cell" type="button" data-scope-cat={cat.id}>
-              <span class="scope-name">{cat.name}</span>
+            <button
+              class={featured ? "scope-cell scope-cell--featured" : "scope-cell"}
+              type="button"
+              data-scope-cat={cat.id}
+              data-featured={featured ? "true" : "false"}
+            >
+              <span class="scope-name">
+                {cat.name}
+                {featured && <span class="scope-badge">主推</span>}
+              </span>
               <span class="scope-n">{cat.chains.length} 条</span>
               <span class="scope-samples">{samples}</span>
             </button>

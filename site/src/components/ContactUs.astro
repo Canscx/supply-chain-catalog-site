@@ -1,0 +1,75 @@
+---
+const offices = [
+  {
+    company: "杭州澎湃云启科技有限公司",
+    address: "浙江省杭州市滨江区中赢星海B座2006",
+  },
+  {
+    company: "云启智投（杭州）企业管理有限公司",
+    address: "浙江省杭州市临平区南苑街道新远金座2幢601室",
+  },
+  {
+    company: "杭州云启申报科技有限公司",
+    address: "浙江省杭州市滨江区中赢星海B座2203",
+  },
+  {
+    company: "云启资产投资管理（湖北）有限公司",
+    address: "湖北省武汉市武昌区水果湖街K3第1幢13层9号",
+  },
+];
+---
+
+<section class="rail-section contact-section" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-heading" id="contact-title">联系我们</h2>
+    </div>
+
+    <div class="contact-list">
+      {
+        offices.map((office) => (
+          <address class="contact-item">
+            <dl class="contact-record">
+              <div class="contact-row">
+                <dt>公司：</dt>
+                <dd>
+                  <button
+                    class="contact-copy"
+                    type="button"
+                    data-copy-value={office.company}
+                    data-copy-kind="公司名称"
+                    aria-label={`复制公司名称：${office.company}`}
+                    title="点击复制公司名称"
+                  >
+                    <span>{office.company}</span>
+                    <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M5.5 15V5.5a2 2 0 0 1 2-2H15"/></svg>
+                    <svg class="copy-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>
+                  </button>
+                </dd>
+              </div>
+              <div class="contact-row">
+                <dt>地址：</dt>
+                <dd>
+                  <button
+                    class="contact-copy"
+                    type="button"
+                    data-copy-value={office.address}
+                    data-copy-kind="地址"
+                    aria-label={`复制地址：${office.address}`}
+                    title="点击复制地址"
+                  >
+                    <span>{office.address}</span>
+                    <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M5.5 15V5.5a2 2 0 0 1 2-2H15"/></svg>
+                    <svg class="copy-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>
+                  </button>
+                </dd>
+              </div>
+            </dl>
+          </address>
+        ))
+      }
+    </div>
+
+    <div class="copy-toast" data-copy-toast role="status" aria-live="polite" aria-atomic="true"></div>
+  </div>
+</section>
