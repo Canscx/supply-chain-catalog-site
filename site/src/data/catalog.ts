@@ -15,6 +15,8 @@ export interface Chain {
 export interface Category {
   id: string;
   name: string;
+  /** 业务范围展示用的装饰性 emoji，不参与检索。 */
+  emoji: string;
   chains: Chain[];
 }
 

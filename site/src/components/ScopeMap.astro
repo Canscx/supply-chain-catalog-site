@@ -26,6 +26,7 @@ const FEATURED_COUNT = FEATURED_CATEGORY_COUNT;
               data-featured={featured ? "true" : "false"}
             >
               <span class="scope-name">
+                <span class="scope-emoji" aria-hidden="true">{cat.emoji}</span>
                 {cat.name}
                 {featured && <span class="scope-badge">主推</span>}
               </span>

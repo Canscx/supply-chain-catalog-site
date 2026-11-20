@@ -17,6 +17,9 @@ if (root) {
   const emptyEl = root.querySelector<HTMLElement>("[data-empty]");
 
   const catIds = new Set(groups.map((g) => g.dataset.group!));
+  const catNames = new Map(
+    groups.map((g) => [g.dataset.group!, g.querySelector(".group-name")?.textContent?.trim() ?? ""])
+  );
 
   let state: { cat: string; q: string } = { cat: "all", q: "" };
 
@@ -51,7 +54,8 @@ if (root) {
         aliases: (a.dataset.alias ?? "").split(" ").filter(Boolean),
       }));
 
-      const hits = nq
+      const catHit = Boolean(nq) && normalize(catNames.get(id) ?? "").includes(nq);
+      const hits = nq && !catHit
         ? items.filter((it) => normalize(`${it.name} ${it.aliases.join(" ")} 链条`).includes(nq))
         : items;
 

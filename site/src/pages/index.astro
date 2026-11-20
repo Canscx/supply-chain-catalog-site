@@ -12,13 +12,10 @@ import { catalog } from "../data/catalog";
 
 const { categories, chains } = catalog.totals;
 
-/** 章节刻度：8 个主刻度 + 结果区 20 个品类子刻度。 */
+/** 章节刻度：只保留六个主刻度。 */
 const rulerItems = [
   { id: "hero", label: "总览" },
-  { id: "tools", label: "检索" },
   { id: "scope", label: "业务范围" },
-  { id: "results", label: "结果" },
-  ...catalog.categories.map((c) => ({ id: `group-${c.id}`, label: c.name, level: 2 as const })),
   { id: "thresholds", label: "准入门槛" },
   { id: "flow", label: "合作流程" },
   { id: "about", label: "关于我们" },
@@ -43,6 +40,17 @@ const rulerItems = [
           <span><b>{chains}</b> 条产品链条</span>
         </div>
         <h1 class="display"><span class="display-line-1">企业陪跑俱乐部，</span><br /><span class="display-line-2"><span class="display-hi">100+</span>源头供应链</span></h1>
+
+        <div class="hero-actions hero-actions--cta">
+          <a class="hero-cta" href="https://zjtx.peipaoclub.com/" target="_blank" rel="noopener noreferrer">
+            <span>专精特新自评入口</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="hero-cta" href="https://xjr.peipaoclub.com/" target="_blank" rel="noopener noreferrer">
+            <span>小巨人自评入口</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -74,6 +82,7 @@ const rulerItems = [
               <section class="group" id={`group-${cat.id}`} data-group={cat.id} data-cat-name={cat.name} data-open={i === 0 ? "true" : "false"}>
                 <button class="group-toggle" type="button" aria-expanded={i === 0 ? "true" : "false"}>
                   <span class="group-title">
+                    <span class="group-emoji" aria-hidden="true">{cat.emoji}</span>
                     <span class="group-name">{cat.name}</span>
                     <span class="group-n">{cat.chains.length}</span>
                   </span>

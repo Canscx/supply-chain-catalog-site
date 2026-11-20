@@ -183,6 +183,51 @@
 }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; margin-top: 26px; }
 
+/* 自评入口：标题下的两枚主题色胶囊 */
+.hero-actions--cta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, max-content));
+  justify-content: start;
+  gap: 12px;
+  margin-top: clamp(24px, 3.2vw, 34px);
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  min-width: 218px;
+  min-height: 50px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--page);
+  font-size: 0.9375rem;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  transition: background-color 160ms var(--ease-out-quart), transform 160ms var(--ease-out-quart);
+}
+.hero-cta:hover { background: var(--accent-deep); transform: translateY(-1px); }
+.hero-cta:active { transform: none; }
+.hero-cta:focus-visible { border-radius: 999px; }
+.hero-cta svg {
+  width: 17px;
+  height: 17px;
+  flex: none;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 160ms var(--ease-out-quart);
+}
+.hero-cta:hover svg { transform: translateX(2px); }
+@media (max-width: 559px) {
+  .hero-actions--cta { grid-template-columns: 1fr; }
+  .hero-cta { width: 100%; min-width: 0; min-height: 48px; padding-inline: 20px; }
+}
+
 /* 首屏大标题里的数字用主强调色，和元信息里的统计同色系 */
 .display-hi { color: var(--accent); }
 
@@ -507,6 +552,13 @@
 }
 .group-toggle:disabled { cursor: default; }
 .group-title { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.group-emoji {
+  flex: none;
+  margin-inline-end: -2px;
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 1rem;
+  line-height: 1;
+}
 .group-name { font-size: 1rem; font-weight: 650; letter-spacing: -0.01em; }
 .group-n { font-family: var(--font-num); font-size: 0.75rem; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
 .group-chev {
@@ -701,6 +753,12 @@
   background: color-mix(in srgb, var(--accent-soft) 52%, var(--sunken));
 }
 .scope-name { font-size: 0.875rem; font-weight: 600; letter-spacing: -0.006em; line-height: 1.35; min-width: 0; }
+.scope-emoji {
+  margin-inline-end: 5px;
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 1.1em;
+  line-height: 1;
+}
 .scope-badge {
   display: inline-flex;
   align-items: center;
@@ -726,13 +784,20 @@
   background: var(--accent);
   opacity: 0.7;
 }
-@media (max-width: 379px) {
+@media (max-width: 389px) {
+  .scope-name { display: block; font-size: 0.8125rem; }
+  .scope-emoji { margin-inline-end: 3px; }
   .scope-badge {
-    margin-inline-start: 4px;
+    margin-inline-start: 0;
+    margin-top: 3px;
     padding: 0 4px;
     gap: 3px;
     font-size: 0.5625rem;
   }
+}
+@media (max-width: 339px) {
+  .scope-name { font-size: 0.75rem; }
+  .scope-emoji { margin-inline-end: 2px; font-size: 1em; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .scope-badge::before { animation: scope-badge-pulse 2.8s ease-in-out infinite; }

@@ -86,6 +86,7 @@ const rulerItems = [
                 <section class="group" id={`group-${cat.id}`} data-group={cat.id} data-open="false">
                   <button class="group-toggle" type="button" aria-expanded="false">
                     <span class="group-title">
+                      <span class="group-emoji" aria-hidden="true">{cat.emoji}</span>
                       <span class="group-name">{cat.name}</span>
                       <span class="group-n">{cat.chains.length}</span>
                     </span>

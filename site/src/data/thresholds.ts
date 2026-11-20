@@ -30,9 +30,3 @@ export interface Thresholds {
 }
 
 export const thresholds = raw as Thresholds;
-
-/** 全部材料条数，用于区块导语。 */
-export const thresholdItemCount = thresholds.sections.reduce(
-  (total, section) => total + section.items.length,
-  0
-);

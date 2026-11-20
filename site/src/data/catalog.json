@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-19",
+  "version": "2026-11-20",
   "totals": {
     "chains": 144,
     "categories": 20
@@ -26,6 +26,7 @@
     {
       "id": "robot",
       "name": "机器人",
+      "emoji": "🤖",
       "chains": [
         {
           "id": "ce69cbae599x",
@@ -45,6 +46,7 @@
     {
       "id": "drone",
       "name": "无人机",
+      "emoji": "🛸",
       "chains": [
         {
           "id": "ce697a0e4ba",
@@ -60,6 +62,7 @@
     {
       "id": "tech",
       "name": "科技链条",
+      "emoji": "⚙️",
       "chains": [
         {
           "id": "robot-tech",
@@ -122,11 +125,12 @@
     {
       "id": "variable",
       "name": "可变品",
+      "emoji": "🧩",
       "chains": [
         {
           "id": "c8ac822ee20",
-          "name": "石墨烯（变品）",
-          "base": "石墨烯（变品）",
+          "name": "石墨烯",
+          "base": "石墨烯",
           "aliases": [],
           "stages": [
             "source"
@@ -134,15 +138,15 @@
         },
         {
           "id": "c84fb09b564",
-          "name": "金属制品（变品）",
-          "base": "金属制品（变品）",
+          "name": "金属制品",
+          "base": "金属制品",
           "aliases": [],
           "stages": []
         },
         {
           "id": "c15cf4a407f",
-          "name": "机械配件（变品）",
-          "base": "机械配件（变品）",
+          "name": "机械配件",
+          "base": "机械配件",
           "aliases": [],
           "stages": [
             "source",
@@ -152,8 +156,8 @@
         },
         {
           "id": "c60f6631f12",
-          "name": "五金制品（变品）",
-          "base": "五金制品（变品）",
+          "name": "五金制品",
+          "base": "五金制品",
           "aliases": [],
           "stages": [
             "source"
@@ -161,8 +165,8 @@
         },
         {
           "id": "c34c6fc3ce1",
-          "name": "研发技术服务（变品）",
-          "base": "研发技术服务（变品）",
+          "name": "研发技术服务",
+          "base": "研发技术服务",
           "aliases": [
             "研发技术",
             "技术研发"
@@ -174,8 +178,8 @@
         },
         {
           "id": "ce53e52ec03",
-          "name": "算力服务（变品）",
-          "base": "算力服务（变品）",
+          "name": "算力服务",
+          "base": "算力服务",
           "aliases": [
             "算力服务"
           ],
@@ -183,8 +187,8 @@
         },
         {
           "id": "c1c06d8ca49",
-          "name": "PCB电路板（变品）",
-          "base": "PCB电路板（变品）",
+          "name": "PCB电路板",
+          "base": "PCB电路板",
           "aliases": [
             "PCB板",
             "电子PCB板"
@@ -193,15 +197,15 @@
         },
         {
           "id": "c08c6bf2bed",
-          "name": "软件硬件集成（变品）",
-          "base": "软件硬件集成（变品）",
+          "name": "软件硬件集成",
+          "base": "软件硬件集成",
           "aliases": [],
           "stages": []
         },
         {
           "id": "cb31629357d",
-          "name": "智能消防系统（变品）",
-          "base": "智能消防系统（变品）",
+          "name": "智能消防系统",
+          "base": "智能消防系统",
           "aliases": [],
           "stages": [
             "source",
@@ -210,29 +214,29 @@
         },
         {
           "id": "c835b496ef3",
-          "name": "新能源充电器（变品）",
-          "base": "新能源充电器（变品）",
+          "name": "新能源充电器",
+          "base": "新能源充电器",
           "aliases": [],
           "stages": []
         },
         {
           "id": "c681a4f3bd8",
-          "name": "电动车控制器（变品）",
-          "base": "电动车控制器（变品）",
+          "name": "电动车控制器",
+          "base": "电动车控制器",
           "aliases": [],
           "stages": []
         },
         {
           "id": "c3a56dadb0b",
-          "name": "安防（变品）",
-          "base": "安防（变品）",
+          "name": "安防",
+          "base": "安防",
           "aliases": [],
           "stages": []
         },
         {
           "id": "c990bf2c17c",
-          "name": "锂电池（变品）",
-          "base": "锂电池（变品）",
+          "name": "锂电池",
+          "base": "锂电池",
           "aliases": [],
           "stages": [
             "source",
@@ -241,8 +245,8 @@
         },
         {
           "id": "c2d131db4d9",
-          "name": "PET膜（变品）",
-          "base": "PET膜（变品）",
+          "name": "PET膜",
+          "base": "PET膜",
           "aliases": [],
           "stages": [
             "source",
@@ -253,22 +257,22 @@
         },
         {
           "id": "c242152bb60",
-          "name": "无缝钢管（变品）",
-          "base": "无缝钢管（变品）",
+          "name": "无缝钢管",
+          "base": "无缝钢管",
           "aliases": [],
           "stages": []
         },
         {
           "id": "cdb975524d7",
-          "name": "金属配件（变品）",
-          "base": "金属配件（变品）",
+          "name": "金属配件",
+          "base": "金属配件",
           "aliases": [],
           "stages": []
         },
         {
           "id": "c1459130e7a",
-          "name": "工业机器人（变品）",
-          "base": "工业机器人（变品）",
+          "name": "工业机器人",
+          "base": "工业机器人",
           "aliases": [],
           "stages": []
         }
@@ -277,11 +281,12 @@
     {
       "id": "custom",
       "name": "可定制",
+      "emoji": "🛠️",
       "chains": [
         {
           "id": "c78c4fdec6d",
-          "name": "石墨烯（定制）",
-          "base": "石墨烯（定制）",
+          "name": "石墨烯",
+          "base": "石墨烯",
           "aliases": [],
           "stages": [
             "source"
@@ -298,29 +303,29 @@
         },
         {
           "id": "c466df15f8d",
-          "name": "软件硬件集成（定制）",
-          "base": "软件硬件集成（定制）",
+          "name": "软件硬件集成",
+          "base": "软件硬件集成",
           "aliases": [],
           "stages": []
         },
         {
           "id": "cd862c1d15a",
-          "name": "工业机器人（定制）",
-          "base": "工业机器人（定制）",
+          "name": "工业机器人",
+          "base": "工业机器人",
           "aliases": [],
           "stages": []
         },
         {
           "id": "c0e1d10a7c6",
-          "name": "安防（定制）",
-          "base": "安防（定制）",
+          "name": "安防",
+          "base": "安防",
           "aliases": [],
           "stages": []
         },
         {
           "id": "cf5b32d8288",
-          "name": "锂电池（定制）",
-          "base": "锂电池（定制）",
+          "name": "锂电池",
+          "base": "锂电池",
           "aliases": [],
           "stages": [
             "source",
@@ -329,8 +334,8 @@
         },
         {
           "id": "c9ae1e3f423",
-          "name": "PET膜（定制）",
-          "base": "PET膜（定制）",
+          "name": "PET膜",
+          "base": "PET膜",
           "aliases": [],
           "stages": [
             "source",
@@ -341,22 +346,22 @@
         },
         {
           "id": "cfb081a508a",
-          "name": "研发中标（定制）",
-          "base": "研发中标（定制）",
+          "name": "研发中标",
+          "base": "研发中标",
           "aliases": [],
           "stages": []
         },
         {
           "id": "cffeb13fbaf",
-          "name": "钢材（定制）",
-          "base": "钢材（定制）",
+          "name": "钢材",
+          "base": "钢材",
           "aliases": [],
           "stages": []
         },
         {
           "id": "cebc65cc88a",
-          "name": "铜杆（定制）",
-          "base": "铜杆（定制）",
+          "name": "铜杆",
+          "base": "铜杆",
           "aliases": [],
           "stages": [
             "source",
@@ -367,15 +372,15 @@
         },
         {
           "id": "c9f8c843e20",
-          "name": "塑料粒子（定制）",
-          "base": "塑料粒子（定制）",
+          "name": "塑料粒子",
+          "base": "塑料粒子",
           "aliases": [],
           "stages": []
         },
         {
           "id": "c8db785e49e",
-          "name": "水管（定制）",
-          "base": "水管（定制）",
+          "name": "水管",
+          "base": "水管",
           "aliases": [],
           "stages": [
             "source",
@@ -385,22 +390,22 @@
         },
         {
           "id": "c3e81629f3c",
-          "name": "电信项目（定制）",
-          "base": "电信项目（定制）",
+          "name": "电信项目",
+          "base": "电信项目",
           "aliases": [],
           "stages": []
         },
         {
           "id": "cbf8bc3caae",
-          "name": "移动项目（定制）",
-          "base": "移动项目（定制）",
+          "name": "移动项目",
+          "base": "移动项目",
           "aliases": [],
           "stages": []
         },
         {
           "id": "c26cf566253",
-          "name": "停车场项目（定制）",
-          "base": "停车场项目（定制）",
+          "name": "停车场项目",
+          "base": "停车场项目",
           "aliases": [],
           "stages": []
         }
@@ -409,6 +414,7 @@
     {
       "id": "agri",
       "name": "农副产品",
+      "emoji": "🌾",
       "chains": [
         {
           "id": "ce8b186e7b2",
@@ -588,6 +594,7 @@
     {
       "id": "electronics",
       "name": "电子产品",
+      "emoji": "🔌",
       "chains": [
         {
           "id": "ce78ebbe792",
@@ -730,6 +737,7 @@
     {
       "id": "chemical",
       "name": "化工产品",
+      "emoji": "🧪",
       "chains": [
         {
           "id": "pe",
@@ -857,6 +865,7 @@
     {
       "id": "metal",
       "name": "金属产品",
+      "emoji": "🔩",
       "chains": [
         {
           "id": "ce794b5e8a7",
@@ -966,6 +975,7 @@
     {
       "id": "energy",
       "name": "新能源",
+      "emoji": "🔋",
       "chains": [
         {
           "id": "ce58589e4bc",
@@ -1049,6 +1059,7 @@
     {
       "id": "textile",
       "name": "纺织品",
+      "emoji": "🧵",
       "chains": [
         {
           "id": "ce6a389e7ba",
@@ -1114,6 +1125,7 @@
     {
       "id": "medical",
       "name": "医疗与药材",
+      "emoji": "💊",
       "chains": [
         {
           "id": "ce58cbbe796",
@@ -1167,6 +1179,7 @@
     {
       "id": "hardware",
       "name": "五金制品",
+      "emoji": "🔧",
       "chains": [
         {
           "id": "ce4ba94e987",
@@ -1221,6 +1234,7 @@
     {
       "id": "paper",
       "name": "纸制品",
+      "emoji": "📄",
       "chains": [
         {
           "id": "ce7bab8e6b5",
@@ -1264,6 +1278,7 @@
     {
       "id": "material",
       "name": "新材料",
+      "emoji": "🧱",
       "chains": [
         {
           "id": "ce6b0a7e58c",
@@ -1298,6 +1313,7 @@
     {
       "id": "household",
       "name": "家电与日用",
+      "emoji": "🏠",
       "chains": [
         {
           "id": "ce5aeb6e794",
@@ -1330,6 +1346,7 @@
     {
       "id": "wood",
       "name": "木制品",
+      "emoji": "🪵",
       "chains": [
         {
           "id": "ce69ca8e69d",
@@ -1365,6 +1382,7 @@
     {
       "id": "service",
       "name": "技术服务",
+      "emoji": "🧑‍💻",
       "chains": [
         {
           "id": "ce7a094e58f",
@@ -1395,6 +1413,7 @@
     {
       "id": "building",
       "name": "建材",
+      "emoji": "🏗️",
       "chains": [
         {
           "id": "ce7a082e79f",
@@ -1417,6 +1436,7 @@
     {
       "id": "auto",
       "name": "汽车与配件",
+      "emoji": "🚗",
       "chains": [
         {
           "id": "ce6b1bde8bd",

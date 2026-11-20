@@ -18,6 +18,7 @@ const fail = (msg) => problems.push(msg);
 const ID_RE = /^[a-z0-9-]+$/;
 const chainIds = new Set();
 const categoryIds = new Set();
+const categoryEmoji = new Map();
 
 if (!Array.isArray(catalog.categories) || catalog.categories.length === 0) {
   fail("categories 必须是非空数组");
@@ -29,6 +30,15 @@ for (const cat of catalog.categories ?? []) {
   categoryIds.add(cat.id);
 
   if (!cat.name) fail(`品类缺名称: ${cat.id}`);
+
+  if (typeof cat.emoji !== "string" || !cat.emoji.trim()) {
+    fail(`品类缺 emoji: ${cat.id}`);
+  } else if (categoryEmoji.has(cat.emoji)) {
+    fail(`品类 emoji 重复: ${cat.id} / ${categoryEmoji.get(cat.emoji)}`);
+  } else {
+    categoryEmoji.set(cat.emoji, cat.id);
+  }
+
   if (!Array.isArray(cat.chains) || cat.chains.length === 0) {
     fail(`品类无链条: ${cat.id}`);
     continue;
