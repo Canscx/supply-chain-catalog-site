@@ -38,7 +38,7 @@ npm run preview    # 预览构建产物（只预览静态页面，不执行 PHP�
 | 不用 React/Next | 全站只有「主题切换 + 筛选 + 折叠」三处交互，不值得背一个 hydration 运行时 | — |
 | 不用 Tailwind | 需要对 OKLCH 色板、双主题、排版层级精确控制，手写自定义属性更直接 | — |
 
-构建后 JS 总量约 19.8KB（未压缩）：首页主包 6.5KB、目录主包 3.4KB、咨询弹窗共用 9.8KB。
+构建后 JS 总量约 22.4KB（未压缩）：首页主包 7.1KB、目录主包 3.6KB、咨询弹窗共用 11.8KB。
 
 ## 目录结构
 
@@ -48,7 +48,8 @@ site/
     pages/index.astro        首页
     pages/catalog.astro      产品链条目录
     layouts/Base.astro       head / 主题引导 / skip link
-    components/              Nav、Footer、ScopeMap、Thresholds、CooperationFlow、AboutUs、ContactUs、ConsultWidget
+    config.ts                搜索框显示开关
+    components/              Nav、Footer、ScopeMap、Thresholds、CooperationFlow、AboutUs、ContactUs、ConsultWidget、SiteBackdrop
     data/catalog.json        链条数据
     data/catalog.ts          类型与检索工具
     data/thresholds.json     准入门槛数据
@@ -63,6 +64,7 @@ site/
     scripts/catalog.ts       目录页筛选与高亮
     scripts/copy.ts          联系方式点击复制
     scripts/consult.ts       我要合作弹窗与提交
+    scripts/reveal.ts       滚动显现（IntersectionObserver）
   scripts/verify-data.mjs    构建前数据自检
   public/                    favicon、robots.txt
   public/api/consult.php     咨询提交接口
@@ -74,6 +76,8 @@ site/
 ## 数据格式
 
 链条数据只改 `site/src/data/catalog.json`，准入门槛只改 `site/src/data/thresholds.json`，然后 `npm run check && npm run build`。
+
+搜索框当前由 `site/src/config.ts` 的 `SEARCH_VISIBLE` 控制，默认 `false` 隐藏；搜索 DOM、`inline.ts`/`catalog.ts` 逻辑与 `?q=` 深链都保留，改回 `true` 即可恢复。
 
 ```json
 {
@@ -113,7 +117,7 @@ site/
 
 ## 咨询表单与企微通知
 
-首页和目录页的「我要合作」入口会打开咨询弹窗。提交后：
+首页和目录页的「我要合作」入口会打开咨询弹窗。弹窗只响应右上角关闭按钮（成功面板的「关闭」按钮也可关闭），点击遮罩或按 ESC 不会关闭；未提交的填写内容会以草稿形式保存在本机浏览器（7 天），提交成功后清除。提交后：
 
 1. `api/consult.php` 校验字段；
 2. 追加写入 `consult-data/consultations.csv`（UTF-8 BOM，Excel 可直接打开）；
@@ -149,13 +153,13 @@ site/
 
 自动化检查（Chrome 无头 + CDP 驱动），覆盖四块：
 
-**首页 32 项**：搜索栏 → 业务范围 → 结果行的 DOM 顺序；点品类后只剩该品类、计数正确、块收成一行、结果行不被吸附层遮挡；「换品类」展开后筛选不变；重复点同一品类幂等；搜索与品类取交集；清空筛选回到默认折叠态；深链还原；未知 category 回落全部；手机端默认折叠 8 个 + 展开按钮；桌面 4 行 21 格全可见；关于我们/联系我们内容与公司地址；公司名和地址点击复制及提示；五个区块标题居中且 19px；两个自评入口位置与链接；20 个品类 emoji；四档宽度无横向溢出；移动端触控 ≥44px。
+**首页 33 项**：搜索栏 → 业务范围 → 结果行的 DOM 顺序；点品类后只剩该品类、计数正确、块收成一行、结果行不被吸附层遮挡；「换品类」展开后筛选不变；重复点同一品类幂等；搜索与品类取交集；清空筛选回到默认折叠态；深链还原；未知 category 回落全部；手机端默认折叠 8 个 + 展开按钮；桌面 4 行 21 格全可见；关于我们/联系我们内容与公司地址；公司名和地址点击复制及提示；五个区块标题居中且 19px；两个自评入口位置与链接；20 个品类 emoji；四档宽度无横向溢出；移动端触控 ≥44px。
 
 **目录页 23 项**：三种分隔符写法各只命中 1 条；别名检索生效；无匹配空态；清空关键词保留分类；清空筛选回默认折叠；默认浅色、切换后跨页与刷新保持、禁用存储仍可当页切换；键盘 Tab 顺序完整；所有 button 有可读名称；表单有 label；每页一个 h1；`lang=zh-CN`；`prefers-reduced-motion` 生效。
 
 **发布包**：无 source map、无原始资料、无敏感字段；api 目录只包含接口文件、`.htaccess`、CA 证书与空配置模板，不包含 `config.php` 与 CSV。
 
-**咨询表单 21 项**：两页入口、桌面悬浮胶囊/手机底部条、6 个品类胶囊、选中同步、定制展开、空表单错误、合法提交成功、ESC/遮罩/关闭按钮、关闭后状态恢复、深色主题、无横向溢出。
+**咨询表单 25 项**：两页入口、桌面悬浮胶囊/手机底部条、6 个品类胶囊、选中同步、定制展开、主题色圆形关闭按钮、右上角关闭、遮罩不关闭、ESC 不关闭、关闭/刷新后恢复本机草稿、空表单错误、合法提交成功、提交后清除草稿并重置、深色主题、无横向溢出。
 
 ## 浏览器支持
 

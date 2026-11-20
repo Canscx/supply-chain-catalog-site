@@ -9,6 +9,7 @@ import CooperationFlow from "../components/CooperationFlow.astro";
 import AboutUs from "../components/AboutUs.astro";
 import ContactUs from "../components/ContactUs.astro";
 import { catalog } from "../data/catalog";
+import { SEARCH_VISIBLE } from "../config";
 
 const { categories, chains } = catalog.totals;
 
@@ -29,7 +30,7 @@ const rulerItems = [
 >
   <Nav current="home" />
 
-  <RulerNav items={rulerItems} belowTools />
+  <RulerNav items={rulerItems} belowTools={SEARCH_VISIBLE} />
 
   <main id="main" data-inline>
     <section class="hero" id="hero">
@@ -39,7 +40,7 @@ const rulerItems = [
           <span aria-hidden="true">·</span>
           <span><b>{chains}</b> 条产品链条</span>
         </div>
-        <h1 class="display"><span class="display-line-1">企业陪跑俱乐部，</span><br /><span class="display-line-2"><span class="display-hi">100+</span>源头供应链</span></h1>
+        <h1 class="display"><span class="display-line-1">企业陪跑俱乐部，</span><br /><span class="display-line-2"><span class="display-hi" data-count-up data-target="100">100+</span>源头供应链</span></h1>
 
         <div class="hero-actions hero-actions--cta">
           <a class="hero-cta" href="https://zjtx.peipaoclub.com/" target="_blank" rel="noopener noreferrer">
@@ -71,7 +72,7 @@ const rulerItems = [
 
     <section class="rail-section" id="results">
       <div class="wrap">
-        <div class="results-bar" data-anchor tabindex="-1">
+        <div class="results-bar" data-anchor tabindex="-1" data-reveal>
           <span class="results-count" data-count></span>
           <button class="reset-btn" type="button" data-reset hidden>清空筛选</button>
         </div>
@@ -129,6 +130,7 @@ const rulerItems = [
   import "../scripts/nav";
   import "../scripts/inline";
   import "../scripts/ruler";
+  import "../scripts/reveal";
   import "../scripts/copy";
   import "../scripts/consult";
 </script>

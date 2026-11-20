@@ -8,12 +8,12 @@ const FEATURED_COUNT = FEATURED_CATEGORY_COUNT;
 
 <section class="scope" id="scope" data-scope>
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head" data-reveal>
       <h2 class="section-heading">业务范围</h2>
       <span class="section-note">点品类直接筛选</span>
     </div>
 
-    <div class="scope-grid" data-scope-grid data-expanded="false">
+    <div class="scope-grid" data-scope-grid data-expanded="false" data-reveal>
       {
         catalog.categories.map((cat, index) => {
           const samples = cat.chains.slice(0, 2).map((c) => c.base).join("、");
@@ -43,7 +43,7 @@ const FEATURED_COUNT = FEATURED_CATEGORY_COUNT;
       </button>
     </div>
 
-    <div class="scope-more-wrap">
+    <div class="scope-more-wrap" data-reveal>
       <button class="scope-more" type="button" data-scope-more aria-expanded="false">
         <span data-scope-more-label>展开全部 {catalog.categories.length} 个品类</span>
         <svg class="scope-more-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 6 6-6"/></svg>

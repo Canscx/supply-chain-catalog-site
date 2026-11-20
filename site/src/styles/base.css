@@ -84,7 +84,7 @@ img, svg { display: block; max-width: 100%; }
 }
 .skip:focus { transform: none; }
 
-/* ---------- 背景层：轻网格 / 流动光晕 ---------- */
+/* ---------- 背景层：轻网格 / 噪点 ---------- */
 .site-bg {
   position: fixed;
   inset: 0;
@@ -103,34 +103,9 @@ img, svg { display: block; max-width: 100%; }
     linear-gradient(to right, var(--bg-grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--bg-grid-line) 1px, transparent 1px);
   background-size: var(--bg-grid-size) var(--bg-grid-size);
-  opacity: 0.48;
-  -webkit-mask-image: radial-gradient(ellipse at top, #000 18%, transparent 70%);
-  mask-image: radial-gradient(ellipse at top, #000 18%, transparent 70%);
-}
-
-.site-bg__glow {
-  position: absolute;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  opacity: 0.8;
-  filter: blur(120px);
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-}
-.site-bg__glow--a {
-  top: -30vh;
-  left: -20vw;
-  width: min(80vw, 980px);
-  background: radial-gradient(circle, var(--bg-glow-accent) 0%, transparent 68%);
-  animation: bg-drift-a 30s ease-in-out infinite alternate;
-}
-.site-bg__glow--b {
-  right: -24vw;
-  bottom: -32vh;
-  width: min(70vw, 860px);
-  opacity: 0.65;
-  background: radial-gradient(circle, var(--bg-glow-brass) 0%, transparent 70%);
-  animation: bg-drift-b 38s ease-in-out infinite alternate;
+  opacity: 0.34;
+  -webkit-mask-image: radial-gradient(ellipse 90% 78% at 50% 0%, #000 8%, transparent 82%);
+  mask-image: radial-gradient(ellipse 90% 78% at 50% 0%, #000 8%, transparent 82%);
 }
 
 .site-bg__noise {
@@ -142,27 +117,35 @@ img, svg { display: block; max-width: 100%; }
   mix-blend-mode: overlay;
 }
 
-@keyframes bg-drift-a {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to { transform: translate3d(4vw, 2.5vh, 0) scale(1.06); }
-}
-@keyframes bg-drift-b {
-  from { transform: translate3d(0, 0, 0) scale(1.02); }
-  to { transform: translate3d(-3.5vw, 2vh, 0) scale(1); }
-}
 main { position: relative; z-index: var(--z-content); }
 
 @media (max-width: 719px) {
   :root { --bg-grid-size: 44px; }
-  .site-bg__grid { opacity: 0.34; }
-  .site-bg__glow { filter: blur(80px); }
-  .site-bg__glow--a { width: 115vw; opacity: 0.55; }
-  .site-bg__glow--b { width: 105vw; opacity: 0.45; }
+  .site-bg__grid { opacity: 0.24; }
   .site-bg__noise { opacity: 0.03; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .site-bg__glow { animation: none !important; }
+/* ---------- 滚动显现 ---------- */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 700ms var(--ease-out-expo), transform 700ms var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
 }
+html.js [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 @media print {
   .site-bg { display: none !important; }
+  html.js [data-reveal] { opacity: 1 !important; transform: none !important; }
 }

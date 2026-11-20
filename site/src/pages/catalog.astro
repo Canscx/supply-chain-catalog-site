@@ -24,7 +24,7 @@ const rulerItems = [
   <RulerNav items={rulerItems} />
 
   <main id="main" data-catalog>
-    <div class="catalog-head" id="catalog-head">
+    <div class="catalog-head" id="catalog-head" data-reveal>
       <div class="wrap">
         <a class="back" href="./index.html">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
@@ -58,7 +58,7 @@ const rulerItems = [
       </div>
     </div>
 
-    <div class="catalog-body">
+    <div class="catalog-body" data-reveal>
       <div class="wrap">
         <div class="catalog-grid">
           <aside class="cat-rail">
@@ -132,5 +132,6 @@ const rulerItems = [
   import "../scripts/nav";
   import "../scripts/catalog";
   import "../scripts/ruler";
+  import "../scripts/reveal";
   import "../scripts/consult";
 </script>

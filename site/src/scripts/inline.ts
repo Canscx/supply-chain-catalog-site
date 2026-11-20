@@ -2,6 +2,40 @@ import { highlightNodes, normalize, scrollBehavior } from "./search";
 
 const root = document.querySelector<HTMLElement>("[data-inline]");
 
+const counter = document.querySelector<HTMLElement>("[data-count-up]");
+
+if (counter) {
+  const target = Number(counter.dataset.target);
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (Number.isFinite(target) && target >= 0) {
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      counter.textContent = `${target}+`;
+    } else {
+      counter.textContent = "0+";
+      const duration = 1400;
+      let startedAt = 0;
+
+      const observer = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+
+        const tick = (now: number) => {
+          if (!startedAt) startedAt = now;
+          const progress = Math.min((now - startedAt) / duration, 1);
+          const eased = 1 - (1 - progress) ** 3;
+          counter.textContent = `${Math.round(target * eased)}+`;
+          if (progress < 1) requestAnimationFrame(tick);
+        };
+
+        requestAnimationFrame(tick);
+      }, { threshold: 0.5 });
+
+      observer.observe(counter);
+    }
+  }
+}
+
 if (root) {
   const search = root.querySelector<HTMLInputElement>("[data-search]");
   const clearBtn = root.querySelector<HTMLButtonElement>("[data-search-clear]");

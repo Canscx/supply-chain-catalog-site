@@ -39,8 +39,6 @@
   /* 背景层：低透明度装饰 */
   --bg-grid-size:   64px;
   --bg-grid-line:   color-mix(in srgb, var(--line) 55%, transparent);
-  --bg-glow-accent: color-mix(in srgb, var(--accent) 14%, transparent);
-  --bg-glow-brass:  color-mix(in srgb, var(--brass) 10%, transparent);
   --bg-noise-opacity: 0.04;
 
   /* 功能色：错误提示 */

@@ -16,7 +16,7 @@ const flowPath = "M125 16 H940 Q956 16 956 32 V116 Q956 132 940 132 H125";
 
 <section class="rail-section flow-section" id="flow" aria-labelledby="flow-title">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head" data-reveal>
       <h2 class="section-heading" id="flow-title">合作流程</h2>
       <span class="section-note">{steps.length} 个步骤</span>
     </div>
@@ -25,7 +25,7 @@ const flowPath = "M125 16 H940 Q956 16 956 32 V116 Q956 132 940 132 H125";
       <ol class="flow">
         {
           steps.map((step, index) => (
-            <li class="flow-step" style={`--flow-index: ${index}`}>
+            <li class="flow-step" data-reveal style={"--flow-index: " + index + "; --reveal-delay: " + index * 55 + "ms"}>
               <span class="flow-num">{String(index + 1).padStart(2, "0")}</span>
               <span class="flow-label">{step}</span>
             </li>

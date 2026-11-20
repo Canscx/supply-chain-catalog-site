@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import ConsultWidget from "../components/ConsultWidget.astro";
 import SiteBackdrop from "../components/SiteBackdrop.astro";
+import { SEARCH_VISIBLE } from "../config";
 
 interface Props {
   title: string;
@@ -10,6 +11,7 @@ interface Props {
   bodyClass?: string;
 }
 const { title, description, bodyClass = "" } = Astro.props;
+const bodyClasses = [bodyClass, !SEARCH_VISIBLE ? "search-off" : ""].filter(Boolean).join(" ");
 ---
 
 <!doctype html>
@@ -24,6 +26,7 @@ const { title, description, bodyClass = "" } = Astro.props;
     <script is:inline>
       // 尽早应用已保存的主题，避免首帧闪白。失败静默回退浅色。
       (function () {
+        document.documentElement.classList.add("js");
         try {
           var t = localStorage.getItem("supply-chain-theme");
           if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
@@ -31,7 +34,7 @@ const { title, description, bodyClass = "" } = Astro.props;
       })();
     </script>
   </head>
-  <body class={bodyClass}>
+  <body class={bodyClasses}>
     <a class="skip" href="#main">跳到主要内容</a>
     <SiteBackdrop />
     <slot />

@@ -4,7 +4,7 @@ import { thresholds } from "../data/thresholds";
 
 <section class="rail-section thresholds" id="thresholds" aria-labelledby="thresholds-title">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head" data-reveal>
       <h2 class="section-heading" id="thresholds-title">准入门槛</h2>
       <span class="section-note">三类链条 · 14 项材料</span>
     </div>
@@ -12,7 +12,7 @@ import { thresholds } from "../data/thresholds";
     <div class="thr-groups">
       {
         thresholds.sections.map((section, index) => (
-          <article class="thr-group">
+          <article class="thr-group" data-reveal style={"--reveal-delay: " + index * 70 + "ms"}>
             <header class="thr-group-head">
               <span class="thr-num" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
               <h3 class="thr-group-title">{section.name}</h3>

@@ -21,14 +21,14 @@ const offices = [
 
 <section class="rail-section contact-section" id="contact" aria-labelledby="contact-title">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head" data-reveal>
       <h2 class="section-heading" id="contact-title">联系我们</h2>
     </div>
 
     <div class="contact-list">
       {
-        offices.map((office) => (
-          <address class="contact-item">
+        offices.map((office, index) => (
+          <address class="contact-item" data-reveal style={"--reveal-delay: " + index * 65 + "ms"}>
             <dl class="contact-record">
               <div class="contact-row">
                 <dt>公司：</dt>

@@ -10,9 +10,9 @@
   height: var(--nav-h);
   display: flex;
   align-items: center;
-  background: color-mix(in srgb, var(--page) 78%, transparent);
-  backdrop-filter: blur(14px) saturate(1.4);
-  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  background: color-mix(in srgb, var(--page) 58%, transparent);
+  backdrop-filter: blur(18px) saturate(1.35);
+  -webkit-backdrop-filter: blur(18px) saturate(1.35);
   border-bottom: 1px solid transparent;
   transition: border-color 200ms var(--ease-out-quart);
 }
@@ -229,7 +229,12 @@
 }
 
 /* 首屏大标题里的数字用主强调色，和元信息里的统计同色系 */
-.display-hi { color: var(--accent); }
+.display-hi {
+  display: inline-block;
+  min-width: 2.2em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
 
 /* ---------- 8. 轴线（全站结构件） ---------- */
 .rail-section { position: relative; padding-block: clamp(36px, 5vw, 64px); }
@@ -679,12 +684,21 @@
   top: var(--nav-h);
   z-index: var(--z-sticky);
   padding-block: 12px;
-  background: color-mix(in srgb, var(--page) 88%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--page) 72%, transparent);
+  backdrop-filter: blur(16px) saturate(1.15);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
   border-bottom: 1px solid var(--line);
 }
 @supports not (backdrop-filter: blur(1px)) { .inline-tools { background: var(--page); } }
+.inline-tools .field input {
+  background: color-mix(in srgb, var(--page) 76%, var(--accent-soft));
+}
+
+/* 搜索框暂时隐藏：DOM、事件与 URL 深链保留，SEARCH_VISIBLE=true 即可恢复 */
+body.search-off .inline-tools,
+body.search-off .catalog-search { display: none !important; }
+body.search-off #results,
+body.search-off [data-anchor] { scroll-margin-block-start: calc(var(--nav-h) + 16px); }
 
 /* 业务范围块：搜索栏下方、结果计数上方 */
 .scope { padding-block: clamp(20px, 3vw, 30px) 0; }
@@ -1557,7 +1571,7 @@ html { scroll-behavior: smooth; }
   content: "";
   position: absolute;
   inset-block-start: -2.5px;
-  inset-inline-start: -7px;
+  inset-inline-start: -3px;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -1685,14 +1699,24 @@ body.consult-open { overflow: hidden; }
   flex: none;
   width: 44px;
   height: 44px;
-  margin-top: -4px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  color: var(--ink-faint);
-  transition: color 140ms var(--ease-out-quart), background-color 140ms var(--ease-out-quart);
+  margin-top: -2px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--page);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+  transition: background-color 150ms var(--ease-out-quart),
+              border-color 150ms var(--ease-out-quart),
+              transform 180ms var(--ease-out-quart);
 }
-.consult-close:hover { color: var(--ink); background: var(--sunken); }
-.consult-close svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; }
+.consult-close:hover {
+  border-color: var(--accent-deep);
+  background: var(--accent-deep);
+  transform: rotate(90deg);
+}
+.consult-close:active { transform: rotate(90deg) scale(0.94); }
+.consult-close:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.consult-close svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 2.3; stroke-linecap: round; }
 
 .consult-form {
   display: grid;

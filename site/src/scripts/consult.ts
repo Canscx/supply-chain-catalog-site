@@ -8,6 +8,20 @@ type ConsultField =
   | "phone"
   | "agree";
 
+type ConsultDraft = {
+  company: string;
+  categories: string;
+  customActive: boolean;
+  customChain: string;
+  demand: string;
+  invoice: string;
+  contact: string;
+  phone: string;
+};
+
+const DRAFT_KEY = "supply-chain-consult-draft:v1";
+const DRAFT_TTL = 7 * 24 * 60 * 60 * 1000;
+
 const dialog = document.querySelector<HTMLDialogElement>("#consult-dialog");
 const form = document.querySelector<HTMLFormElement>("[data-consult-form]");
 
@@ -66,6 +80,94 @@ if (dialog && form) {
       });
     };
 
+    const readDraft = (): ConsultDraft | null => {
+      try {
+        const raw = window.localStorage.getItem(DRAFT_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw) as {
+          savedAt?: unknown;
+          values?: Record<string, unknown>;
+          customActive?: unknown;
+        };
+        if (
+          typeof parsed.savedAt !== "number" ||
+          Date.now() - parsed.savedAt > DRAFT_TTL ||
+          !parsed.values ||
+          typeof parsed.values !== "object"
+        ) {
+          window.localStorage.removeItem(DRAFT_KEY);
+          return null;
+        }
+        const read = (key: string): string => {
+          const value = parsed.values?.[key];
+          return typeof value === "string" ? value : "";
+        };
+        return {
+          company: read("company"),
+          categories: read("categories"),
+          customActive: parsed.customActive === true,
+          customChain: read("custom_chain"),
+          demand: read("demand"),
+          invoice: read("invoice"),
+          contact: read("contact"),
+          phone: read("phone"),
+        };
+      } catch {
+        return null;
+      }
+    };
+
+    const writeDraft = (): void => {
+      // 成功后表单会隐藏，这时不能把已提交内容又写回草稿。
+      if (form.hidden) return;
+      const values = {
+        company: companyInput.value,
+        categories: categoriesInput.value,
+        custom_chain: customTextarea.value,
+        demand: demandInput.value,
+        invoice: invoiceInput.value,
+        contact: contactInput.value,
+        phone: phoneInput.value,
+      };
+      const hasContent = customActive || Object.values(values).some((value) => value.trim() !== "");
+      try {
+        if (!hasContent) {
+          window.localStorage.removeItem(DRAFT_KEY);
+          return;
+        }
+        window.localStorage.setItem(
+          DRAFT_KEY,
+          JSON.stringify({ savedAt: Date.now(), customActive, values }),
+        );
+      } catch {
+        // 隐私模式或存储不可用时静默降级：本次弹窗内仍会保留已填内容。
+      }
+    };
+
+    const clearDraft = (): void => {
+      try {
+        window.localStorage.removeItem(DRAFT_KEY);
+      } catch {
+        // 忽略存储不可用。
+      }
+    };
+
+    const restoreDraft = (): void => {
+      const draft = readDraft();
+      if (!draft) return;
+      companyInput.value = draft.company;
+      categoriesInput.value = draft.categories;
+      customTextarea.value = draft.customChain;
+      demandInput.value = draft.demand;
+      invoiceInput.value = draft.invoice;
+      contactInput.value = draft.contact;
+      phoneInput.value = draft.phone;
+      customActive = draft.customActive;
+      customToggle.setAttribute("aria-pressed", customActive ? "true" : "false");
+      customBox.hidden = !customActive;
+      syncChips();
+    };
+
     const setCategories = (values: string[]): void => {
       const unique: string[] = [];
       values.forEach((value) => {
@@ -73,6 +175,7 @@ if (dialog && form) {
       });
       categoriesInput.value = unique.join("、");
       syncChips();
+      writeDraft();
     };
 
     const fieldWrap = (name: string): HTMLElement | null =>
@@ -136,15 +239,19 @@ if (dialog && form) {
       clearGlobalError();
     };
 
-    const resetForm = (): void => {
+    const clearFormValues = (): void => {
       form.reset();
       customActive = false;
       customToggle.setAttribute("aria-pressed", "false");
       customBox.hidden = true;
       chips.forEach((chip) => chip.setAttribute("aria-pressed", "false"));
+      clearAllErrors();
+    };
+
+    const resetForm = (): void => {
+      clearFormValues();
       form.hidden = false;
       successPanel.hidden = true;
-      clearAllErrors();
     };
 
     const openDialog = (event: Event): void => {
@@ -152,6 +259,7 @@ if (dialog && form) {
       lastTrigger = event.currentTarget as HTMLElement | null;
       if (!dialog.open) {
         resetForm();
+        restoreDraft();
         if (typeof dialog.showModal === "function") {
           dialog.showModal();
         } else {
@@ -163,6 +271,7 @@ if (dialog && form) {
     };
 
     const closeDialog = (): void => {
+      writeDraft();
       if (typeof dialog.close === "function") {
         dialog.close();
       } else {
@@ -173,6 +282,8 @@ if (dialog && form) {
     };
 
     const showSuccess = (): void => {
+      clearDraft();
+      clearFormValues();
       form.hidden = true;
       successPanel.hidden = false;
       dialog.scrollTop = 0;
@@ -183,9 +294,18 @@ if (dialog && form) {
     openers.forEach((opener) => opener.addEventListener("click", openDialog));
     closeButtons.forEach((button) => button.addEventListener("click", closeDialog));
 
-    dialog.addEventListener("click", (event) => {
-      if (event.target === dialog) closeDialog();
+    dialog.addEventListener("cancel", (event) => {
+      // 只允许右上角关闭按钮和成功面板的关闭按钮关闭；ESC 不关闭，避免误触丢失填写内容。
+      event.preventDefault();
     });
+
+    document.addEventListener(
+      "keydown",
+      (event) => {
+        if (dialog.open && event.key === "Escape") event.preventDefault();
+      },
+      true,
+    );
 
     dialog.addEventListener("close", () => {
       document.body.classList.remove("consult-open");
@@ -222,6 +342,7 @@ if (dialog && form) {
       } else {
         clearFieldError("custom_chain");
       }
+      writeDraft();
     });
 
     customTextarea.addEventListener("input", () => clearFieldError("custom_chain"));
@@ -237,6 +358,10 @@ if (dialog && form) {
       clearFieldError("agree");
       clearGlobalError();
     });
+
+    // 输入时同步草稿；同意勾选不写入草稿，下次打开需要重新确认。
+    form.addEventListener("input", writeDraft);
+    form.addEventListener("change", writeDraft);
 
     const getSource = (): string => {
       const file = window.location.pathname.split("/").pop() || "index.html";
