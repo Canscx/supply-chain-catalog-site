@@ -41,6 +41,7 @@
   --bg-grid-line:   color-mix(in srgb, var(--line) 55%, transparent);
   --bg-glow-accent: color-mix(in srgb, var(--accent) 14%, transparent);
   --bg-glow-brass:  color-mix(in srgb, var(--brass) 10%, transparent);
+  --bg-noise-opacity: 0.04;
 
   /* 功能色：错误提示 */
   --danger:      #b3261e;
@@ -108,6 +109,7 @@
   --accent:      #7ccfb5;
   --accent-deep: #69b69e;
   --accent-soft: #12302a;
+  --bg-noise-opacity: 0.055;
 
   --brass:       #e3c081;
   --brass-soft:  #413115;
