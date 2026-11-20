@@ -1126,6 +1126,15 @@ body.search-off [data-anchor] { scroll-margin-block-start: calc(var(--nav-h) + 1
 .flow-step:last-child::after { display: none; }
 .flow-track { display: none; }
 
+/* 1000px 以下为纵向单列：整条流程按内容宽度收窄并在页面中居中 */
+@media (max-width: 999px) {
+  .flow {
+    width: max-content;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+}
+
 @keyframes flow-drop {
   0% { top: 30px; opacity: 0; }
   2% { opacity: 1; }
