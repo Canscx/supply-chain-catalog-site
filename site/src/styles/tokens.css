@@ -36,6 +36,12 @@
   /* 铜 · 第三色，只给「环节」用 */
   --copper:      #9f522c;
 
+  /* 背景层：低透明度装饰 */
+  --bg-grid-size:   64px;
+  --bg-grid-line:   color-mix(in srgb, var(--line) 55%, transparent);
+  --bg-glow-accent: color-mix(in srgb, var(--accent) 14%, transparent);
+  --bg-glow-brass:  color-mix(in srgb, var(--brass) 10%, transparent);
+
   /* 功能色：错误提示 */
   --danger:      #b3261e;
   --danger-soft: #fdecea;
@@ -68,6 +74,7 @@
   --r-lg: 12px;
 
   /* 层级 */
+  --z-bg: 0;
   --z-rail: 1;
   --z-content: 2;
   --z-sticky: 40;

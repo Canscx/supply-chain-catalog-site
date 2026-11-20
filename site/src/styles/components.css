@@ -1307,6 +1307,8 @@
 
 /* ---------- 13. 页脚 ---------- */
 .foot {
+  position: relative;
+  z-index: var(--z-content);
   border-top: 1px solid var(--line);
   padding-block: clamp(32px, 5vw, 56px);
   margin-top: clamp(40px, 6vw, 80px);
