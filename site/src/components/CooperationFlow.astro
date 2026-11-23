@@ -9,33 +9,46 @@ const steps = [
   "上下游开票",
   "走流水",
 ];
-
-/* 桌面蛇形路线：01→04 向右，04 右侧下折接 05，05→08 向左。 */
-const flowPath = "M125 16 H940 Q956 16 956 32 V116 Q956 132 940 132 H125";
 ---
 
 <section class="rail-section flow-section" id="flow" aria-labelledby="flow-title">
   <div class="wrap">
     <div class="section-head" data-reveal>
       <h2 class="section-heading" id="flow-title">合作流程</h2>
-      <span class="section-note">{steps.length} 个步骤</span>
     </div>
 
     <div class="flow-wrap">
-      <ol class="flow">
-        {
-          steps.map((step, index) => (
-            <li class="flow-step" data-reveal style={"--flow-index: " + index + "; --reveal-delay: " + index * 55 + "ms"}>
-              <span class="flow-num">{String(index + 1).padStart(2, "0")}</span>
-              <span class="flow-label">{step}</span>
-            </li>
-          ))
-        }
-      </ol>
-      <svg class="flow-track" viewBox="0 0 1000 192" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-        <path class="flow-line" d={flowPath} />
-        <path class="flow-spark" d={flowPath} pathLength="100" />
-      </svg>
+      <div class="flow-map" data-flow-map>
+        <svg class="flow-track flow-track--desktop" viewBox="0 0 1000 202" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path class="flow-line" d="M125 24 H935 Q963 24 963 48 V114 Q963 138 935 138 H125" />
+          <circle class="flow-direction-back" cx="500" cy="24" r="10" />
+          <path class="flow-direction" d="m497 19 5 5-5 5" />
+          <circle class="flow-direction-back" cx="963" cy="81" r="10" />
+          <path class="flow-direction" d="m958 78 5 5 5-5" />
+          <circle class="flow-direction-back" cx="500" cy="138" r="10" />
+          <path class="flow-direction" d="m503 133-5 5 5 5" />
+        </svg>
+        <svg class="flow-track flow-track--mobile" viewBox="0 0 42 432" aria-hidden="true" focusable="false">
+          <path class="flow-line" d="M21 20 V412" />
+          <circle class="flow-direction-back" cx="21" cy="216" r="7" />
+          <path class="flow-direction" d="m17.5 214 3.5 3.5 3.5-3.5" />
+        </svg>
+        <div class="flow-motion" aria-hidden="true"></div>
+        <ol class="flow" role="list">
+          {
+            steps.map((step, index) => (
+              <li class="flow-step">
+                <span class="flow-num" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                <span class="flow-label">{step}</span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  import "../scripts/flow";
+</script>
