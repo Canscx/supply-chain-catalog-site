@@ -6,7 +6,7 @@ import { thresholds } from "../data/thresholds";
   <div class="wrap">
     <div class="section-head" data-reveal>
       <h2 class="section-heading" id="thresholds-title">准入门槛</h2>
-      <span class="section-note">三类链条 · 14 项材料</span>
+      <span class="section-note">全部链条 · 14 项材料</span>
     </div>
 
     <div class="thr-groups">
@@ -20,9 +20,36 @@ import { thresholds } from "../data/thresholds";
             </header>
 
             <ol class="thr-items">
-              {section.items.map((item) => (
-                <li>{item}</li>
-              ))}
+              {
+                section.items.map((item) => {
+                  const text = typeof item === "string" ? item : item.text;
+                  const downloads = typeof item === "string" ? [] : item.downloads || [];
+                  return (
+                    <li>
+                      {text}
+                      {downloads.length > 0 && (
+                        <span class="thr-dl">
+                          {downloads.map((dl) => (
+                            <a
+                              class="thr-dl-btn"
+                              href={"./downloads/" + dl.file}
+                              download={dl.saveAs}
+                              aria-label={dl.label + (dl.format ? "（" + dl.format + "）" : "")}
+                            >
+                              <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 4v11" />
+                                <path d="M7.5 10.5 12 15l4.5-4.5" />
+                                <path d="M4.5 19.5h15" />
+                              </svg>
+                              <span>{dl.label}</span>
+                            </a>
+                          ))}
+                        </span>
+                      )}
+                    </li>
+                  );
+                })
+              }
             </ol>
 
             <div class="thr-shield">

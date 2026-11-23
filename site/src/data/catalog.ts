@@ -15,7 +15,7 @@ export interface Chain {
 export interface Category {
   id: string;
   name: string;
-  /** 业务范围展示用的装饰性 emoji，不参与检索。 */
+  /** 增量品类明细展示用的装饰性 emoji，不参与检索。 */
   emoji: string;
   chains: Chain[];
 }
@@ -34,8 +34,8 @@ export interface Catalog {
 
 export const catalog = raw as Catalog;
 
-/** 首页「业务范围」与咨询弹窗共用的主推品类数量。 */
-export const FEATURED_CATEGORY_COUNT = 5;
+/** 咨询弹窗快速选择的品类数量（取品类顺序前 N 个）。 */
+export const QUICK_CATEGORY_COUNT = 5;
 
 /** 全部链条的扁平列表。 */
 export const allChains: Chain[] = catalog.categories.flatMap((c) => c.chains);

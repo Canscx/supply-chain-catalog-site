@@ -1,8 +1,8 @@
 {
   "version": "2026-11-20",
   "totals": {
-    "chains": 144,
-    "categories": 20
+    "chains": 146,
+    "categories": 18
   },
   "stages": [
     {
@@ -24,67 +24,71 @@
   ],
   "categories": [
     {
-      "id": "robot",
-      "name": "机器人",
-      "emoji": "🤖",
-      "chains": [
-        {
-          "id": "ce69cbae599x",
-          "name": "机器人",
-          "base": "机器人",
-          "aliases": [
-            "工业机器人"
-          ],
-          "stages": [
-            "source",
-            "logistics",
-            "settlement"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "drone",
-      "name": "无人机",
-      "emoji": "🛸",
-      "chains": [
-        {
-          "id": "ce697a0e4ba",
-          "name": "无人机",
-          "base": "无人机",
-          "aliases": [],
-          "stages": [
-            "settlement"
-          ]
-        }
-      ]
-    },
-    {
       "id": "tech",
       "name": "科技链条",
       "emoji": "⚙️",
       "chains": [
         {
-          "id": "robot-tech",
-          "name": "机器人",
-          "base": "机器人",
+          "id": "ce4bfa1e681",
+          "name": "信息服务",
+          "base": "信息服务",
           "aliases": [
-            "工业机器人"
+            "信息技术服务",
+            "信息系统服务"
           ],
           "stages": [
-            "source",
-            "logistics",
             "settlement"
           ]
         },
         {
-          "id": "drone-tech",
-          "name": "无人机",
-          "base": "无人机",
-          "aliases": [],
+          "id": "tech-software",
+          "name": "软件开发",
+          "base": "软件开发",
+          "aliases": [
+            "定制软件开发",
+            "软件定制开发"
+          ],
+          "stages": []
+        },
+        {
+          "id": "ce7a094e58f",
+          "name": "研发技术",
+          "base": "研发技术",
+          "aliases": [
+            "研发技术服务",
+            "技术研发"
+          ],
           "stages": [
+            "paperwork",
             "settlement"
           ]
+        },
+        {
+          "id": "tech-service",
+          "name": "技术服务",
+          "base": "技术服务",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "tech-ai-compute",
+          "name": "AI算力",
+          "base": "AI算力",
+          "aliases": [
+            "算力服务",
+            "AI算力服务"
+          ],
+          "stages": []
+        },
+        {
+          "id": "tech-ops",
+          "name": "系统运维",
+          "base": "系统运维",
+          "aliases": [
+            "运维服务",
+            "系统维护"
+          ],
+          "stages": []
         },
         {
           "id": "ce6afabe7b1",
@@ -123,30 +127,146 @@
       ]
     },
     {
-      "id": "variable",
-      "name": "可变品",
-      "emoji": "🧩",
+      "id": "smart-equipment",
+      "name": "智能装备",
+      "emoji": "🦾",
       "chains": [
         {
-          "id": "c8ac822ee20",
-          "name": "石墨烯",
-          "base": "石墨烯",
-          "aliases": [],
+          "id": "ce69cbae599x",
+          "name": "机器人",
+          "base": "机器人",
+          "aliases": [
+            "工业机器人"
+          ],
           "stages": [
-            "source"
+            "source",
+            "logistics",
+            "settlement"
           ]
         },
         {
-          "id": "c84fb09b564",
-          "name": "金属制品",
-          "base": "金属制品",
+          "id": "ce697a0e4ba",
+          "name": "无人机",
+          "base": "无人机",
           "aliases": [],
-          "stages": []
+          "stages": [
+            "settlement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "energy",
+      "name": "新能源",
+      "emoji": "🔋",
+      "chains": [
+        {
+          "id": "ce58589e4bc",
+          "name": "光伏电池片",
+          "base": "光伏电池片",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
         },
         {
-          "id": "c15cf4a407f",
-          "name": "机械配件",
-          "base": "机械配件",
+          "id": "ce58589e4bcx",
+          "name": "光伏组件",
+          "base": "光伏组件",
+          "aliases": [],
+          "stages": [
+            "source",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce99482e794",
+          "name": "锂电池",
+          "base": "锂电池",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce58585e794",
+          "name": "充电桩",
+          "base": "充电桩",
+          "aliases": [],
+          "stages": [
+            "source",
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce582a8e883",
+          "name": "储能柜",
+          "base": "储能柜",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce9858de794",
+          "name": "配电柜",
+          "base": "配电柜",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce794b5e7ba",
+          "name": "电线电缆",
+          "base": "电线电缆",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce696b0e883",
+          "name": "新能源充电器",
+          "base": "新能源充电器",
+          "aliases": [],
+          "stages": []
+        }
+      ]
+    },
+    {
+      "id": "electronics",
+      "name": "电子产品",
+      "emoji": "🔌",
+      "chains": [
+        {
+          "id": "ce78ebbe792",
+          "name": "玻璃盖板",
+          "base": "玻璃盖板",
+          "aliases": [],
+          "stages": [
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce69c8de58a",
+          "name": "服务器",
+          "base": "服务器",
+          "aliases": [],
+          "stages": [
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce794b5e5ad",
+          "name": "电子元器件",
+          "base": "电子元器件",
           "aliases": [],
           "stages": [
             "source",
@@ -155,57 +275,9 @@
           ]
         },
         {
-          "id": "c60f6631f12",
-          "name": "五金制品",
-          "base": "五金制品",
-          "aliases": [],
-          "stages": [
-            "source"
-          ]
-        },
-        {
-          "id": "c34c6fc3ce1",
-          "name": "研发技术服务",
-          "base": "研发技术服务",
-          "aliases": [
-            "研发技术",
-            "技术研发"
-          ],
-          "stages": [
-            "paperwork",
-            "settlement"
-          ]
-        },
-        {
-          "id": "ce53e52ec03",
-          "name": "算力服务",
-          "base": "算力服务",
-          "aliases": [
-            "算力服务"
-          ],
-          "stages": []
-        },
-        {
-          "id": "c1c06d8ca49",
-          "name": "PCB电路板",
-          "base": "PCB电路板",
-          "aliases": [
-            "PCB板",
-            "电子PCB板"
-          ],
-          "stages": []
-        },
-        {
-          "id": "c08c6bf2bed",
-          "name": "软件硬件集成",
-          "base": "软件硬件集成",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "cb31629357d",
-          "name": "智能消防系统",
-          "base": "智能消防系统",
+          "id": "ce794b5e58a",
+          "name": "电力电子元器件",
+          "base": "电力电子元器件",
           "aliases": [],
           "stages": [
             "source",
@@ -213,199 +285,98 @@
           ]
         },
         {
-          "id": "c835b496ef3",
-          "name": "新能源充电器",
-          "base": "新能源充电器",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "c681a4f3bd8",
-          "name": "电动车控制器",
-          "base": "电动车控制器",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "c3a56dadb0b",
-          "name": "安防",
-          "base": "安防",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "c990bf2c17c",
-          "name": "锂电池",
-          "base": "锂电池",
+          "id": "ce99b86e688",
+          "name": "集成电路",
+          "base": "集成电路",
           "aliases": [],
           "stages": [
-            "source",
             "settlement"
           ]
         },
         {
-          "id": "c2d131db4d9",
-          "name": "PET膜",
-          "base": "PET膜",
+          "id": "ce88aafe789",
+          "name": "芯片",
+          "base": "芯片",
           "aliases": [],
           "stages": [
-            "source",
-            "logistics",
             "paperwork",
             "settlement"
           ]
         },
         {
-          "id": "c242152bb60",
-          "name": "无缝钢管",
-          "base": "无缝钢管",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "cdb975524d7",
-          "name": "金属配件",
-          "base": "金属配件",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "c1459130e7a",
-          "name": "工业机器人",
-          "base": "工业机器人",
-          "aliases": [],
-          "stages": []
-        }
-      ]
-    },
-    {
-      "id": "custom",
-      "name": "可定制",
-      "emoji": "🛠️",
-      "chains": [
-        {
-          "id": "c78c4fdec6d",
-          "name": "石墨烯",
-          "base": "石墨烯",
+          "id": "ce698bee58d",
+          "name": "显卡",
+          "base": "显卡",
           "aliases": [],
           "stages": [
-            "source"
-          ]
-        },
-        {
-          "id": "caa501ec791",
-          "name": "AI算力（可定制）",
-          "base": "AI算力（可定制）",
-          "aliases": [
-            "算力服务"
-          ],
-          "stages": []
-        },
-        {
-          "id": "c466df15f8d",
-          "name": "软件硬件集成",
-          "base": "软件硬件集成",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "cd862c1d15a",
-          "name": "工业机器人",
-          "base": "工业机器人",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "c0e1d10a7c6",
-          "name": "安防",
-          "base": "安防",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "cf5b32d8288",
-          "name": "锂电池",
-          "base": "锂电池",
-          "aliases": [],
-          "stages": [
-            "source",
-            "settlement"
-          ]
-        },
-        {
-          "id": "c9ae1e3f423",
-          "name": "PET膜",
-          "base": "PET膜",
-          "aliases": [],
-          "stages": [
-            "source",
-            "logistics",
             "paperwork",
             "settlement"
           ]
         },
         {
-          "id": "cfb081a508a",
-          "name": "研发中标",
-          "base": "研发中标",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "cffeb13fbaf",
-          "name": "钢材",
-          "base": "钢材",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "cebc65cc88a",
-          "name": "铜杆",
-          "base": "铜杆",
+          "id": "ce6898be69c",
+          "name": "手机平板",
+          "base": "手机平板",
           "aliases": [],
           "stages": [
-            "source",
-            "logistics",
-            "paperwork",
             "settlement"
           ]
         },
         {
-          "id": "c9f8c843e20",
-          "name": "塑料粒子",
-          "base": "塑料粒子",
+          "id": "ce6b6b2e699",
+          "name": "液晶显示屏",
+          "base": "液晶显示屏",
           "aliases": [],
           "stages": []
         },
         {
-          "id": "c8db785e49e",
-          "name": "水管",
-          "base": "水管",
+          "id": "ce699b6e59c",
+          "name": "晶圆",
+          "base": "晶圆",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce699bae883",
+          "name": "智能摄像头",
+          "base": "智能摄像头",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ce785a7e698",
+          "name": "照明装置",
+          "base": "照明装置",
           "aliases": [],
           "stages": [
-            "source",
-            "logistics",
-            "paperwork"
+            "settlement"
           ]
         },
         {
-          "id": "c3e81629f3c",
-          "name": "电信项目",
-          "base": "电信项目",
+          "id": "pcb",
+          "name": "PCB电路板",
+          "base": "PCB电路板",
           "aliases": [],
           "stages": []
         },
         {
-          "id": "cbf8bc3caae",
-          "name": "移动项目",
-          "base": "移动项目",
+          "id": "ce5beaee794",
+          "name": "微电子组件",
+          "base": "微电子组件",
           "aliases": [],
           "stages": []
         },
         {
-          "id": "c26cf566253",
-          "name": "停车场项目",
-          "base": "停车场项目",
+          "id": "ce9809ae4bf",
+          "name": "通信设备",
+          "base": "通信设备",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "ai",
+          "name": "AI模组",
+          "base": "AI模组",
           "aliases": [],
           "stages": []
         }
@@ -592,33 +563,30 @@
       ]
     },
     {
-      "id": "electronics",
-      "name": "电子产品",
-      "emoji": "🔌",
+      "id": "variable",
+      "name": "可变品",
+      "emoji": "🧩",
       "chains": [
         {
-          "id": "ce78ebbe792",
-          "name": "玻璃盖板",
-          "base": "玻璃盖板",
+          "id": "c8ac822ee20",
+          "name": "石墨烯",
+          "base": "石墨烯",
           "aliases": [],
           "stages": [
-            "settlement"
+            "source"
           ]
         },
         {
-          "id": "ce69c8de58a",
-          "name": "服务器",
-          "base": "服务器",
+          "id": "c84fb09b564",
+          "name": "金属制品",
+          "base": "金属制品",
           "aliases": [],
-          "stages": [
-            "paperwork",
-            "settlement"
-          ]
+          "stages": []
         },
         {
-          "id": "ce794b5e5ad",
-          "name": "电子元器件",
-          "base": "电子元器件",
+          "id": "c15cf4a407f",
+          "name": "机械配件",
+          "base": "机械配件",
           "aliases": [],
           "stages": [
             "source",
@@ -627,9 +595,57 @@
           ]
         },
         {
-          "id": "ce794b5e58a",
-          "name": "电力电子元器件",
-          "base": "电力电子元器件",
+          "id": "c60f6631f12",
+          "name": "五金制品",
+          "base": "五金制品",
+          "aliases": [],
+          "stages": [
+            "source"
+          ]
+        },
+        {
+          "id": "c34c6fc3ce1",
+          "name": "研发技术服务",
+          "base": "研发技术服务",
+          "aliases": [
+            "研发技术",
+            "技术研发"
+          ],
+          "stages": [
+            "paperwork",
+            "settlement"
+          ]
+        },
+        {
+          "id": "ce53e52ec03",
+          "name": "算力服务",
+          "base": "算力服务",
+          "aliases": [
+            "算力服务"
+          ],
+          "stages": []
+        },
+        {
+          "id": "c1c06d8ca49",
+          "name": "PCB电路板",
+          "base": "PCB电路板",
+          "aliases": [
+            "PCB板",
+            "电子PCB板"
+          ],
+          "stages": []
+        },
+        {
+          "id": "c08c6bf2bed",
+          "name": "软件硬件集成",
+          "base": "软件硬件集成",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "cb31629357d",
+          "name": "智能消防系统",
+          "base": "智能消防系统",
           "aliases": [],
           "stages": [
             "source",
@@ -637,98 +653,200 @@
           ]
         },
         {
-          "id": "ce99b86e688",
-          "name": "集成电路",
-          "base": "集成电路",
+          "id": "c835b496ef3",
+          "name": "新能源充电器",
+          "base": "新能源充电器",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "c681a4f3bd8",
+          "name": "电动车控制器",
+          "base": "电动车控制器",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "c3a56dadb0b",
+          "name": "安防",
+          "base": "安防",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "c990bf2c17c",
+          "name": "锂电池",
+          "base": "锂电池",
           "aliases": [],
           "stages": [
+            "source",
             "settlement"
           ]
         },
         {
-          "id": "ce88aafe789",
-          "name": "芯片",
-          "base": "芯片",
+          "id": "c2d131db4d9",
+          "name": "PET膜",
+          "base": "PET膜",
           "aliases": [],
           "stages": [
+            "source",
+            "logistics",
             "paperwork",
             "settlement"
           ]
         },
         {
-          "id": "ce698bee58d",
-          "name": "显卡",
-          "base": "显卡",
+          "id": "c242152bb60",
+          "name": "无缝钢管",
+          "base": "无缝钢管",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "cdb975524d7",
+          "name": "金属配件",
+          "base": "金属配件",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "c1459130e7a",
+          "name": "工业机器人",
+          "base": "工业机器人",
+          "aliases": [],
+          "stages": []
+        }
+      ]
+    },
+    {
+      "id": "custom",
+      "name": "可定制",
+      "emoji": "🛠️",
+      "chains": [
+        {
+          "id": "c78c4fdec6d",
+          "name": "石墨烯",
+          "base": "石墨烯",
           "aliases": [],
           "stages": [
+            "source"
+          ]
+        },
+        {
+          "id": "caa501ec791",
+          "name": "AI算力",
+          "base": "AI算力",
+          "aliases": [
+            "算力服务",
+            "AI算力（可定制）"
+          ],
+          "stages": []
+        },
+        {
+          "id": "c466df15f8d",
+          "name": "软件硬件集成",
+          "base": "软件硬件集成",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "cd862c1d15a",
+          "name": "工业机器人",
+          "base": "工业机器人",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "c0e1d10a7c6",
+          "name": "安防",
+          "base": "安防",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "cf5b32d8288",
+          "name": "锂电池",
+          "base": "锂电池",
+          "aliases": [],
+          "stages": [
+            "source",
+            "settlement"
+          ]
+        },
+        {
+          "id": "c9ae1e3f423",
+          "name": "PET膜",
+          "base": "PET膜",
+          "aliases": [],
+          "stages": [
+            "source",
+            "logistics",
             "paperwork",
             "settlement"
           ]
         },
         {
-          "id": "ce6898be69c",
-          "name": "手机平板",
-          "base": "手机平板",
+          "id": "cfb081a508a",
+          "name": "研发中标",
+          "base": "研发中标",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "cffeb13fbaf",
+          "name": "钢材",
+          "base": "钢材",
+          "aliases": [],
+          "stages": []
+        },
+        {
+          "id": "cebc65cc88a",
+          "name": "铜杆",
+          "base": "铜杆",
           "aliases": [],
           "stages": [
+            "source",
+            "logistics",
+            "paperwork",
             "settlement"
           ]
         },
         {
-          "id": "ce6b6b2e699",
-          "name": "液晶显示屏",
-          "base": "液晶显示屏",
+          "id": "c9f8c843e20",
+          "name": "塑料粒子",
+          "base": "塑料粒子",
           "aliases": [],
           "stages": []
         },
         {
-          "id": "ce699b6e59c",
-          "name": "晶圆",
-          "base": "晶圆",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "ce699bae883",
-          "name": "智能摄像头",
-          "base": "智能摄像头",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "ce785a7e698",
-          "name": "照明装置",
-          "base": "照明装置",
+          "id": "c8db785e49e",
+          "name": "水管",
+          "base": "水管",
           "aliases": [],
           "stages": [
-            "settlement"
+            "source",
+            "logistics",
+            "paperwork"
           ]
         },
         {
-          "id": "pcb",
-          "name": "PCB电路板",
-          "base": "PCB电路板",
+          "id": "c3e81629f3c",
+          "name": "电信项目",
+          "base": "电信项目",
           "aliases": [],
           "stages": []
         },
         {
-          "id": "ce5beaee794",
-          "name": "微电子组件",
-          "base": "微电子组件",
+          "id": "cbf8bc3caae",
+          "name": "移动项目",
+          "base": "移动项目",
           "aliases": [],
           "stages": []
         },
         {
-          "id": "ce9809ae4bf",
-          "name": "通信设备",
-          "base": "通信设备",
-          "aliases": [],
-          "stages": []
-        },
-        {
-          "id": "ai",
-          "name": "AI模组",
-          "base": "AI模组",
+          "id": "c26cf566253",
+          "name": "停车场项目",
+          "base": "停车场项目",
           "aliases": [],
           "stages": []
         }
@@ -969,90 +1087,6 @@
           "stages": [
             "paperwork"
           ]
-        }
-      ]
-    },
-    {
-      "id": "energy",
-      "name": "新能源",
-      "emoji": "🔋",
-      "chains": [
-        {
-          "id": "ce58589e4bc",
-          "name": "光伏电池片",
-          "base": "光伏电池片",
-          "aliases": [],
-          "stages": [
-            "settlement"
-          ]
-        },
-        {
-          "id": "ce58589e4bcx",
-          "name": "光伏组件",
-          "base": "光伏组件",
-          "aliases": [],
-          "stages": [
-            "source",
-            "paperwork",
-            "settlement"
-          ]
-        },
-        {
-          "id": "ce99482e794",
-          "name": "锂电池",
-          "base": "锂电池",
-          "aliases": [],
-          "stages": [
-            "source",
-            "settlement"
-          ]
-        },
-        {
-          "id": "ce58585e794",
-          "name": "充电桩",
-          "base": "充电桩",
-          "aliases": [],
-          "stages": [
-            "source",
-            "paperwork",
-            "settlement"
-          ]
-        },
-        {
-          "id": "ce582a8e883",
-          "name": "储能柜",
-          "base": "储能柜",
-          "aliases": [],
-          "stages": [
-            "source",
-            "settlement"
-          ]
-        },
-        {
-          "id": "ce9858de794",
-          "name": "配电柜",
-          "base": "配电柜",
-          "aliases": [],
-          "stages": [
-            "settlement"
-          ]
-        },
-        {
-          "id": "ce794b5e7ba",
-          "name": "电线电缆",
-          "base": "电线电缆",
-          "aliases": [],
-          "stages": [
-            "source",
-            "settlement"
-          ]
-        },
-        {
-          "id": "ce696b0e883",
-          "name": "新能源充电器",
-          "base": "新能源充电器",
-          "aliases": [],
-          "stages": []
         }
       ]
     },
@@ -1317,9 +1351,11 @@
       "chains": [
         {
           "id": "ce5aeb6e794",
-          "name": "家电",
-          "base": "家电",
+          "name": "家电（小家电）",
+          "base": "家电（小家电）",
           "aliases": [
+            "家电",
+            "小家电",
             "家电小家电",
             "家用电器"
           ],
@@ -1374,37 +1410,6 @@
           "aliases": [],
           "stages": [
             "source",
-            "settlement"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "service",
-      "name": "技术服务",
-      "emoji": "🧑‍💻",
-      "chains": [
-        {
-          "id": "ce7a094e58f",
-          "name": "研发技术服务",
-          "base": "研发技术服务",
-          "aliases": [
-            "研发技术",
-            "技术研发"
-          ],
-          "stages": [
-            "paperwork",
-            "settlement"
-          ]
-        },
-        {
-          "id": "ce4bfa1e681",
-          "name": "信息技术服务",
-          "base": "信息技术服务",
-          "aliases": [
-            "信息系统服务"
-          ],
-          "stages": [
             "settlement"
           ]
         }

@@ -2,9 +2,9 @@
 /**
  * 构建前数据自检。任何一项不合格都以非零码退出，避免坏数据进产物。
  */
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { dirname, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const raw = readFileSync(resolve(here, "../src/data/catalog.json"), "utf8");
@@ -62,9 +62,34 @@ for (const cat of catalog.categories ?? []) {
   }
 }
 
-const FIRST_CATEGORIES = ["机器人", "无人机", "科技链条", "可变品", "可定制"];
+const FIRST_CATEGORIES = ["科技链条", "智能装备", "新能源", "电子产品", "农副产品"];
 if (catalog.categories.slice(0, 5).map((c) => c.name).join("|") !== FIRST_CATEGORIES.join("|")) {
-  fail("前五个品类顺序应为机器人、无人机、科技链条、可变品、可定制");
+  fail("前五个品类顺序应为科技链条、智能装备、新能源、电子产品、农副产品");
+}
+
+// 已合并/删除的旧品类不能再出现。
+for (const removed of ["robot", "drone", "service"]) {
+  if (categoryIds.has(removed)) fail(`旧品类 id 不应存在: ${removed}`);
+}
+
+// 科技链条前六项是固定口径，顺序不能漂移。
+const techCategory = catalog.categories.find((c) => c.id === "tech");
+const TECH_FIRST = ["信息服务", "软件开发", "研发技术", "技术服务", "AI算力", "系统运维"];
+if (!techCategory) {
+  fail("缺少科技链条品类");
+} else {
+  const actual = techCategory.chains.slice(0, TECH_FIRST.length).map((c) => c.name);
+  if (actual.join("|") !== TECH_FIRST.join("|")) {
+    fail(`科技链条前六项应为 ${TECH_FIRST.join("、")}，实际 ${actual.join("、")}`);
+  }
+  if (techCategory.chains.some((c) => c.name === "机器人" || c.name === "无人机")) {
+    fail("科技链条中不应再出现机器人、无人机");
+  }
+}
+
+const household = catalog.categories.find((c) => c.id === "household");
+if (!household?.chains.some((c) => c.name === "家电（小家电）")) {
+  fail("家电与日用品类缺少「家电（小家电）」小类");
 }
 
 const total = [...chainIds].length;
@@ -75,14 +100,14 @@ if (catalog.totals?.categories !== catalog.categories.length) {
   fail(`totals.categories 与实际不符: 声明 ${catalog.totals?.categories}，实际 ${catalog.categories.length}`);
 }
 
-// 准入门槛：三段固定顺序与条数，防止漏项或错序。
+// 准入门槛：唯一一段，固定段名与条数，防止漏项或错序。
 const EXPECTED_SECTIONS = [
-  { id: "research-info", count: 14 },
-  { id: "robot-drone", count: 14 },
-  { id: "other", count: 17 },
+  { id: "research-info", name: "全部链条准入门槛", count: 14 },
 ];
 const sections = thresholds.sections;
 const sectionIds = new Set();
+const DOWNLOAD_FILE_RE = /^[a-z0-9-]+\.(docx|xlsx|pdf)$/;
+let downloadCount = 0;
 
 if (!Array.isArray(sections) || sections.length !== EXPECTED_SECTIONS.length) {
   fail(`thresholds.sections 应为 ${EXPECTED_SECTIONS.length} 段，实际 ${Array.isArray(sections) ? sections.length : "非数组"}`);
@@ -97,12 +122,36 @@ if (!Array.isArray(sections) || sections.length !== EXPECTED_SECTIONS.length) {
     if (sectionIds.has(section.id)) fail(`准入门槛段 id 重复: ${section.id}`);
     sectionIds.add(section.id);
     if (!section.name) fail(`准入门槛缺段名: ${section.id}`);
+    if (section.name !== expected.name) {
+      fail(`第 ${index + 1} 段名应为「${expected.name}」，实际「${section.name}」`);
+    }
 
     if (!Array.isArray(section.items) || section.items.length !== expected.count) {
       fail(`${section.id} 应有 ${expected.count} 项材料，实际 ${Array.isArray(section.items) ? section.items.length : "非数组"}`);
     } else {
       section.items.forEach((item, i) => {
-        if (typeof item !== "string" || !item.trim()) fail(`${section.id} 第 ${i + 1} 项材料为空`);
+        const where = `${section.id} 第 ${i + 1} 项`;
+        const text = typeof item === "string" ? item : item?.text;
+        if (typeof text !== "string" || !text.trim()) fail(`${where}材料为空`);
+        if (typeof item === "string") return;
+
+        const downloads = item.downloads;
+        if (downloads === undefined) return;
+        if (!Array.isArray(downloads) || downloads.length === 0) {
+          fail(`${where}的 downloads 必须是非空数组`);
+          return;
+        }
+        downloads.forEach((dl, j) => {
+          const label = `${where} 第 ${j + 1} 个下载`;
+          if (!dl?.label || !dl?.file || !dl?.saveAs) fail(`${label}缺 label/file/saveAs`);
+          if (!DOWNLOAD_FILE_RE.test(dl?.file ?? "")) fail(`${label}的 file 非法: ${dl?.file}`);
+          const ext = (name) => String(name ?? "").slice(String(name ?? "").lastIndexOf("."));
+          if (ext(dl?.saveAs) !== ext(dl?.file)) fail(`${label}的 saveAs 扩展名与 file 不一致`);
+          if (!existsSync(join(here, "../public/downloads", dl.file))) {
+            fail(`${label}的文件不存在: site/public/downloads/${dl.file}`);
+          }
+          downloadCount += 1;
+        });
       });
     }
 
@@ -123,6 +172,14 @@ if (!Array.isArray(sections) || sections.length !== EXPECTED_SECTIONS.length) {
       });
     }
   });
+}
+
+if (downloadCount === 0) fail("准入门槛没有任何模板下载项");
+
+// 已删除的材料说明不得回流。
+const thresholdText = JSON.stringify(sections);
+for (const removed of ["贸易链", "营业执照有变更需要去银行基本户更新资料", "国企不需要", "2张明细表"]) {
+  if (thresholdText.includes(removed)) fail(`准入门槛仍含已删除内容：${removed}`);
 }
 
 const totalThresholdItems = Array.isArray(sections)

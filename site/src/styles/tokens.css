@@ -29,6 +29,13 @@
   --accent-deep: #005649;
   --accent-soft: #ddf4ee;
 
+  /* 自评入口：主色浅化 30% 的荧光胶囊 */
+  --cta-bg:       color-mix(in srgb, var(--accent) 70%, #ffffff);
+  --cta-bg-hover: color-mix(in srgb, var(--accent) 78%, #ffffff);
+  --cta-ink:      #ffffff;
+  --cta-glow:     color-mix(in srgb, var(--accent) 32%, transparent);
+  --cta-glow-hover: color-mix(in srgb, var(--accent) 48%, transparent);
+
   /* 黄铜 · 次强调 */
   --brass:       #93652b;
   --brass-soft:  #faebd3;
@@ -107,6 +114,7 @@
   --accent:      #7ccfb5;
   --accent-deep: #69b69e;
   --accent-soft: #12302a;
+  --cta-ink:     #07100f;
   --bg-noise-opacity: 0.055;
 
   --brass:       #e3c081;

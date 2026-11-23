@@ -16,7 +16,7 @@ const { categories, chains } = catalog.totals;
 /** 章节刻度：只保留六个主刻度。 */
 const rulerItems = [
   { id: "hero", label: "总览" },
-  { id: "scope", label: "业务范围" },
+  { id: "scope", label: "增量品类明细" },
   { id: "thresholds", label: "准入门槛" },
   { id: "flow", label: "合作流程" },
   { id: "about", label: "关于我们" },
@@ -69,52 +69,6 @@ const rulerItems = [
     </div>
 
     <ScopeMap />
-
-    <section class="rail-section" id="results">
-      <div class="wrap">
-        <div class="results-bar" data-anchor tabindex="-1" data-reveal>
-          <span class="results-count" data-count></span>
-          <button class="reset-btn" type="button" data-reset hidden>清空筛选</button>
-        </div>
-
-        <div data-groups>
-          {
-            catalog.categories.map((cat, i) => (
-              <section class="group" id={`group-${cat.id}`} data-group={cat.id} data-cat-name={cat.name} data-open={i === 0 ? "true" : "false"}>
-                <button class="group-toggle" type="button" aria-expanded={i === 0 ? "true" : "false"}>
-                  <span class="group-title">
-                    <span class="group-emoji" aria-hidden="true">{cat.emoji}</span>
-                    <span class="group-name">{cat.name}</span>
-                    <span class="group-n">{cat.chains.length}</span>
-                  </span>
-                  <svg class="group-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 6 6-6"/></svg>
-                </button>
-                <div class="group-chains">
-                  <ul class="chain-list">
-                    {cat.chains.map((c) => (
-                      <li data-chain={c.name} data-alias={c.aliases.join(" ")}>
-                        <a
-                          class="chain"
-                          href={`./catalog.html?category=${cat.id}&q=${encodeURIComponent(c.base)}`}
-                          data-name={c.name}
-                          data-alias={c.aliases.join(" ")}
-                        >{c.name}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
-            ))
-          }
-        </div>
-
-        <div class="empty" data-empty hidden>
-          <h3>未找到匹配的产品链条</h3>
-          <p>换一个关键词，或清空来源品类后再试。</p>
-          <button class="btn" type="button" data-reset-empty>清空筛选</button>
-        </div>
-      </div>
-    </section>
 
     <Thresholds />
     <CooperationFlow />

@@ -1,60 +1,47 @@
 ---
-import { catalog, FEATURED_CATEGORY_COUNT } from "../data/catalog";
+import { catalog } from "../data/catalog";
 
-const { chains } = catalog.totals;
-const VISIBLE = 8;
-const FEATURED_COUNT = FEATURED_CATEGORY_COUNT;
+const totalChains = catalog.totals.chains;
 ---
 
 <section class="scope" id="scope" data-scope>
   <div class="wrap">
     <div class="section-head" data-reveal>
-      <h2 class="section-heading">业务范围</h2>
-      <span class="section-note">点品类直接筛选</span>
+      <h2 class="section-heading">增量品类明细</h2>
+      <span class="section-note">实时咨询为准</span>
     </div>
 
-    <div class="scope-grid" data-scope-grid data-expanded="false" data-reveal>
+    <div class="scope-grid" data-scope-grid data-reveal>
       {
-        catalog.categories.map((cat, index) => {
-          const samples = cat.chains.slice(0, 2).map((c) => c.base).join("、");
-          const featured = index < FEATURED_COUNT;
-          return (
-            <button
-              class={featured ? "scope-cell scope-cell--featured" : "scope-cell"}
-              type="button"
-              data-scope-cat={cat.id}
-              data-featured={featured ? "true" : "false"}
-            >
+        catalog.categories.map((cat) => (
+          <a
+            class="scope-cell"
+            href={"./catalog.html?category=" + cat.id}
+            data-scope-cat={cat.id}
+            data-scope-search={[cat.name, ...cat.chains.flatMap((c) => [c.name, ...c.aliases]), "链条"].join(" ")}
+            data-chain-count={cat.chains.length}
+          >
+            <span class="scope-cell-head">
               <span class="scope-name">
                 <span class="scope-emoji" aria-hidden="true">{cat.emoji}</span>
                 {cat.name}
-                {featured && <span class="scope-badge">主推</span>}
               </span>
               <span class="scope-n">{cat.chains.length} 条</span>
-              <span class="scope-samples">{samples}</span>
-            </button>
-          );
-        })
+            </span>
+            <span class="scope-chains">{cat.chains.map((c) => c.name).join("、")}</span>
+          </a>
+        ))
       }
-      <button class="scope-cell scope-cell--all" type="button" data-scope-all>
-        <span class="scope-name">全部品类</span>
-        <span class="scope-n">{chains} 条</span>
-        <span class="scope-samples">清空品类筛选</span>
-      </button>
+      <a class="scope-all" href="./catalog.html" data-scope-all>
+        <span class="scope-all-name">全部品类</span>
+        <span class="scope-all-n">{totalChains} 条</span>
+        <span class="scope-all-act">
+          查看完整产品链条目录
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
     </div>
 
-    <div class="scope-more-wrap" data-reveal>
-      <button class="scope-more" type="button" data-scope-more aria-expanded="false">
-        <span data-scope-more-label>展开全部 {catalog.categories.length} 个品类</span>
-        <svg class="scope-more-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 6 6-6"/></svg>
-      </button>
-    </div>
-
-    <button class="scope-collapsed" type="button" data-scope-expand hidden>
-      <span class="scope-collapsed-name" data-scope-name></span>
-      <span class="scope-collapsed-n" data-scope-count></span>
-      <span class="scope-collapsed-kw" data-scope-keyword hidden></span>
-      <span class="scope-collapsed-act" data-scope-act>换品类</span>
-    </button>
+    <p class="scope-search-note" data-scope-search-note aria-live="polite" hidden></p>
   </div>
 </section>

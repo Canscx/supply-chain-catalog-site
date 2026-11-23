@@ -32,3 +32,7 @@ Thumbs.db
 # 咨询表单服务器配置与运行数据（绝不提交）
 /site/public/api/config.php
 /site/consult-data*/
+
+# 根目录原始模板（站点内副本已放入 site/public/downloads/）
+/开票信息模版.docx
+/网银信息及邮寄地址填写模版.xlsx

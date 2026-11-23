@@ -1,7 +1,7 @@
 ---
-import { catalog, FEATURED_CATEGORY_COUNT } from "../data/catalog";
+import { catalog, QUICK_CATEGORY_COUNT } from "../data/catalog";
 
-const featuredCategories = catalog.categories.slice(0, FEATURED_CATEGORY_COUNT);
+const quickCategories = catalog.categories.slice(0, QUICK_CATEGORY_COUNT);
 ---
 
 <a
@@ -47,7 +47,7 @@ const featuredCategories = catalog.categories.slice(0, FEATURED_CATEGORY_COUNT);
         <label for="consult-categories">供应链品类<span class="consult-req">*</span><span class="consult-hint">可多选，也可直接填写</span></label>
         <input id="consult-categories" name="categories" type="text" maxlength="100" autocomplete="off" placeholder="请输入或点击下方品类" />
         <div class="consult-chips" data-consult-chips>
-          {featuredCategories.map((cat) => (
+          {quickCategories.map((cat) => (
             <button class="consult-chip" type="button" data-consult-chip={cat.name} aria-pressed="false">{cat.name}</button>
           ))}
           <button class="consult-chip consult-chip--custom" type="button" data-consult-custom-toggle aria-pressed="false">我要定制</button>
