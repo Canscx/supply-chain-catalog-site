@@ -17,6 +17,7 @@ const totalChains = catalog.totals.chains;
           <a
             class="scope-cell"
             href={"./catalog.html?category=" + cat.id}
+            id={`scope-cat-${cat.id}`}
             data-scope-cat={cat.id}
             data-scope-search={[cat.name, ...cat.chains.flatMap((c) => [c.name, ...c.aliases]), "链条"].join(" ")}
             data-chain-count={cat.chains.length}

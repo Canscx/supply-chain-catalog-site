@@ -1,0 +1,115 @@
+---
+import { chatgpt, claude, deepseek, gemini } from './tech-marks';
+
+const badges = [
+  { name: 'Claude', x: 82, y: 41, mark: claude, color: '#d97757', size: 64 },
+  { name: 'ChatGPT', x: 344, y: 28, mark: chatgpt, color: 'var(--plate-chatgpt)', size: 57 },
+  { name: 'DeepSeek', x: 82, y: 173, mark: deepseek, color: 'var(--plate-deepseek)', size: 59 },
+  { name: 'Gemini', x: 344, y: 160, mark: gemini, color: 'url(#tech-gemini)', size: 47 },
+];
+const routes = [
+  'M215 96h15l14 14v22l13 13',
+  'M344 83h-16l-13 13v23l-12 13',
+  'M215 229h15l15-15v-25l12-12',
+  'M344 216h-16l-13-13v-12l-12-12',
+];
+const signalPads = [['215', '96'], ['344', '83'], ['215', '229'], ['344', '216']];
+---
+<svg class="catalog-plate tech-plate" viewBox="0 0 560 320" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="tech-badge-face" x1=".07" x2=".94" y2="1">
+      <stop stop-color="var(--plate-badge-top)"/>
+      <stop offset="1" stop-color="var(--plate-badge-bottom)"/>
+    </linearGradient>
+    <linearGradient id="tech-badge-edge" x1="0" x2="1" y2="1">
+      <stop stop-color="var(--plate-badge-rule)"/>
+      <stop offset="1" stop-color="var(--plate-steel)"/>
+    </linearGradient>
+    <linearGradient id="tech-chip" x2="1" y2="1">
+      <stop stop-color="var(--plate-badge-top)"/>
+      <stop offset=".62" stop-color="var(--plate-mist)"/>
+      <stop offset="1" stop-color="var(--plate-sage)"/>
+    </linearGradient>
+    <radialGradient id="tech-shadow">
+      <stop stop-color="var(--plate-shadow)" stop-opacity=".27"/>
+      <stop offset="1" stop-color="var(--plate-shadow)" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="tech-gemini" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(2.77876 11.3795) rotate(18.6832) scale(29.8025 238.737)">
+      <stop offset=".0671246" stop-color="#9168c0"/>
+      <stop offset=".342551" stop-color="#5684d1"/>
+      <stop offset=".672076" stop-color="#1ba1e3"/>
+    </radialGradient>
+  </defs>
+
+  <g class="plate-fine plate-orbit">
+    <path pathLength="1" d="M57 136h12l9-9m-22 75h11l10-10m404-94 12-12h10m-21 109 11 11h10"/>
+    <circle pathLength="1" cx="54" cy="136" r="3"/><circle pathLength="1" cx="53" cy="202" r="3"/>
+    <circle pathLength="1" cx="506" cy="86" r="3"/><circle pathLength="1" cx="506" cy="206" r="3"/>
+    <path pathLength="1" d="M255 85v-9h17m38 146v13h-14m-36-148h13m22 159h12"/>
+  </g>
+  <g class="plate-detail tech-plate-traces">
+    {routes.map((d) => <path pathLength="1" d={d}/>)}
+    <path pathLength="1" opacity=".56" d="M215 107h10l11 10v24l21 21m87-68h-11l-11 11v20l-19 19m-88 96h20l20-20v-22l9-9m80 38h-20l-16-16v-12l-12-12"/>
+  </g>
+
+  <g class="plate-surface">
+    <ellipse cx="284" cy="192" rx="49" ry="10" fill="url(#tech-shadow)"/>
+  </g>
+  <g class="plate-detail" stroke-width="1.5">
+    <path pathLength="1" class="tech-plate-traces" d="M263 126v-8m9 8v-8m9 8v-8m9 8v-8m9 8v-8m-36 78v-8m9 8v-8m9 8v-8m9 8v-8m9 8v-8m-51-50h7m-7 9h7m-7 9h7m-7 9h7m-7 9h7m53-36h7m-7 9h7m-7 9h7m-7 9h7m-7 9h7"/>
+    <rect class="plate-fill" pathLength="1" x="256" y="128" width="55" height="63" rx="8" fill="url(#tech-badge-edge)"/>
+    <rect class="plate-fill" pathLength="1" x="253" y="125" width="55" height="62" rx="8" fill="url(#tech-chip)"/>
+    <rect class="plate-fill" pathLength="1" x="262" y="134" width="37" height="44" rx="5" fill="var(--plate-board)"/>
+    <path pathLength="1" class="plate-glint" d="M267 139h26m-26 0v8m27 17v9h-9"/>
+    <path pathLength="1" class="plate-glint" d="M280.5 146v20m-10-10h20m-17-7 14 14m0-14-14 14"/>
+    <circle class="plate-fill" pathLength="1" cx="280.5" cy="156" r="4" fill="var(--plate-white)"/>
+  </g>
+
+  {badges.map(({ name, x, y, mark, color, size }) => (
+    <g transform={`translate(${x} ${y})`}>
+      <ellipse class="plate-surface" cx="72" cy="111" rx="77" ry="12" fill="url(#tech-shadow)"/>
+      <g class="plate-outline tech-plate-badge">
+        <rect class="plate-fill" pathLength="1" x="3" y="5" width="134" height="108" rx="15" fill="url(#tech-badge-edge)"/>
+        <rect class="plate-fill" pathLength="1" width="134" height="108" rx="15" fill="url(#tech-badge-face)"/>
+      </g>
+      <path class="plate-fine plate-glint" pathLength="1" d="M4 22v-7C4 9 9 4 15 4h104"/>
+      <path class="plate-fine tech-plate-traces" pathLength="1" opacity=".54" d="M13 20v-5q0-2 2-2h6m92 82h5q3 0 3-3v-5"/>
+      <g class="plate-surface">
+        <svg x={(134 - size) / 2} y={44 - size / 2} width={size} height={size} viewBox={mark.viewBox}>
+          <path d={mark.path} fill={color}/>
+        </svg>
+        <text class="tech-plate-label" x="67" y="90" text-anchor="middle">{name}</text>
+      </g>
+    </g>
+  ))}
+  <g class="plate-detail tech-plate-traces">
+    {signalPads.map(([x, y]) => (
+      <circle class="plate-fill" pathLength="1" cx={x} cy={y} r="3.5" fill="var(--plate-badge-top)"/>
+    ))}
+  </g>
+</svg>
+
+<style>
+  .tech-plate {
+    --plate-badge-top: #fdfdf7;
+    --plate-badge-bottom: #edf1eb;
+    --plate-badge-rule: #9cad9f;
+    --plate-chatgpt: #1b2421;
+    --plate-deepseek: #4d6bfe;
+  }
+  :global(:root[data-theme="dark"]) .tech-plate {
+    --plate-badge-top: #2e433c;
+    --plate-badge-bottom: #1e302c;
+    --plate-badge-rule: #789389;
+    --plate-chatgpt: #f2f4ef;
+    --plate-deepseek: #8298ff;
+  }
+  .tech-plate-badge { stroke: var(--plate-badge-rule); stroke-width: 1.35; }
+  .tech-plate-traces { stroke: var(--accent-deep); }
+  .tech-plate-label {
+    fill: var(--ink-soft);
+    font: 650 18px var(--font-sans);
+    letter-spacing: .02em;
+  }
+</style>

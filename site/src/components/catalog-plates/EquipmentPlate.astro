@@ -1,0 +1,53 @@
+---
+const motors = [
+  { x: 131, y: 102, tilt: -15 }, { x: 252, y: 63, tilt: -15 },
+  { x: 183, y: 151, tilt: -15 }, { x: 365, y: 104, tilt: -15 },
+];
+---
+<svg class="catalog-plate" viewBox="0 0 560 320" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="equipment-casing" x2=".8" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="var(--plate-white)"/><stop offset=".52" stop-color="var(--plate-mist)"/><stop offset="1" stop-color="var(--plate-steel)"/></linearGradient>
+    <linearGradient id="equipment-arm" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="var(--plate-white)"/><stop offset=".46" stop-color="var(--plate-sage)"/><stop offset="1" stop-color="var(--plate-steel)"/></linearGradient>
+    <radialGradient id="equipment-ground"><stop stop-color="var(--plate-shadow)" stop-opacity=".35"/><stop offset="1" stop-color="var(--plate-shadow)" stop-opacity="0"/></radialGradient>
+  </defs>
+  <ellipse class="plate-surface" cx="365" cy="295" rx="144" ry="19" fill="url(#equipment-ground)"/>
+  <g class="plate-outline">
+    <!-- Four motor arms meet the light upper shell of the quadcopter. -->
+    <path pathLength="1" class="plate-fill" fill="url(#equipment-arm)" d="M217 98l21-34 17 1-11 39 103-5 20 7-12 9-94 4-64 37-16-2-4-7 56-32-93 3-14-9 12-7z"/>
+    <path pathLength="1" class="plate-fill" fill="var(--plate-steel)" d="m144 112 77-11 22 2-13 12-84 8-16-6zm111-35-7 25-11 1 11-35zm9 33 87-3 13 4-9 11-97-4zM244 116l13 7-62 37-15-2-5-8z"/>
+    <path pathLength="1" class="plate-fill" fill="var(--plate-dark)" d="M199 107c2-11 21-24 40-26 24-1 53 7 60 19l-1 12c-9 14-36 27-62 24-14-1-31-11-37-22z"/>
+    <path pathLength="1" class="plate-fill" fill="url(#equipment-casing)" d="M200 105c9-17 38-29 63-26 17 2 36 9 37 20 0 10-19 18-36 22-22 4-57 0-64-16z"/>
+    <path pathLength="1" class="plate-fill" fill="var(--plate-steel)" d="m250 127 21-3 4 15-8 14-22-3-5-14z"/>
+    <circle pathLength="1" class="plate-fill" fill="var(--plate-dark)" cx="257" cy="143" r="9"/>
+    <!-- Robot base, pivot, two cast arm segments and wrist. -->
+    <path pathLength="1" class="plate-fill" fill="var(--plate-steel)" d="m307 279 42-15 49 10v14l-41 15-50-10z"/>
+    <path pathLength="1" class="plate-fill" fill="url(#equipment-arm)" d="m307 279 42-15 49 10-42 16z"/>
+    <path pathLength="1" class="plate-fill" fill="url(#equipment-casing)" d="m333 271 4-20q18-13 39 0l3 18c-7 13-35 15-46 2z"/>
+    <path pathLength="1" class="plate-fill" fill="url(#equipment-arm)" d="M341 248c-8-8-9-20-3-29l38-48c7-10 20-11 28-3s9 18 2 28l-39 51c-6 8-17 9-26 1z"/>
+    <path pathLength="1" class="plate-fill" fill="url(#equipment-casing)" d="M386 165c5-7 12-9 19-6l54 22c10 4 14 14 9 21s-12 8-21 5l-52-15c-13-3-16-18-9-27z"/>
+    <path pathLength="1" class="plate-fill" fill="var(--plate-steel)" d="m454 197 13-10 12 5 2 11-9 12-11-1-9-8z"/>
+    <path pathLength="1" class="plate-fill" fill="var(--plate-dark)" d="m470 210 6-5 13 7 4 13-5 3-5-10-8-5-1 9 5 8-4 4-9-10z"/>
+  </g>
+  <g class="plate-detail">
+    {motors.map(({ x, y, tilt }) => (
+      <g transform={`translate(${x} ${y}) rotate(${tilt})`}>
+        <ellipse pathLength="1" rx="42" ry="11" class="plate-orbit"/>
+        <path pathLength="1" class="plate-fill" fill="var(--plate-steel)" d="M-8 0h16v10c-3 5-13 5-16 0z"/>
+        <path pathLength="1" class="plate-fill" fill="var(--plate-dark)" d="M0-1c-10-5-32-10-38-5 2 6 19 7 35 8 12 6 31 9 39 4-3-5-21-6-36-7z"/>
+        <circle pathLength="1" r="4" class="plate-fill" fill="var(--plate-white)"/>
+      </g>
+    ))}
+    <path pathLength="1" d="M218 103c9-10 32-18 46-17l21 8m-41 15 22-7m-18 10 22-7m-17 10 22-7m-61 11 15 8m37 1 16-6"/>
+    <circle pathLength="1" class="plate-fill" cx="257" cy="143" r="4" fill="var(--plate-sage)"/>
+    <path pathLength="1" d="m350 215 30-36m-23 66 26-33m29-39 39 15m-12 12 12 3m-105 87 10 3 35-13"/>
+    <circle pathLength="1" class="plate-fill" fill="var(--plate-dark)" cx="352" cy="233" r="12"/>
+    <circle pathLength="1" class="plate-fill" fill="var(--plate-steel)" cx="352" cy="233" r="6"/>
+    <circle pathLength="1" class="plate-fill" fill="var(--plate-dark)" cx="397" cy="174" r="10"/>
+    <circle pathLength="1" class="plate-fill" fill="var(--plate-steel)" cx="397" cy="174" r="4.5"/>
+    <path pathLength="1" d="M341 222c3-17 8-27 23-39 12-10 18-29 34-30 5 0 7 4 8 8"/>
+  </g>
+  <g class="plate-fine plate-accent">
+    <path pathLength="1" d="m112 134 78 31m-24-26 22 8m-7 19 41 16m-8-18 23 9M317 301h94m-101-5v10m108-10v10"/>
+    <path pathLength="1" class="plate-glint" d="m244 139 5-5m-16-28 13-5m108 119 19-22"/>
+  </g>
+</svg>

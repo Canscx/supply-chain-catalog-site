@@ -1,0 +1,132 @@
+---
+import { catalog } from '../data/catalog';
+import TechPlate from './catalog-plates/TechPlate.astro';
+import EquipmentPlate from './catalog-plates/EquipmentPlate.astro';
+import SolarPlate from './catalog-plates/SolarPlate.astro';
+import CircuitPlate from './catalog-plates/CircuitPlate.astro';
+import HarvestPlate from './catalog-plates/HarvestPlate.astro';
+import '../styles/hero-catalog.css';
+
+const selections = [
+  { id: 'tech', products: ['软件开发', 'AI算力', '系统运维'], Plate: TechPlate },
+  { id: 'smart-equipment', products: ['机器人', '无人机'], Plate: EquipmentPlate },
+  { id: 'energy', products: ['锂电池', '光伏组件', '充电桩'], Plate: SolarPlate },
+  { id: 'electronics', products: ['PCB电路板', '芯片', '电子元器件'], Plate: CircuitPlate },
+  { id: 'agri', products: ['玉米', '小麦', '豆粕'], Plate: HarvestPlate },
+];
+const categories = selections.flatMap(({ id, products, Plate }) => {
+  const category = catalog.categories.find((entry) => entry.id === id);
+  if (!category) return [];
+  return [{ ...category, Plate, products: products.filter((name) => category.chains.some((chain) => chain.name === name)) }];
+});
+---
+
+{categories.length > 0 && (
+  <section class="hero-catalog" data-hero-catalog aria-label="产业图录">
+    <div id="hero-catalog-pages" class="hero-catalog-pages">
+      {categories.map(({ id, name, products, Plate }, index) => (
+        <a class="hero-catalog-card" data-catalog-card href={`#scope-cat-${id}`} hidden={index > 0} aria-label={`查看${name}品类明细`}>
+          <div class="hero-catalog-art"><Plate /></div>
+          <div class="hero-catalog-copy">
+            <h2>{name}</h2>
+            <p>{products.join(' · ')}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+    <span class="sr-only" data-catalog-status aria-live="polite" aria-atomic="true"></span>
+    {categories.length > 1 && (
+      <div class="hero-catalog-nav" data-catalog-nav role="group" aria-label="产业图录翻页" hidden>
+        <button type="button" data-catalog-step="-1" aria-label="上一品类" aria-controls="hero-catalog-pages">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16 10H4m5-5-5 5 5 5" /></svg>
+        </button>
+        <span data-catalog-page aria-label={`第 1 页，共 ${categories.length} 页`}>01 / {String(categories.length).padStart(2, '0')}</span>
+        <button type="button" data-catalog-step="1" aria-label="下一品类" aria-controls="hero-catalog-pages">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5" /></svg>
+        </button>
+      </div>
+    )}
+  </section>
+)}
+
+<script>
+  const catalog = document.querySelector<HTMLElement>('[data-hero-catalog]');
+  if (catalog) {
+    const cards = [...catalog.querySelectorAll<HTMLAnchorElement>('[data-catalog-card]')];
+    const nav = catalog.querySelector<HTMLElement>('[data-catalog-nav]');
+    const pageNumber = catalog.querySelector<HTMLElement>('[data-catalog-page]');
+    const status = catalog.querySelector<HTMLElement>('[data-catalog-status]');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const rotationDelay = 4000;
+    let page = 0;
+    let rotationTimer: number | undefined;
+    let inView = false;
+    let hovering = window.matchMedia('(any-hover: hover)').matches && catalog.matches(':hover');
+
+    function queueRotation() {
+      window.clearTimeout(rotationTimer);
+      if (!catalog || cards.length < 2 || !inView || hovering || document.hidden || reducedMotion.matches ||
+        catalog.querySelector('.hero-catalog-card:focus, button:focus-visible')) return;
+      rotationTimer = window.setTimeout(() => showPage(page + 1), rotationDelay);
+    }
+
+    function showPage(index: number, announce = false) {
+      cards[page].hidden = true;
+      page = (index + cards.length) % cards.length;
+      cards[page].hidden = false;
+      const pageLabel = `第 ${page + 1} 页，共 ${cards.length} 页`;
+      if (pageNumber) {
+        const format = (number: number) => String(number).padStart(2, '0');
+        pageNumber.textContent = `${format(page + 1)} / ${format(cards.length)}`;
+        pageNumber.setAttribute('aria-label', pageLabel);
+      }
+      if (announce && status) {
+        const title = cards[page].querySelector('h2')?.textContent;
+        status.textContent = `${title}，${pageLabel}`;
+      }
+      queueRotation();
+    }
+
+    if (nav) {
+      nav.hidden = false;
+      nav.querySelectorAll<HTMLButtonElement>('[data-catalog-step]').forEach((button) => {
+        button.addEventListener('click', () => showPage(page + Number(button.dataset.catalogStep), true));
+      });
+      nav.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        showPage(page + (event.key === 'ArrowLeft' ? -1 : 1), true);
+      });
+    }
+
+    catalog.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'touch') return;
+      hovering = true;
+      queueRotation();
+    });
+    catalog.addEventListener('pointerleave', (event) => {
+      if (event.pointerType === 'touch') return;
+      hovering = false;
+      queueRotation();
+    });
+    catalog.addEventListener('focusin', queueRotation);
+    catalog.addEventListener('focusout', () => queueMicrotask(queueRotation));
+    document.addEventListener('visibilitychange', queueRotation);
+    reducedMotion.addEventListener('change', queueRotation);
+
+    // Draw the first plate and start the clock once the catalog is in view.
+    const visibleFraction = 0.24;
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(([entry]) => {
+        inView = entry.intersectionRatio >= visibleFraction;
+        if (inView) catalog.classList.add('catalog-ready');
+        queueRotation();
+      }, { threshold: visibleFraction });
+      observer.observe(catalog);
+    } else {
+      inView = true;
+      catalog.classList.add('catalog-ready');
+      queueRotation();
+    }
+  }
+</script>

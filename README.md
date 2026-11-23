@@ -38,7 +38,7 @@ npm run preview    # 预览构建产物（只预览静态页面，不执行 PHP�
 | 不用 React/Next | 全站只有「主题切换 + 筛选 + 折叠」三处交互，不值得背一个 hydration 运行时 | — |
 | 不用 Tailwind | 需要对 OKLCH 色板、双主题、排版层级精确控制，手写自定义属性更直接 | — |
 
-构建后 JS 总量约 18.4KB（未压缩）：首页主包 3.2KB、目录主包 3.6KB、咨询弹窗共用 11.7KB。
+构建后 JS 总量约 20.1KB（未压缩）：首页主包 4.8KB、目录主包 3.6KB、咨询弹窗共用 11.7KB。
 
 ## 目录结构
 
@@ -49,7 +49,8 @@ site/
     pages/catalog.astro      产品链条目录
     layouts/Base.astro       head / 主题引导 / skip link
     config.ts                搜索框显示开关
-    components/              Nav、Footer、ScopeMap、Thresholds、CooperationFlow、AboutUs、ContactUs、ConsultWidget、SiteBackdrop
+    components/              Nav、Footer、HeroCatalog、ScopeMap、Thresholds、CooperationFlow、AboutUs、ContactUs、ConsultWidget、SiteBackdrop
+    components/catalog-plates/  首屏品类插画（TechPlate、EquipmentPlate、SolarPlate、CircuitPlate、HarvestPlate、RadarPlate）
     data/catalog.json        链条数据
     data/catalog.ts          类型与检索工具
     data/thresholds.json     准入门槛数据
@@ -61,6 +62,7 @@ site/
     scripts/nav.ts           导航滚动态
     scripts/search.ts        检索归一化
     scripts/inline.ts        首页数字增长与增量品类表搜索
+    scripts/hint.ts          首屏下滑提示的显隐
     scripts/catalog.ts       目录页筛选与高亮
     scripts/copy.ts          联系方式点击复制
     scripts/consult.ts       我要合作弹窗与提交
@@ -157,7 +159,7 @@ site/
 
 自动化检查（Chrome 无头 + CDP 驱动），覆盖以下部分：
 
-**首页与目录 39 项**：增量品类明细标题/小字、18 个品类与全部小类文字、3/2/1 列响应式、无主推标签与旧结果列表；首屏两个自评入口位置、链接、48/50px 触控高度与浅色荧光；关于我们/联系我们内容与地址复制；五个区块标题居中且 19px；目录页 18 个分组、19 个尺规刻度；默认折叠、深链复原、未知分类回落全部；四档宽度无横向溢出；移动端触控 ≥44px。
+**首页与目录 52 项**：增量品类明细标题/小字、18 个品类与全部小类文字、3/2/1 列响应式、无主推标签与旧结果列表；首屏铺满一屏且品类明细在折叠线下、底部下滑提示的文案/锚点/44px 强调色胶囊与大荧光箭头/轻浮动画/滚过淡出/减少动态；首屏两个自评入口位置、链接、48/50px 触控高度与浅色荧光；合作流程第 2 步为「支付意向金」、导航为「资质申报」；页脚备案号文案与工信部链接；关于我们/联系我们内容与地址复制；五个区块标题居中且 19px；目录页 18 个分组、19 个尺规刻度；默认折叠、深链复原、未知分类回落全部；四档宽度无横向溢出；移动端触控 ≥44px。
 
 **搜索 15 项**：隐藏搜索过滤首页品类表（品类名/链条名/别名），无匹配提示、清空恢复、中文输入法组合期不触发；目录页关键词/别名检索、高亮、空格与「链条」后缀兼容；三档宽度无横向溢出。
 

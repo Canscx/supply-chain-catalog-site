@@ -1,0 +1,52 @@
+---
+const panels = [
+  { x: 105, y: 172, size: .82 },
+  { x: 63, y: 252, size: 1 },
+];
+const cells = Array.from({ length: 24 }, (_, index) => ({ x: 10 + index % 8 * 25.3, y: 8 + Math.floor(index / 8) * 29 }));
+---
+<svg class="catalog-plate" viewBox="0 0 560 320" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="solar-glass" x2=".9" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="var(--plate-panel-light)"/><stop offset=".55" stop-color="var(--plate-panel)"/><stop offset="1" stop-color="var(--plate-dark)"/></linearGradient>
+    <linearGradient id="solar-charger" x2="1" y2=".5" gradientUnits="objectBoundingBox"><stop stop-color="var(--plate-white)"/><stop offset=".65" stop-color="var(--plate-mist)"/><stop offset="1" stop-color="var(--plate-sage)"/></linearGradient>
+    <radialGradient id="solar-ground"><stop stop-color="var(--plate-shadow)" stop-opacity=".33"/><stop offset="1" stop-color="var(--plate-shadow)" stop-opacity="0"/></radialGradient>
+  </defs>
+  <ellipse class="plate-surface" cx="209" cy="269" rx="182" ry="28" fill="url(#solar-ground)"/>
+  <ellipse class="plate-surface" cx="427" cy="263" rx="90" ry="23" fill="url(#solar-ground)"/>
+  {panels.map(({x, y, size}) => (
+    <g transform={`translate(${x} ${y}) scale(${size})`}>
+      <g class="plate-outline">
+        <path pathLength="1" class="plate-fill" fill="var(--plate-steel)" d="m52-75 8-1 5 84-8 3zm182-38 9-1 1 98-9 2z"/>
+        <path pathLength="1" class="plate-fill" fill="var(--plate-steel)" d="M11-3h7l-1 22-8 3zm184-36 7-1v25l-8 2zM16 14l42-36 4 4-45 38zm183-37 40-38 4 4-44 41z"/>
+        <path pathLength="1" class="plate-fill" fill="var(--plate-dark)" d="M0 0 222-42 270-116 269-107 224-35 0 8z"/>
+      </g>
+      <g transform="matrix(1 -.189 .47 -.74 0 0)">
+        <path pathLength="1" class="plate-outline plate-fill" fill="var(--plate-sage)" d="M0 0h222v104H0z"/>
+        <path pathLength="1" class="plate-detail plate-fill plate-glint" fill="url(#solar-glass)" d="M4 4h214v96H4z"/>
+        <g class="plate-detail plate-panel-grid">
+          {cells.map(({x: px,y: py}) => (
+            <path pathLength="1" d={`M${px + 2} ${py}h19l2 2v22l-2 2h-19l-2-2v-22z M${px + 7} ${py + 2}v22m8-22v22m-15-16h23m-23 9h23`}/>
+          ))}
+        </g>
+        <path class="plate-fine plate-glint" pathLength="1" d="M5 96h211M5 5v91m112-90 49 93m-42-93 49 93"/>
+      </g>
+    </g>
+  ))}
+  <g class="plate-outline">
+    <path pathLength="1" class="plate-fill" fill="var(--plate-sage)" d="m392 250 61-13 32 12v11l-61 14-32-11z"/>
+    <path pathLength="1" class="plate-fill" fill="var(--plate-steel)" d="m392 250 32 11 61-12-32-12z"/>
+    <path pathLength="1" class="plate-fill" fill="var(--plate-steel)" d="m448 84 23 8 1 152-24-8z"/>
+    <path pathLength="1" class="plate-fill" fill="url(#solar-charger)" d="M400 98c0-6 4-8 8-9l36-8c6-1 8 3 8 7l1 150-48 10c-4 1-5-2-5-5z"/>
+    <path pathLength="1" class="plate-fill" fill="var(--plate-white)" d="m403 93 44-11 24 8-45 10z"/>
+    <path pathLength="1" class="plate-fill" fill="var(--plate-dark)" d="m408 108 36-8v53l-36 8z"/>
+    <path pathLength="1" class="plate-fill" fill="var(--plate-panel-light)" d="m415 119 22-5v16l-22 5z"/>
+    <path pathLength="1" class="plate-fill" fill="var(--plate-dark)" d="m464 132 13-6 9 7v8l-11 5-1 10-8 3-3-8z"/>
+  </g>
+  <g class="plate-detail">
+    <path pathLength="1" class="plate-cable" d="M472 155c-6 27 24 41 26 69 2 26-21 40-37 22-7-7-8-19-6-30"/>
+    <path pathLength="1" class="plate-glint" d="M474 161c-1 23 22 34 25 61 2 13-5 23-13 27"/>
+    <path pathLength="1" d="m415 144 9-2m6-1 7-2m-25 43 29-6m-28 48 29-6m22-37 1 47m-43 32v9m-23-22 4 2"/>
+    <path pathLength="1" class="plate-glint" d="m417 124 9-2m-18-23v9m-2 65v59m10-5 22-5"/>
+  </g>
+  <path pathLength="1" class="plate-fine plate-accent" d="M50 288h210m-215-5v10m220-10v10m121-4h104m-108-5v10m112-10v10"/>
+</svg>

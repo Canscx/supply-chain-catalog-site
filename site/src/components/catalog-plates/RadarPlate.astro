@@ -1,0 +1,94 @@
+---
+// An oblique view of one paraboloid. Every ring shares its rim axes;
+// the centre moves back quadratically, and the radial seams follow that depth.
+const centre = { x: 236, y: 121 };
+const major = { x: 62, y: -86 };
+const minor = { x: 45, y: 32.44 };
+const depth = { x: 19, y: 13.7 };
+const facePoint = (r: number, angle: number) => ({
+  x: centre.x + r * (major.x * Math.cos(angle) + minor.x * Math.sin(angle)) - depth.x * (1 - r * r),
+  y: centre.y + r * (major.y * Math.cos(angle) + minor.y * Math.sin(angle)) - depth.y * (1 - r * r),
+});
+const point = ({ x, y }: { x: number; y: number }) => `${x.toFixed(2)} ${y.toFixed(2)}`;
+const rimArc = (r: number) => `A ${(Math.hypot(major.x, major.y) * r).toFixed(2)} ${(Math.hypot(minor.x, minor.y) * r).toFixed(2)} -54.21 0 1`;
+const ring = (r: number) => `M ${point(facePoint(r, 0))} ${rimArc(r)} ${point(facePoint(r, Math.PI))} ${rimArc(r)} ${point(facePoint(r, 0))} Z`;
+const vertex = facePoint(0, 0);
+const seams = Array.from({ length: 12 }, (_, i) => {
+  const angle = (i + 0.5) * Math.PI / 6;
+  const start = facePoint(.147, angle);
+  const end = facePoint(.972, angle);
+  const halfSpan = (.972 - .147) / 2;
+  const control = {
+    x: start.x + halfSpan * (major.x * Math.cos(angle) + minor.x * Math.sin(angle) + 2 * .147 * depth.x),
+    y: start.y + halfSpan * (major.y * Math.cos(angle) + minor.y * Math.sin(angle) + 2 * .147 * depth.y),
+  };
+  return `M ${point(start)} Q ${point(control)} ${point(end)}`;
+});
+const struts = [5.61, 1.53, 2.87].map((angle) => {
+  const start = facePoint(.94, angle);
+  return { start, line: `M ${point(start)} L 317 179` };
+});
+---
+<svg class="catalog-plate" viewBox="0 0 560 320" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="radar-face" gradientUnits="userSpaceOnUse" x1="293" y1="51" x2="198" y2="197">
+      <stop stop-color="var(--plate-white)"/><stop offset=".45" stop-color="var(--plate-mist)"/><stop offset="1" stop-color="var(--plate-sage)"/>
+    </linearGradient>
+    <radialGradient id="radar-basin" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform={`translate(${point(vertex)}) rotate(-54.21) scale(84 32)`}>
+      <stop stop-color="var(--plate-steel)" stop-opacity=".37"/><stop offset="1" stop-color="var(--plate-steel)" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="radar-metal" x2="1" y2=".4">
+      <stop stop-color="var(--plate-steel)"/><stop offset=".43" stop-color="var(--plate-mist)"/><stop offset=".61" stop-color="var(--plate-sage)"/><stop offset="1" stop-color="var(--plate-steel)"/>
+    </linearGradient>
+    <radialGradient id="radar-ground"><stop stop-color="var(--plate-shadow)" stop-opacity=".4"/><stop offset="1" stop-color="var(--plate-shadow)" stop-opacity="0"/></radialGradient>
+  </defs>
+  <g transform="translate(21 0)">
+    <g class="plate-surface">
+      <ellipse cx="222" cy="280" rx="142" ry="24" fill="url(#radar-ground)"/>
+      <ellipse cx="117" cy="276" rx="24" ry="6" fill="url(#radar-ground)"/>
+      <ellipse cx="292" cy="292" rx="25" ry="7" fill="url(#radar-ground)"/>
+      <ellipse cx="319" cy="255" rx="24" ry="5" fill="url(#radar-ground)"/>
+    </g>
+    <g class="plate-outline">
+      <path class="plate-fill" pathLength="1" fill="var(--plate-steel)" d="m222 220 6-12 91 38-5 9-85-25z"/>
+      <path class="plate-fill" pathLength="1" fill="var(--plate-dark)" d="m308 247 18-2 10 5-1 4-22 5-10-4v-4z"/>
+      <path class="plate-fill" pathLength="1" fill="url(#radar-metal)" d="M205 169c6-6 20-6 27 0l1 56c-2 6-7 10-15 10s-15-4-16-9z"/>
+      <path class="plate-fill" pathLength="1" fill="url(#radar-metal)" d="M207 214c3-4 13 0 16 6l-98 54-12-1 4-10z"/>
+      <path class="plate-fill" pathLength="1" fill="url(#radar-metal)" d="M220 222c0-6 7-11 13-11l64 69-4 9-13-3z"/>
+      <path class="plate-fill" pathLength="1" fill="var(--plate-steel)" d="m118 269 105-49-4 7-94 47zm107-44 62 58 6 6-13-3z"/>
+      <path class="plate-fill" pathLength="1" fill="var(--plate-dark)" d="m105 269 18-5 10 5-1 5-21 6-11-4v-4zm172 12 17-2 13 7v5l-19 4-13-6v-4z"/>
+      <!-- The tilt housing sits behind the reflector on the upright. -->
+      <path class="plate-fill" pathLength="1" fill="var(--plate-steel)" d="M196 113q15-8 30 5 8 7 12 17l11 28q7 18-5 30-11 11-28 4l-18-8q-13-6-14-21l-2-32q-1-15 14-23z"/>
+      <path class="plate-fill" pathLength="1" fill="url(#radar-metal)" d="M214 150q17-5 27 9t0 28q-10 13-24 7-17-8-17-23 1-16 14-21z"/>
+      <ellipse class="plate-fill" pathLength="1" cx="224" cy="173" rx="12" ry="14" transform="rotate(-20 224 173)" fill="var(--plate-dark)"/>
+      <path class="plate-fill" pathLength="1" fill="var(--plate-steel)" d={ring(1)} transform="translate(-8 -5.77)"/>
+      <path class="plate-fill" pathLength="1" fill="url(#radar-face)" d={ring(1)}/>
+      <path class="plate-fill" pathLength="1" fill="url(#radar-basin)" stroke="none" d={ring(.982)}/>
+    </g>
+    <g class="plate-detail">
+      <path pathLength="1" class="plate-glint" d={ring(.972)}/>
+      <g class="plate-orbit">
+        {[.34, .61, .83].map((radius) => <path pathLength="1" d={ring(radius)}/>)}
+        {seams.map((d) => <path pathLength="1" d={d}/>)}
+      </g>
+      <path pathLength="1" class="plate-fill" fill="url(#radar-metal)" d={ring(.147)}/>
+      <path pathLength="1" d="m208 200-1 12m26-16-1 12m14-14c17 10 6 37-6 30m-132 50 19-4m154 16 20 2m8-35 21-4"/>
+      <g stroke-width="4.8">
+        {struts.map(({ line }) => <path pathLength="1" d={line}/>)}
+      </g>
+      <g class="plate-glint" stroke-width="1.65">
+        {struts.map(({ line }) => <path pathLength="1" d={line}/>)}
+      </g>
+      {struts.map(({ start }) => <circle class="plate-fill" pathLength="1" cx={start.x} cy={start.y} r="3.6" fill="var(--plate-steel)"/>)}
+      <g transform="translate(318 180) rotate(35.79)">
+        <path class="plate-fill" pathLength="1" fill="url(#radar-metal)" d="M-9-6.5H8v13H-9c-6-1-6-12 0-13Z"/>
+        <path class="plate-fill" pathLength="1" fill="var(--plate-dark)" d="M2-8H14v16H2c-5-1-5-15 0-16Z"/>
+        <ellipse class="plate-fill" pathLength="1" cx="14" cy="0" rx="4.5" ry="8" fill="var(--plate-warm)"/>
+        <ellipse pathLength="1" cx="14" cy="0" rx="2.1" ry="5.1"/>
+      </g>
+    </g>
+    <g class="plate-fine plate-accent" transform="translate(329 188) rotate(35.79)">
+      <path pathLength="1" d="M25-15q9 15 0 30M40-22q13 22 0 44M55-30q18 30 0 60"/>
+    </g>
+  </g>
+</svg>
