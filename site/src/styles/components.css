@@ -1401,7 +1401,13 @@ body:not(.search-off) .scope-cell { scroll-margin-block-start: calc(var(--nav-h)
 .foot-grid { display: grid; gap: 28px; }
 .foot-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.9375rem; }
 .foot-note { margin-top: 12px; font-size: 0.8125rem; color: var(--ink-faint); max-width: 44ch; line-height: 1.7; }
-.foot-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+/* 四个外链按钮：固定两列排布，避免 3+1 的孤儿行 */
+.foot-actions {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 8px;
+  margin-top: 18px;
+}
 .foot-action {
   display: inline-flex;
   align-items: center;
