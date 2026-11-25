@@ -29,7 +29,13 @@ const totalChains = catalog.totals.chains;
               </span>
               <span class="scope-n">{cat.chains.length} 条</span>
             </span>
-            <span class="scope-chains">{cat.chains.map((c) => c.name).join("、")}</span>
+            <span class="scope-chains">
+              {cat.chains.map((c, index) => (
+                <span class="scope-chain">
+                  {c.name}{index < cat.chains.length - 1 ? "、" : ""}
+                </span>
+              ))}
+            </span>
           </a>
         ))
       }

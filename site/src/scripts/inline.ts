@@ -1,37 +1,35 @@
 import { normalize } from "./search";
 
 const root = document.querySelector<HTMLElement>("[data-inline]");
-const counter = document.querySelector<HTMLElement>("[data-count-up]");
+const counters = document.querySelectorAll<HTMLElement>("[data-count-up]");
 
-if (counter) {
-  const target = Number(counter.dataset.target);
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (counters.length && "IntersectionObserver" in window &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const duration = 1400;
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting || entry.intersectionRatio < 0.5) continue;
 
-  if (Number.isFinite(target) && target >= 0) {
-    if (reducedMotion || !("IntersectionObserver" in window)) {
-      counter.textContent = `${target}+`;
-    } else {
-      counter.textContent = "0+";
-      const duration = 1400;
-      let startedAt = 0;
+      const counter = entry.target as HTMLElement;
+      observer.unobserve(counter);
+      const target = Number(counter.dataset.target);
+      if (!Number.isFinite(target) || target < 0) continue;
 
-      const observer = new IntersectionObserver(([entry]) => {
-        if (!entry.isIntersecting) return;
-        observer.disconnect();
+      let startedAt: number | undefined;
+      const tick = (now: number) => {
+        startedAt ??= now;
+        const progress = Math.min((now - startedAt) / duration, 1);
+        const eased = 1 - (1 - progress) ** 3;
+        counter.textContent = String(Math.round(target * eased));
+        if (progress < 1) requestAnimationFrame(tick);
+      };
 
-        const tick = (now: number) => {
-          if (!startedAt) startedAt = now;
-          const progress = Math.min((now - startedAt) / duration, 1);
-          const eased = 1 - (1 - progress) ** 3;
-          counter.textContent = `${Math.round(target * eased)}+`;
-          if (progress < 1) requestAnimationFrame(tick);
-        };
-
-        requestAnimationFrame(tick);
-      }, { threshold: 0.5 });
-
-      observer.observe(counter);
+      requestAnimationFrame(tick);
     }
+  }, { threshold: 0.5 });
+
+  for (const counter of counters) {
+    observer.observe(counter);
   }
 }
 

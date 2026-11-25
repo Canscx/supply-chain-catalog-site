@@ -163,42 +163,26 @@
 .field[data-filled="true"] .field-clear { display: grid; }
 
 /* ---------- 7. 首页：首屏 ---------- */
-/* 首屏铺满导航以下一屏，内容纵向居中；增量品类明细整段落到折叠线以下。 */
+/* 首屏至少铺满导航以下一屏，按主视觉、统计、下滑提示的顺序排布。 */
 .hero {
+  --hero-stats-offset: calc(clamp(12px, 1.5vw, 20px) + 9px);
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: clamp(20px, 3vw, 36px);
   min-height: calc(100vh - var(--nav-h));
-  padding-block: clamp(40px, 7vw, 88px) clamp(76px, 9vw, 108px);
+  padding-block: clamp(28px, 4vw, 56px) calc(clamp(24px, 3vw, 40px) - var(--hero-stats-offset));
 }
 @supports (height: 100svh) {
   .hero { min-height: calc(100svh - var(--nav-h)); }
 }
 .hero .display { line-height: 1.32; }
-.hero-fact {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 6px 14px;
-  margin-bottom: 20px;
-  font-size: 0.8125rem;
-  color: var(--ink-faint);
-}
-.hero-fact b {
-  font-family: var(--font-num);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
-}
-.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; margin-top: 26px; }
 
 /* 自评入口：标题下的两枚主题色胶囊 */
-.hero-actions--cta {
+.hero-actions {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, max-content));
-  justify-content: start;
+  grid-template-columns: minmax(0, 1fr);
   gap: 12px;
   margin-top: clamp(24px, 3.2vw, 34px);
 }
@@ -207,7 +191,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 22px;
-  min-width: 218px;
   min-height: 50px;
   padding: 0 24px;
   border-radius: 999px;
@@ -216,7 +199,6 @@
   font-size: 0.9375rem;
   font-weight: 650;
   letter-spacing: -0.005em;
-  white-space: nowrap;
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.52),
     0 0 18px var(--cta-glow);
@@ -251,71 +233,74 @@
   transition: transform 160ms var(--ease-out-quart);
 }
 .hero-cta:hover svg { transform: translateX(2px); }
+@media (min-width: 1000px) {
+  .hero-actions { inline-size: max(50%, 14rem); }
+}
 @media (max-width: 559px) {
-  .hero-actions--cta { grid-template-columns: 1fr; }
-  .hero-cta { width: 100%; min-width: 0; min-height: 48px; padding-inline: 20px; }
+  .hero-cta { min-height: 48px; padding-inline: 20px; }
 }
 
-/* 下滑提示：首屏底部常驻，进入增量品类明细后淡出 */
+.hero-stats-wrap { margin-block-start: var(--hero-stats-offset); }
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  border-block: 1px solid var(--line);
+  padding-block: 12px;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}
+.hero-stats b {
+  display: inline-block;
+  min-inline-size: 2ch;
+  font-size: clamp(1.65rem, 3vw, 2.5rem);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+  color: var(--accent);
+}
+.hero-stats li + li { border-inline-start: 1px solid var(--line); }
+.hero-stats li:nth-child(2) b { min-inline-size: 3ch; }
+.hero-stats li:last-child b { min-inline-size: 5ch; }
+
+/* 下滑提示：位于统计区之后，进入增量品类明细后淡出 */
 .hero-hint {
-  /* sticky：首屏比视口高时（矮屏/窄屏）也能贴在视口底部，始终可见 */
-  position: sticky;
-  inset-block-end: clamp(18px, 2.6vw, 30px);
-  margin-top: auto;
   margin-inline: auto;
   width: max-content;
   max-width: calc(100% - 32px);
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 4px;
   min-height: 44px;
-  padding-inline: 22px;
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent-deep);
-  font-size: 0.875rem;
-  font-weight: 650;
-  letter-spacing: -0.005em;
-  white-space: nowrap;
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.6),
-    0 0 18px var(--cta-glow);
+  padding: 4px 10px;
+  border-radius: var(--r-sm);
+  color: var(--ink-faint);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.3;
   transition:
     opacity 260ms var(--ease-out-quart),
     transform 260ms var(--ease-out-quart),
-    background-color 160ms var(--ease-out-quart),
-    border-color 160ms var(--ease-out-quart),
-    color 160ms var(--ease-out-quart),
-    box-shadow 160ms var(--ease-out-quart);
+    color 160ms var(--ease-out-quart);
 }
-.hero-hint:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--page);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.3),
-    0 0 26px var(--cta-glow-hover);
-}
-.hero-hint:focus-visible { box-shadow: 0 0 0 3px var(--focus), 0 0 22px var(--cta-glow-hover); }
-.hero-hint.is-hidden {
+.hero-hint:is(:hover, :focus-visible) { color: var(--accent); }
+.hero-hint.is-hidden:not(:focus-visible) {
   opacity: 0;
   transform: translateY(8px);
   pointer-events: none;
 }
 .hero-hint-arrow {
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   flex: none;
-  stroke: currentColor;
+  stroke: var(--accent);
   fill: none;
-  stroke-width: 2.4;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 5px var(--cta-glow-hover));
 }
-:root[data-theme="dark"] .hero-hint-arrow { filter: drop-shadow(0 0 6px var(--accent)); }
 @media (prefers-reduced-motion: no-preference) {
   .hero-hint-arrow { animation: hint-bob 1.6s var(--ease-out-quart) infinite; }
 }
@@ -323,13 +308,17 @@
   0%, 100% { transform: translateY(-3px); opacity: 0.78; }
   50%      { transform: translateY(3px); opacity: 1; }
 }
-/* 手机：底部「我要合作」固定条占位，提示抬高避免重叠 */
+/* 手机：统计纵向排列，收紧首屏与品类明细之间的留白。 */
 @media (max-width: 719px) {
-  .hero { padding-block-end: calc(74px + env(safe-area-inset-bottom) + 56px); }
-  .hero-hint { inset-block-end: calc(74px + env(safe-area-inset-bottom)); }
+  .hero { row-gap: 20px; padding-block-end: 0; }
+  .hero-catalog-layout { flex-grow: 1; align-content: center; }
+  .hero-hint { padding-block: 3px; }
+  .hero-stats { grid-template-columns: minmax(0, 1fr); padding-block: 0; }
+  .hero-stats li { padding-block: 8px; }
+  .hero-stats li + li { border-inline-start: 0; border-block-start: 1px solid var(--line); }
 }
 
-/* 首屏大标题里的数字用主强调色，和元信息里的统计同色系 */
+/* 首屏大标题里的数字与统计区共用主强调色。 */
 .display-hi {
   display: inline-block;
   min-width: 2.2em;
@@ -801,6 +790,9 @@ body.search-off .catalog-search { display: none !important; }
 
 /* 增量品类明细：大格表格，完整展示每个品类下的小类 */
 .scope { padding-block: clamp(20px, 3vw, 30px) 0; }
+@media (max-width: 719px) {
+  .scope { padding-block-start: 16px; }
+}
 
 .scope-grid {
   margin-top: 16px;
@@ -877,8 +869,11 @@ body:not(.search-off) .scope-cell { scroll-margin-block-start: calc(var(--nav-h)
   line-height: 1.65;
   color: var(--ink-soft);
   white-space: normal;
-  overflow-wrap: anywhere;
   text-wrap: pretty;
+}
+.scope-chain {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .scope-all {
@@ -941,6 +936,7 @@ body:not(.search-off) .scope-cell { scroll-margin-block-start: calc(var(--nav-h)
 }
 
 @media (min-width: 1000px) {
+  .scope { padding-block-start: 20px; }
   .scope-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .scope-cell { min-height: 144px; padding: 20px; }
 }
@@ -1476,10 +1472,9 @@ body:not(.search-off) .scope-cell { scroll-margin-block-start: calc(var(--nav-h)
 
 /* ---------- 15. 动效 ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  .hero .display, .hero-fact, .hero-actions {
+  .hero .display, .hero-actions {
     animation: rise 620ms var(--ease-out-expo) both;
   }
-  .hero-fact { animation-delay: 20ms; }
   .hero .display { animation-delay: 70ms; }
   .hero-actions { animation-delay: 140ms; }
 

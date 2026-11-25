@@ -13,6 +13,7 @@ import { catalog } from "../data/catalog";
 import { SEARCH_VISIBLE } from "../config";
 
 const { categories, chains } = catalog.totals;
+const servedBusinesses = 1000;
 
 /** 章节刻度：只保留六个主刻度。 */
 const rulerItems = [
@@ -37,14 +38,9 @@ const rulerItems = [
     <section class="hero" id="hero">
       <div class="wrap hero-catalog-layout">
         <div class="hero-intro">
-          <div class="hero-fact">
-            <span>覆盖 <b>{categories}</b> 个品类</span>
-            <span aria-hidden="true">·</span>
-            <span><b>{chains}</b> 条产品链条</span>
-          </div>
-          <h1 class="display"><span class="display-line-1">企业陪跑俱乐部，</span><br /><span class="display-line-2"><span class="display-hi" data-count-up data-target="100">100+</span>源头供应链</span></h1>
+          <h1 class="display"><span class="display-line-1">企业陪跑俱乐部，</span><br /><span class="display-line-2"><span class="display-hi"><span data-count-up data-target="100">100</span>+</span>源头供应链</span></h1>
 
-          <div class="hero-actions hero-actions--cta">
+          <div class="hero-actions">
             <a class="hero-cta" href="https://zjtx.peipaoclub.com/" target="_blank" rel="noopener noreferrer">
               <span>专精特新自评入口</span>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -58,8 +54,16 @@ const rulerItems = [
         <HeroCatalog />
       </div>
 
-      <a class="hero-hint" href="#scope" data-scroll-hint>
-        <span class="hero-hint-text">往下滑动查看增量品类明细</span>
+      <div class="wrap hero-stats-wrap">
+        <ul class="hero-stats" role="list" aria-label="供应链概况">
+          <li>覆盖 <b><span data-count-up data-target={categories}>{categories}</span></b> 个品类</li>
+          <li><b><span data-count-up data-target={chains}>{chains}</span></b> 条产品链条</li>
+          <li>服务 <b><span data-count-up data-target={servedBusinesses}>{servedBusinesses}</span>+</b> 家企业</li>
+        </ul>
+      </div>
+
+      <a class="hero-hint" href="#scope" data-scroll-hint aria-label="往下滑动，查看增量品类明细">
+        <span>往下滑动</span>
         <svg class="hero-hint-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="M6.5 13.5 12 19l5.5-5.5"/></svg>
       </a>
     </section>
