@@ -1,0 +1,116 @@
+---
+import { catalog } from "../../data/catalog";
+import IndustrialStill from "./IndustrialStill.astro";
+import TechnicalArt from "./TechnicalArt.astro";
+import styles from "./hero-prototype.css?raw";
+import script from "./hero-prototype.js?raw";
+
+// Development-only visual comparison on the existing homepage.
+const variants = [
+  { id: "a", name: "工业静物" },
+  { id: "b", name: "供应链工程图" },
+  { id: "c", name: "产业图录" },
+];
+const selections = [
+  { id: "tech", products: ["软件开发", "AI算力", "系统运维"] },
+  { id: "smart-equipment", products: ["机器人", "无人机"] },
+  { id: "energy", products: ["锂电池", "光伏组件", "充电桩"] },
+  { id: "electronics", products: ["PCB电路板", "芯片", "电子元器件"] },
+  { id: "agri", products: ["玉米", "小麦", "豆粕"] },
+];
+const categories = selections.flatMap(({ id, products }) => {
+  const category = catalog.categories.find((entry) => entry.id === id);
+  if (!category) return [];
+  return [{
+    id,
+    name: category.name,
+    href: `./catalog.html?category=${encodeURIComponent(id)}`,
+    products: products.flatMap((name) => category.chains.find((chain) => chain.name === name)?.name ?? []),
+  }];
+});
+const energy = categories.find(({ id }) => id === "energy");
+const current = variants.find(({ id }) => id === Astro.url.searchParams.get("variant")) ?? variants[0];
+---
+
+<style is:inline set:html={styles}></style>
+<div class="hp" data-hero-prototype role="region" aria-label="首屏主视觉预览">
+  <div class="hp-frame" data-hp-variant="a" data-name={variants[0].name} hidden={current.id !== "a"}>
+    <figure class="hp-still">
+      <IndustrialStill />
+      {energy && <a class="hp-still-link" href={energy.href}>
+        查看{energy.name}品类 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg>
+      </a>}
+    </figure>
+  </div>
+
+  <div class="hp-frame hp-blueprint" data-hp-variant="b" data-name={variants[1].name} hidden={current.id !== "b"}>
+    <div class="hp-diagram">
+      <div class="hp-diagram-guides" aria-hidden="true"></div>
+      <div class="hp-nodes" style={`--hp-node-count: ${categories.length}`} role="group" aria-label="选择供应链品类">
+        <svg class="hp-route" viewBox="0 0 480 20" preserveAspectRatio="none" aria-hidden="true">
+          <path class="hp-route-base" d="M0 10h480" />
+          <path class="hp-route-run" d="M0 10h480" pathLength="1" />
+        </svg>
+        {categories.map((category, index) => (
+          <button class="hp-node" type="button" data-hp-node={category.id} aria-pressed={index === 0 ? "true" : "false"} aria-controls="hp-blueprint-details">
+            <TechnicalArt kind={category.id} />
+            <span class="hp-node-point" aria-hidden="true"></span>
+            <span class="hp-node-name">{category.name}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+    <div class="hp-blueprint-details" id="hp-blueprint-details" aria-live="polite">
+      {categories.map((category, index) => (
+        <div class="hp-details" data-hp-details={category.id} hidden={index !== 0}>
+          <div class="hp-caption">
+            <h2>{category.name}</h2>
+            <p>{category.products.join(" · ")}</p>
+          </div>
+          <a class="hp-link hp-icon-button" href={category.href} aria-label={`查看${category.name}品类`} title={`查看${category.name}品类`}>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg>
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="hp-frame hp-index" data-hp-variant="c" data-name={variants[2].name} hidden={current.id !== "c"}>
+    <div class="hp-index-sheets" id="hp-index-sheets" aria-live="polite">
+      {categories.map((category, index) => (
+        <article class="hp-sheet" data-hp-sheet hidden={index !== 0}>
+          <div class="hp-plate"><TechnicalArt kind={category.id} /></div>
+          <div class="hp-index-caption">
+            <div class="hp-caption">
+              <h2>{category.name}</h2>
+              <p>{category.products.join(" · ")}</p>
+            </div>
+            <a class="hp-link hp-icon-button" href={category.href} aria-label={`查看${category.name}品类`} title={`查看${category.name}品类`}>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+    <div class="hp-pagination" role="group" aria-label="产业图录翻页">
+      <button type="button" class="hp-icon-button" data-hp-page-step="-1" aria-label="上一品类" aria-controls="hp-index-sheets">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16 10H4m5-5-5 5 5 5"/></svg>
+      </button>
+      <span class="hp-page-number" data-hp-page-number aria-label={`第 1 页，共 ${categories.length} 页`}>1 / {categories.length}</span>
+      <button type="button" class="hp-icon-button" data-hp-page-step="1" aria-label="下一品类" aria-controls="hp-index-sheets">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="hp-switch" data-hp-switch role="group" aria-label="首屏原型切换" hidden>
+    <button type="button" class="hp-icon-button" data-hp-variant-step="-1" aria-label="上一版原型">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16 10H4m5-5-5 5 5 5"/></svg>
+    </button>
+    <div class="hp-switch-copy"><span class="hp-switch-label">首屏原型</span><span data-hp-variant-label aria-live="polite">{current.id.toUpperCase()} · {current.name}</span></div>
+    <button type="button" class="hp-icon-button" data-hp-variant-step="1" aria-label="下一版原型">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5"/></svg>
+    </button>
+  </div>
+</div>
+<script is:inline set:html={script}></script>

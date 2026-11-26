@@ -1,0 +1,44 @@
+---
+interface Props { kind: string }
+const { kind } = Astro.props;
+---
+<svg class="hp-technical-art" viewBox="0 0 210 150" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+  {kind === "tech" && <>
+    <path pathLength="1" class="hp-art-fill" d="m40 53 87-33 44 16v69l-87 33-44-16z" />
+    <path pathLength="1" d="m40 53 44 16 87-33m-87 33v69M92 75l71-27v49l-71 27z" />
+    <path pathLength="1" d="m96 86 57-22m-57 34 57-22m-57 33 57-22M51 67l23 9v12l-23-9zm0 20 23 9v12l-23-9zm0 20 23 9v7l-23-9z" />
+    <path pathLength="1" d="m104 80 18-7m-18 19 18-7m-18 18 18-7m20-30 5-2m-5 14 5-2m-5 13 5-2" />
+    <path pathLength="1" class="hp-art-detail" d="M30 53v70m-5-70h10m-10 70h10m7 4 37 14m96-100v61m-4-61h8m-8 61h8M123 13l44 16" />
+  </>}
+  {kind === "smart-equipment" && <>
+    <path pathLength="1" class="hp-art-fill" d="m35 118 45-19 49 14v12l-45 20-49-15z" />
+    <path pathLength="1" d="m35 118 49 15 45-20m-45 20v12m-34-23 32-14 31 9" />
+    <path pathLength="1" class="hp-art-fill" d="M64 110V79a14 14 0 0 1 7-12l34-21 10-19a13 13 0 0 1 17-6l30 13 4 11-8 8-26-12-10 19-36 23v24z" />
+    <path pathLength="1" d="m73 106 2-23a9 9 0 0 1 5-8l35-22 13-23 30 13m-52 3 16 14m-50 7 14 16m72-30 7 8 8-3m-8 3-2 13 8 4m2-20 8 5-2 9m-8 6 3-5m5-1-5-1" />
+    <circle pathLength="1" cx="77" cy="79" r="6" />
+    <circle pathLength="1" cx="114" cy="53" r="6" />
+    <circle pathLength="1" cx="127" cy="32" r="4" />
+    <path pathLength="1" class="hp-art-detail" d="M27 112V74m-4 38h8m-8-38h8m6 37L57 99m85-82 25 11m12 17v29m-4 0h8" />
+  </>}
+  {kind === "energy" && <>
+    <path pathLength="1" class="hp-art-fill" d="m38 57 53-25 80 30v50l-54 24-79-29z" />
+    <path pathLength="1" d="m38 57 79 30 54-25m-54 25v49M48 67v33l60 23V90zM125 93l38-17v31l-38 17zM54 75l48 18m-48-12 48 18m-48-12 48 18m-48-12 48 18m30-15 23-11m-23 17 23-11m-23 17 23-11m-23 17 23-11" />
+    <path pathLength="1" d="m55 54 34-16 64 24-35 16zM63 57l34-16m-24 20 33-16m-23 20 32-16m-22 20 33-16m-22 20 32-16m-22 20 32-16m-75-9 64 24m-43-34 64 24M42 109v7l12 4 9-4m100 0v6l-10 5-9-3" />
+    <path pathLength="1" class="hp-art-detail" d="M29 57v51m-5-51h10m-10 51h10m6 15 72 27m-74-30 4 6m67 20 6 4M89 25l81 30m-84-34 5 7m76 22 5 7" />
+    <circle class="hp-art-dot" cx="132" cy="94" r="1.6" fill="currentColor" stroke="none" />
+  </>}
+  {kind === "electronics" && <>
+    <path pathLength="1" class="hp-art-fill" d="m36 69 85-42 52 23v38l-85 42-52-23z" />
+    <path pathLength="1" d="m36 69 52 23 85-42m-85 42v38M41 81l40 18v22l-40-18zM95 99l73-36v21l-73 36z" />
+    <path pathLength="1" d="m62 68 53-26 29 13-53 26zm13 2 43-21m-36 24 43-21m-35 24 43-21m-32 29 47-23m-39 40 43-21m-43 25 43-21m-102 1v10l18 8v-9m-12-7v7l6 3v-7m34-7 6 3m0-7 6 3m0-7 6 3m1-7 6 3m1-7 6 3m0-7 6 3m0-7 6 3" />
+    <path pathLength="1" class="hp-art-detail" d="m29 61 89-44m-92 41 5 6m85-51 4 8m9 0 51 22m-53-26 4 8m47 14 4 8m-6 52-82 41m84-45-4 8m-78 32-4 8" />
+    <circle pathLength="1" cx="54" cy="70" r="2.3" /><circle pathLength="1" cx="153" cy="52" r="2.3" />
+  </>}
+  {kind === "agri" && <>
+    <path pathLength="1" d="M99 132c5-33 9-58 4-93m5 93c12-22 26-40 44-63m-61 65C79 111 65 89 47 71" />
+    <path pathLength="1" class="hp-art-fill" d="M103 42c-9-11-9-23-4-32 8 8 11 21 4 32zm2 16c-14-3-23-12-24-23 12 5 20 13 24 23zm1 12c10-6 19-14 19-26-10 5-18 15-19 26zM104 85c-13-5-21-14-22-25 11 4 20 13 22 25zm0 16c11-4 20-12 23-23-11 4-20 13-23 23z" />
+    <path pathLength="1" class="hp-art-fill" d="M151 71c1-12 7-21 18-25-2 12-8 20-18 25zm-10 14c-4-11-4-20 2-26 4 8 4 16-2 26zm-7 11c11-1 21-6 25-15-11-1-20 6-25 15zM47 72C35 69 29 60 27 49c11 2 19 11 20 23zm11 13c4-10 4-17-3-24-4 8-2 17 3 24zm8 12c-12-1-21-7-25-15 11-1 20 6 25 15z" />
+    <path pathLength="1" d="M86 129c-11-10-21-14-34-16 5 11 16 17 34 16zm30-3c11-10 24-13 36-13-8 10-20 15-36 13zM80 135h40" />
+    <path pathLength="1" class="hp-art-detail" d="M23 125h39m70 0h42M72 20v65m-5-65h10m-10 65h10m84-23 18-14m-3-3 6 6" />
+  </>}
+</svg>
