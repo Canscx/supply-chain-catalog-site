@@ -1729,7 +1729,15 @@ html { scroll-behavior: smooth; }
   html.js .ruler-layer { display: block; }
 
   .wrap,
-  .nav-inner { padding-inline-end: calc(var(--gutter) + var(--rail-side)); }
+  .nav-inner {
+    padding-inline-start: calc(var(--gutter) + 20px);
+    padding-inline-end: calc(var(--gutter) + var(--rail-side) - 10px);
+  }
+
+  .ruler-layer__box {
+    padding-inline-start: calc(var(--gutter) + 20px);
+    padding-inline-end: calc(var(--gutter) - 10px);
+  }
 
   /* 刻度跳转落点让开吸附层；由 ruler.ts 写入 --ruler-anchor */
   [data-ruler-anchor] {

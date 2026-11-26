@@ -141,3 +141,4 @@
 
 @media (min-width: 640px) { :root { --gutter: 32px; --rail: 24px; --nav-h: 64px; } }
 @media (min-width: 1024px) { :root { --gutter: 56px; } }
+@media (min-width: 1200px) { :root { --max: 1320px; } }
