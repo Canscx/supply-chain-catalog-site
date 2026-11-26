@@ -326,6 +326,61 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* ---------- 7.1 核心数字：同色系玉石微流光 ---------- */
+/* 「100+」「18」「146」「1000+」只换质感，字体族 / 字号 / 字重 / 字距全部沿用原规则。
+   「+」号留在同一个渐变盒子里（见 index.astro 结构），所以高光扫过时数字与加号连续，
+   不会出现两段各自起算的色阶断层。 */
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .hero-stats b,
+  .display-hi {
+    background-image: var(--num-flow);
+    background-repeat: no-repeat;
+    background-size: 250% auto;
+    background-position: 0% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    /* 极淡的玉色外发光：让数字从纸面浮起一层，而不是贴在背景上。
+       用 text-shadow 而不是 filter：Safari 在 background-clip:text 上叠 filter
+       有整段文字不渲染的历史问题，text-shadow 走的是字形轮廓，效果一样且更稳。 */
+    text-shadow: 0 0 14px var(--num-flow-glow);
+  }
+}
+
+/* 高光自左向右扫到最右端再原路折回，往返都走同一段缓动，
+   所以循环处没有跳帧感，也不会像跑马灯一样突兀地重来。 */
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    .hero-stats b,
+    .display-hi { animation: num-flow-sweep 7s ease-in-out infinite; }
+  }
+}
+
+@keyframes num-flow-sweep {
+  0%,
+  100% { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+}
+
+/* 关闭动画时把高光停在正中，数字仍是完整可读的玉色渐变 */
+@media (prefers-reduced-motion: reduce) {
+  .hero-stats b,
+  .display-hi { background-position: 50% 50%; }
+}
+
+/* 打印：多数浏览器不输出背景图，渐变字会整段消失，这里退回实心强调色 */
+@media print {
+  .hero-stats b,
+  .display-hi {
+    background-image: none;
+    color: var(--accent-deep);
+    -webkit-text-fill-color: currentColor;
+    text-shadow: none;
+    animation: none;
+  }
+}
+
 /* ---------- 8. 轴线（全站结构件） ---------- */
 .rail-section { position: relative; padding-block: clamp(36px, 5vw, 64px); }
 .rail-section + .rail-section { border-top: 1px solid var(--line); }

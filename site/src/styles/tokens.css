@@ -36,6 +36,12 @@
   --cta-glow:     color-mix(in srgb, var(--accent) 32%, transparent);
   --cta-glow-hover: color-mix(in srgb, var(--accent) 48%, transparent);
 
+  /* 核心数字：同色系玉石微流光（首屏 100+ 与底部数据栏共用一条渐变）
+     渐变两端同为深玉色，中间高光扫过，形成「玉石内部透光」的质感。 */
+  --num-flow: linear-gradient(110deg,
+                #153D2F 0%, #2B7A60 35%, #5BB596 50%, #2B7A60 65%, #153D2F 100%);
+  --num-flow-glow: rgb(91 181 150 / 0.16);
+
   /* 黄铜 · 次强调 */
   --brass:       #93652b;
   --brass-soft:  #faebd3;
@@ -116,6 +122,11 @@
   --accent-soft: #12302a;
   --cta-ink:     #07100f;
   --bg-noise-opacity: 0.055;
+
+  /* 深色底上整体抬亮同一色相：最暗端仍需与 --page 拉开对比，否则数字会糊进背景 */
+  --num-flow: linear-gradient(110deg,
+                #3E9B7B 0%, #62C0A1 35%, #A9E7D2 50%, #62C0A1 65%, #3E9B7B 100%);
+  --num-flow-glow: rgb(169 231 210 / 0.15);
 
   --brass:       #e3c081;
   --brass-soft:  #413115;
